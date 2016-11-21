@@ -11,20 +11,25 @@ public class spawn : MonoBehaviour {
     public float spawnTime;
     // time interval inbetween spawns in [s]
     public float interval;
-    // point in 3D space where the enemy will be spawned
-    private Vector3 spawnPoint;
+    // radius
+	public float radius;
+	private Vector3 spawnPoint;
 
+
+	void Start() {
+		InvokeRepeating ("spawnEnemy", spawnTime, interval);
+	}
 	
 	// Update is called once per frame
 	void Update () {
         // identify all enemy objects in the world
-        enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        //enemies = GameObject.FindGameObjectsWithTag("Enemy");
         
         // spawn until limit has been reached
-        if (enemies.Length <= amount)
+        if (enemies.Length >= amount)
         {
             // call spawn function
-            InvokeRepeating("spawnEnemy", spawnTime, interval);
+			CancelInvoke ();
         }
 
 	}
@@ -33,13 +38,14 @@ public class spawn : MonoBehaviour {
     void spawnEnemy ()
     {
         // randomly assign a coordinate within world space to the enemy
-        spawnPoint.x = Random.Range(-4, 4);
-        spawnPoint.y = 0.5f;
-        spawnPoint.z = Random.Range(-4, 4);
+		spawnPoint.x = Random.Range(-radius, radius);
+		spawnPoint.y = gameObject.transform.position.y;
+		spawnPoint.z = Random.Range(-radius, radius);
 
         // make an instance of a random enemy at the spawnPoint and align it with world coordinates
-        Instantiate (enemies[Random.Range(0, enemies.Length - 1)], spawnPoint, Quaternion.identity);
+		GameObject enemy = enemies[Random.Range(0, enemies.Length - 1)];
+
+		Instantiate (enemy, gameObject.transform.position + spawnPoint + enemy.transform.position, Quaternion.identity);
         // cancel the invoke and return
-        CancelInvoke ();
     }
 }
