@@ -3,16 +3,17 @@ using System.Collections;
 
 public class CameraController : MonoBehaviour {
 
-    public GameObject player;
+    public GameObject player;   // Object dat achtervolgt moet worden
     private Vector3 offset;
 
-	// Use this for initialization
+    // Vind het verschil tussen het object en de camera
 	void Start () {
         offset = transform.position - player.transform.position;
 	}
 	
-	// Update is called once per frame
+    // Verplaats mee met het object
 	void LateUpdate () {
         transform.position = player.transform.position + offset;
 	}
+
 }
