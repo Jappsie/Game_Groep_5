@@ -6,7 +6,7 @@ public class EnemyFollowing : MonoBehaviour {
 	public float volgafstand = 10f;
 	public float movespeed = 2.0f;
 	public float Rotspeed = 3.0f;
-	public GameObject Player;
+	private GameObject Player;
 	private Vector3 initielepositie;
 
 	// Use this for initialization
@@ -14,7 +14,7 @@ public class EnemyFollowing : MonoBehaviour {
 		initielepositie = transform.transform.position;
 	}
 	void Update() {
-	
+		Player = GameObject.FindGameObjectsWithTag ("Player")[0];
 		Vector3 pos1 = Player.transform.position; //Positie main caracter in worldspace
 		Vector3 pos2 = gameObject.transform.position;
 

@@ -13,7 +13,9 @@ public class CameraController : MonoBehaviour {
 	
     // Verplaats mee met het object
 	void LateUpdate () {
-        transform.position = player.transform.position + offset;
+        float x = player.transform.position.x + offset.x;
+		float z = player.transform.position.z + offset.z;
+		gameObject.transform.position = new Vector3 (x, transform.position.y, z);
 	}
 
 }
