@@ -3,23 +3,37 @@ using System.Collections;
 
 public class PlayerMovement : MonoBehaviour {
 
-    public float speed;     // Snelheid variabele
+    public float speed = 10f;     // Snelheid variabele
 	public bool isDead;		// isDead tag
-    private Rigidbody rb;   // Physics engine
+	public float gravity= 14.0f;
+	public float jumpforce= 10.0f;
+
+	private CharacterController controller;
+	private float Verticalverlocity;
 
     // Vind het physics engine object
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
+		controller = GetComponent<CharacterController> ();
     }
 	
     // Update de forces iedere update dat er forces gebruikt worden
-	void FixedUpdate () {
-        float horizontalMovement = Input.GetAxis("Horizontal");        
-        float verticalMovement = Input.GetAxis("Vertical");
-        Vector3 movement = new Vector3(horizontalMovement, 0.0f, verticalMovement);
+	void Update () {
+		if(controller.isGrounded) {
+			Verticalverlocity = 0.0f;
+			if(Input.GetKey(KeyCode.Space)) {
+				Verticalverlocity = jumpforce;
+			}
+		} else {
+			Verticalverlocity -= gravity*Time.deltaTime;
+		}
 
-        rb.AddForce(movement * speed);
-    }    
+		float horizontalMovement = Input.GetAxis("Horizontal");        
+		float verticalMovement = Input.GetAxis("Vertical");
+		Vector3 movement = new Vector3(speed*horizontalMovement, Verticalverlocity, speed*verticalMovement);
+
+		controller.Move (movement * Time.deltaTime);
+
+	}  
 
 }
