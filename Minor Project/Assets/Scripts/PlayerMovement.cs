@@ -4,7 +4,7 @@ using System.Collections;
 public class PlayerMovement : MonoBehaviour {
 
     public float speed;     // Snelheid variabele
-
+	public bool isDead;		// isDead tag
     private Rigidbody rb;   // Physics engine
 
     // Vind het physics engine object
