@@ -1,21 +1,24 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class CameraController : MonoBehaviour {
+public class CameraController : MonoBehaviour
+{
 
-    public GameObject player;   // Object dat achtervolgt moet worden
-    private Vector3 offset;
+    public GameObject player;   // Followed object
+    private Vector3 offset;     // Relative position to followed object
 
-    // Vind het verschil tussen het object en de camera
-	void Start () {
-        offset = transform.position - player.transform.position;
-	}
-	
-    // Verplaats mee met het object
-	void LateUpdate () {
+    // Get the relative position to followed object
+    void Start()
+    {
+        offset = gameObject.transform.position - player.transform.position;
+    }
+
+    // Follow the object
+    void LateUpdate()
+    {
         float x = player.transform.position.x + offset.x;
-		float z = player.transform.position.z + offset.z;
-		gameObject.transform.position = new Vector3 (x, transform.position.y, z);
-	}
+        float z = player.transform.position.z + offset.z;
+        gameObject.transform.position = new Vector3( x, transform.position.y, z );
+    }
 
 }

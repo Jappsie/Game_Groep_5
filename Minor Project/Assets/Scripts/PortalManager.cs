@@ -1,19 +1,20 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PortalManager : MonoBehaviour {
+public class PortalManager : MonoBehaviour
+{
 
-    public Object Scene;        // Scene om naar te teleporteren
-    public Vector3 Position;    // Positie om naar te teleporteren
-    public bool Additive;       // Boolean om te kiezen voor additive teleporteren
+    public Object Scene;        // Scene to teleport to
+    public Vector3 Position;    // Absolute position to teleport to
+    public bool Additive;       // Choose single or additive loading of scenes
 
-    // Ga naar de goede scene + positie wanneer een player object collide
-    void OnTriggerEnter(Collider other)
+    // On Collide with a 'player' go to the scene and relocate
+    void OnTriggerEnter( Collider other )
     {
-        if (other.gameObject.CompareTag("Player"))
+        if ( other.gameObject.CompareTag( "Player" ) )
         {
-            SceneManagerScript.goToScene(Scene.name, Additive);
-            other.transform.position = Position + new Vector3(0, other.transform.position.y, 0);
+            SceneManagerScript.goToScene( Scene.name, Additive );
+            other.transform.position = Position + new Vector3( 0, other.transform.position.y, 0 );
         }
     }
 

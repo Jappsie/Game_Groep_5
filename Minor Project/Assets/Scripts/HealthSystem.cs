@@ -4,34 +4,41 @@
 using UnityEngine;
 using System.Collections;
 
-public class HealthSystem : MonoBehaviour {
+public class HealthSystem : MonoBehaviour
+{
 
-	public float MaxHealth;
-	public float CurHealth;
-	PlayerMovement playerMovement;
+    public float MaxHealth;     // Starting amount of Health
+    private float CurHealth;     // Current amount of Health
+    PlayerMovement playerMovement;  // Reference to playermovement script
 
-	private bool isDead;
-	private bool damaged;
+    private bool isDead;    // Variable to track death-ness 
+    private bool damaged;   // Variable to track damaged-ness
 
-	//Initialiseer de relevante variabelen
-	void Awake() {
-		playerMovement = GetComponent<PlayerMovement> ();
-		CurHealth = MaxHealth;	
-	}
+    // Get reference to playerMovement and revive object
+    void Awake()
+    {
+        playerMovement = GetComponent<PlayerMovement>();
+        CurHealth = MaxHealth;
+        isDead = false;
+    }
 
-	//Functie die wordt aangeroepen als een Object schade krijgt
-	public void TakeDamage(float damageAmount) {
-		damaged = true;
-		CurHealth -= damageAmount;
+    // Method to give the object damage
+    public void TakeDamage( float damageAmount )
+    {
+        damaged = true;
+        CurHealth -= damageAmount;
 
-		//Als het Object geen hp meer heeft, dan gaat hij dood
-		if (CurHealth <= 0 && !isDead) {
-			Death ();
-		}
-	}
+        // Check for negative health and if not dead yet, invoke death
+        if ( CurHealth <= 0 && !isDead )
+        {
+            Death();
+        }
+    }
 
-	void Death() {
-		isDead = true;
-		playerMovement.isDead = true;
-	}
+    // Method to provide effects of death
+    void Death()
+    {
+        isDead = true;
+        playerMovement.isDead = true;
+    }
 }
