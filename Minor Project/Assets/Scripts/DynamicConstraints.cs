@@ -10,11 +10,11 @@ public class DynamicConstraints : MonoBehaviour {
 	private Rigidbody rb;
 	private int id;
 
-	// Use this for initialization
+
 	void Start () {
 		rb = GetComponent <Rigidbody> ();
 	}
-
+	//When player collides with pushable object, the direction of movement is determined
 	void OnCollisionEnter (Collision boem){
 		if (boem.gameObject.tag.Equals ("Player")) {
 
@@ -30,7 +30,7 @@ public class DynamicConstraints : MonoBehaviour {
 				id = 2;
 			}
 		}
-
+		//Contraints are set for the pushable object, according to the determined direction of movement
 		switch (id) {
 		case 0:
 			rb.constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezeRotation;
@@ -43,7 +43,7 @@ public class DynamicConstraints : MonoBehaviour {
 			break;
 		}
 	}
-
+	//on collision end the contraints are reset
 	void OnCollisionExit (Collision boem){
 		if (boem.gameObject.tag.Equals ("Player")){
 			

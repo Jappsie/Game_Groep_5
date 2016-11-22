@@ -4,7 +4,7 @@ using System.Collections;
 public class Pushable : MonoBehaviour {
 
 	public float Speed;
-	public float Delay;
+	public float Delay; // not used
 	public bool move_over_Y;
 	public bool move_over_X;
 	public bool move_over_Z;
@@ -14,6 +14,7 @@ public class Pushable : MonoBehaviour {
 
 	private int id;
 
+	//When player collides with pushable object, the direction the object will move in is determined through relative velocity
 	void OnCollisionEnter (Collision boem){
 		if (boem.gameObject.tag.Equals ("Player")) {
 
@@ -30,7 +31,7 @@ public class Pushable : MonoBehaviour {
 			}
 		}
 	}
-
+	//while colliding, movement occurs in previously determined direction
 	void OnCollisionStay (Collision boem){
 
 		if (boem.gameObject.tag.Equals ("Player")) {
@@ -53,7 +54,7 @@ public class Pushable : MonoBehaviour {
 			}
 		}
 	}
-
+	//If gridsnap is active, when the collision ends, the object snaps to the closest set grid point
 	void OnCollisionExit (Collision boem){
 
 		if (boem.gameObject.tag.Equals ("Player") && GridSnap) {
