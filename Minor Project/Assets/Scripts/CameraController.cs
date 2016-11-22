@@ -5,11 +5,16 @@ public class CameraController : MonoBehaviour
 {
 
     public GameObject player;   // Followed object
-    private Vector3 offset;     // Relative position to followed object
+    public bool trackObject;
+    private Vector3 offset;      // Relative position to followed object
 
     // Get the relative position to followed object
     void Start()
     {
+        if ( trackObject )
+        {
+            gameObject.transform.LookAt( player.transform.position, Vector3.up );
+        }
         offset = gameObject.transform.position - player.transform.position;
     }
 

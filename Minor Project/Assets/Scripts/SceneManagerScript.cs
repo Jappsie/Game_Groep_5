@@ -40,9 +40,14 @@ public class SceneManagerScript : MonoBehaviour
     {
         if ( Input.GetKeyDown( resetKey ) )
         {
-            this.Awake();
-            SceneManager.LoadScene( StartScene.name );
+            reset();
         }
+    }
+
+    public void reset()
+    {
+        this.Awake();
+        SceneManager.LoadScene( StartScene.name );
     }
 
     // Main method to switch scenes
