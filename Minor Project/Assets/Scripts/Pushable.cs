@@ -5,11 +5,12 @@ public class Pushable : MonoBehaviour {
 
 	public float Speed;
 	public float Delay; // not used
+
 	public bool move_over_Y;
 	public bool move_over_X;
 	public bool move_over_Z;
-	public bool GridSnap;
 
+	public bool GridSnap;
 	public Vector3 gridSize;
 
 	private int id;
@@ -19,6 +20,7 @@ public class Pushable : MonoBehaviour {
 		if (boem.gameObject.tag.Equals ("Player")) {
 
 			Vector3 incomming = boem.relativeVelocity;
+			boem.
 
 			float temp = incomming.x;
 			id = 0;
@@ -60,7 +62,7 @@ public class Pushable : MonoBehaviour {
 		if (boem.gameObject.tag.Equals ("Player") && GridSnap) {
 
 			Vector3 currentPos = transform.position;
-			Vector3 move = new Vector3 ((Mathf.Round (currentPos.x / gridSize.x)), currentPos.y, Mathf.Round (currentPos.z / gridSize.z));
+			Vector3 move = new Vector3 ((Mathf.Round (currentPos.x / gridSize.x)), currentPos.y, (Mathf.Round (currentPos.z / gridSize.z)));
 			transform.position = move;
 
 		}
