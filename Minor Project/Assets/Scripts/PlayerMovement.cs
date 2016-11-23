@@ -45,6 +45,7 @@ public class PlayerMovement : HealthSystem
 
         Vector3 movement = new Vector3( speed * horizontalMovement, verticalVelocity, speed * verticalMovement );
         controller.Move( rotation * movement * Time.deltaTime );
+		gameObject.transform.rotation = Quaternion.LookRotation (movement, Vector3.up);
     }
 
     public override void Death()
