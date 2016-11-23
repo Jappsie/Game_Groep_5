@@ -39,7 +39,7 @@ public class PlayerMovement : HealthSystem
 		else
 		{
 			if (Input.GetKey (KeyCode.Space) && verticalVelocity < 0) {
-				verticalVelocity -= zweefConstant * Time.deltaTime;
+				verticalVelocity = zweefConstant;
 			} else {
 				verticalVelocity -= gravity * Time.deltaTime;
 			}

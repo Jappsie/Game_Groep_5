@@ -15,6 +15,7 @@ public class NewPortalManager : MonoBehaviour {
     {
         if ( other.gameObject.CompareTag( "Player" ) )
         {
+            Debug.Log( gameObject.name + " : " + Scene.name );
             SceneManagerScript.goToScene( Scene.name, Additive );
             coroutine = teleport( other );
             StartCoroutine(  coroutine );
@@ -24,15 +25,17 @@ public class NewPortalManager : MonoBehaviour {
     private IEnumerator teleport( Collider other)
     {
         // Detect loading the scene
-        yield return null;
+        Debug.Log( "portal: " + gameObject.name );
         SceneManager.sceneLoaded += teleport;
-        
+        yield return null;
+
     }
 
     private void teleport( Scene scene, LoadSceneMode sceneMode )
     {
         // Find portal
         GameObject portalObject = GameObject.Find( PortalName );
+        Debug.Log( scene.name + " > " + portalObject.name );
         NewPortalManager portalScript = portalObject.GetComponent<NewPortalManager>();
 
         // Find player

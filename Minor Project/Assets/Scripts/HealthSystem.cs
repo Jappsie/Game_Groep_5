@@ -16,7 +16,7 @@ public abstract class HealthSystem : MonoBehaviour
     // Get reference to playerMovement and revive object
     void Awake()
     {
-        Debug.Log( "Revived" );
+        Debug.Log( "Revived " + gameObject.name);
         CurHealth = MaxHealth;
         isDead = false;
         damaged = false;
