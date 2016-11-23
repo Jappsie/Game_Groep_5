@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityEngine.SceneManagement;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 public class SceneManagerScript : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class SceneManagerScript : MonoBehaviour
     public KeyCode resetKey = KeyCode.R;    // Reset key
 
     static SceneManagerScript SceneManagementInstance;  // Static SceneManager to check for duplication
+    private static IEnumerator coroutine;
 
     // If SceneManagementInstance exists, destroy the existing objects first to avoid duplication
     void Awake()
@@ -60,9 +62,20 @@ public class SceneManagerScript : MonoBehaviour
         }
 
         // Only reload scene if actually changing scenes
-        if ( !SceneManager.GetActiveScene().Equals( SceneManager.GetSceneByName( scene ) ) )
+        if ( !SceneManager.GetActiveScene().Equals( SceneManager.GetSceneByName( scene ) ))
         {
-            SceneManager.LoadScene( scene, mode );
+            coroutine = LoadNewScene( scene, mode );
+            SceneManagementInstance.StartCoroutine( coroutine );
         }
     }
+
+    private static IEnumerator LoadNewScene( string scene, LoadSceneMode mode)
+    {
+        AsyncOperation async = SceneManager.LoadSceneAsync( scene, mode );
+        while ( !async.isDone )
+        {
+            yield return new WaitForEndOfFrame();
+        }
+    }
+
 }
