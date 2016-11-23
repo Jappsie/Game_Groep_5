@@ -12,6 +12,7 @@ public abstract class HealthSystem : MonoBehaviour
 
     protected bool isDead;    // Variable to track death-ness 
     private bool damaged;  // Variable to track damaged-ness
+	protected float CurHeight; //Variable to track height of an Object
 
     // Get reference to playerMovement and revive object
     void Awake()
@@ -19,8 +20,16 @@ public abstract class HealthSystem : MonoBehaviour
         Debug.Log( "Revived" );
         CurHealth = MaxHealth;
         isDead = false;
-        damaged = false;
+		damaged = false;
+		CurHeight = gameObject.transform.position.y;
     }
+
+	protected virtual void Update() {			//virtual means it can be overriden by child class
+		CurHeight = gameObject.transform.position.y;
+		if (CurHeight < -10.0f) {				//Whenever the object is below -10.0f, its death function gets called
+			Death ();
+		}
+	}
 
     // Method to give the object damage
     public void TakeDamage( float damageAmount )
@@ -37,5 +46,5 @@ public abstract class HealthSystem : MonoBehaviour
     }
 
     // Method to provide effects of death
-    public abstract void Death();
+    protected abstract void Death();
 }
