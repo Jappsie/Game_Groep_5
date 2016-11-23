@@ -6,14 +6,14 @@ public class Bullit : MonoBehaviour {
 	private Vector3 direction;
 	private GameObject Player;
 
-	// Use this for initialization
+	//wordt gebruikt om directie van de kogel te vinden
 	void Start () {
 
 		Player = GameObject.FindGameObjectsWithTag( "Player" )[ 0 ];
 		direction = (Player.transform.position - transform.position).normalized;
 	}
 	
-	// Update is called once per frame
+    //Kogel snelheid
 	void Update () {
 
 		transform.position += direction * (firespeed * Time.deltaTime);
