@@ -36,7 +36,7 @@ public class EnemyFollowing : HealthSystem
 		gameObject.transform.position += gameObject.transform.forward * moveSpeed * Time.deltaTime;
 	}
 
-    private void OnCollisionStay( Collision collision )
+	private void OnCollisionStay( Collision collision )
     {
         if ( collision.gameObject.CompareTag( "Player" ) )
         {
