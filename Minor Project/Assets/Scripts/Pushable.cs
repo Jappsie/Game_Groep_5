@@ -3,24 +3,46 @@ using System.Collections;
 
 public class Pushable : MonoBehaviour {
 
-	public float Speed;
+	public float Speed; 
 	public float Delay; // not used
 
 	public bool move_over_Y;
 	public bool move_over_X;
 	public bool move_over_Z;
 
-	public bool GridSnap;
+	public bool GridMode;
 	public Vector3 gridSize;
 
+	private Rigidbody rb;
 	private int id;
+	private bool push;
+	private Vector3 target;
+
+	void Start () {
+		push = false;
+		rb = GetComponent <Rigidbody> ();
+		rb.constraints = RigidbodyConstraints.FreezeRotation;
+
+		if (GridMode) {
+			rb.constraints = RigidbodyConstraints.FreezeAll;
+		}
+	}
+
+	void FixedUpdate () {
+		if (push) {
+			this.transform.position = Vector3.MoveTowards (this.transform.position, target, Speed * Time.deltaTime);
+
+			if (target.Equals(this.transform.position)) {
+				push = false;
+			}
+		}
+	}
 
 	//When player collides with pushable object, the direction the object will move in is determined through relative velocity
 	void OnCollisionEnter (Collision boem){
-		if (boem.gameObject.tag.Equals ("Player")) {
+		if (boem.gameObject.tag.Equals ("Player") && !push) {
 
 			Vector3 incomming = boem.relativeVelocity;
-			boem.
 
 			float temp = incomming.x;
 			id = 0;
@@ -31,40 +53,51 @@ public class Pushable : MonoBehaviour {
 			} else if (incomming.z > temp) {
 				id = 2;
 			}
+			if (GridMode) {
+				switch (id) {
+					case 0:
+						target = this.transform.position + new Vector3(gridSize.x, 0, 0);
+						break;
+					case 1:
+						target = this.transform.position + new Vector3(0, gridSize.y, 0);
+						break;
+					case 2:
+						target = this.transform.position + new Vector3(0, 0, gridSize.z);
+						break;
+							}
+				push = true;
+			}
 		}
 	}
 	//while colliding, movement occurs in previously determined direction
 	void OnCollisionStay (Collision boem){
 
-		if (boem.gameObject.tag.Equals ("Player")) {
+		if (boem.gameObject.tag.Equals ("Player") && GridMode){
+
+		}
+
+		else if (boem.gameObject.tag.Equals ("Player") && !GridMode) {
+
 			switch (id) {
-			case 0: 
-				if (move_over_X) {
-					transform.Translate (Speed * Time.deltaTime, 0, 0, Space.World);
-				}
+			case 0:
+				rb.constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezeRotation;
 				break;
 			case 1:
-				if (move_over_Y) {
-					transform.Translate (0, Speed * Time.deltaTime, 0, Space.World);
-				}
+				rb.constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezeRotation;
 				break;
 			case 2:
-				if (move_over_Z) {
-					transform.Translate (0, 0, Speed * Time.deltaTime, Space.World);
-				}
+				rb.constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezeRotation;
 				break;
 			}
-		}
+		}	 
 	}
 	//If gridsnap is active, when the collision ends, the object snaps to the closest set grid point
 	void OnCollisionExit (Collision boem){
+		if (boem.gameObject.tag.Equals ("Player") && !GridMode) {
 
-		if (boem.gameObject.tag.Equals ("Player") && GridSnap) {
-
-			Vector3 currentPos = transform.position;
-			Vector3 move = new Vector3 ((Mathf.Round (currentPos.x / gridSize.x)), currentPos.y, (Mathf.Round (currentPos.z / gridSize.z)));
-			transform.position = move;
+			rb.constraints = RigidbodyConstraints.FreezeRotation;
 
 		}
 	}
 }
+

@@ -13,6 +13,7 @@ public class DynamicConstraints : MonoBehaviour {
 
 	void Start () {
 		rb = GetComponent <Rigidbody> ();
+	
 	}
 	//When player collides with pushable object, the direction of movement is determined
 	void OnCollisionEnter (Collision boem){
