@@ -41,6 +41,7 @@ public class NewPortalManager : MonoBehaviour {
         // Find player
         GameObject other = GameObject.FindGameObjectWithTag( "Player" );
         other.transform.position = portalObject.transform.position + portalScript.Position + new Vector3( 0, other.transform.position.y, 0 );
+        SceneManager.sceneLoaded -= teleport;
     }
 
 }
