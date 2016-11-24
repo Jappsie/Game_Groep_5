@@ -15,8 +15,10 @@ public class spawn : MonoBehaviour {
 	public float radius;
     // spawn counter;
     private int count;
+    // activate flag
+    private bool isActive;
     // computed spawn location
-	private Vector3 spawnPoint;
+    private Vector3 spawnPoint;
 
     // start spawning when object is activated
 	void Start() {
@@ -28,15 +30,17 @@ public class spawn : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {                
         // spawn until limit has been reached
-        if (count >= amount)
+        if (count >= amount && isActive)
         {
 			CancelInvoke ();
+            isActive = false;
         }
 	}
 
     // spawn function
     void spawnEnemy ()
     {
+        isActive = true;
         count++;
         // randomly assign a coordinate within world space to the enemy
 		spawnPoint.x = Random.Range(-radius, radius);
