@@ -66,19 +66,17 @@ public class PlayerMovement : HealthSystem
 
 	}
 
+	// Apply force on collision
 	private void OnControllerColliderHit( ControllerColliderHit hit) {
 		Rigidbody body = hit.gameObject.GetComponent<Rigidbody> ();
 		if (body != null) {
-			Debug.Log (hit.gameObject.name);
 			hit.rigidbody.AddForce(50/hit.rigidbody.mass * movement);
 		}
 	}
 
-	public override void Death()
+	// reset the scene
 	protected override void Death()		//Death is now protected
 	{
-		Debug.Log( "Player died" );
-		//Awake();
 		GameObject.Find( "SceneController" ).GetComponent<SceneManagerScript>().reset();
 	}
 }
