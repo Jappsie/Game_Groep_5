@@ -21,7 +21,9 @@ public class EnemyFollowing : HealthSystem
     // Follow a 'player' if within followDistance
     void Update()
     {
-            Player = GameObject.FindGameObjectsWithTag( "Player" )[ 0 ];
+        Player = GameObject.FindGameObjectWithTag( "Player" );
+        if ( Player != null )
+        {
             Vector3 playerPos = Player.transform.position;
             Vector3 objectPos = gameObject.transform.position;
             Quaternion objectRot = gameObject.transform.rotation;
@@ -35,13 +37,14 @@ public class EnemyFollowing : HealthSystem
                 gameObject.transform.rotation = Quaternion.Slerp( objectRot, Quaternion.LookRotation( startPos - objectPos ), rotationSpeed * Time.deltaTime );
             }
             gameObject.transform.position += gameObject.transform.forward * moveSpeed * Time.deltaTime;
+        }
     }
 
     private void OnCollisionStay( Collision collision )
     {
         if ( collision.gameObject.CompareTag( "Player" ) )
         {
-            Debug.Log( collision.gameObject.name + " Got Damaged");
+            Debug.Log( collision.gameObject.name + " Got Damaged" );
             collision.gameObject.SendMessage( "TakeDamage", Damage );
         }
     }
@@ -53,6 +56,6 @@ public class EnemyFollowing : HealthSystem
 
     public override void Death()
     {
-        Destroy(gameObject);
+        Destroy( gameObject );
     }
 }

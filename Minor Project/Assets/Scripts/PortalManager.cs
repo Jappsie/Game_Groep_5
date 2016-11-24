@@ -1,22 +1,33 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PortalManager : MonoBehaviour
-{
+public class PortalManager : MonoBehaviour {
 
-    public Object Scene;        // Scene to teleport to
-    public Vector3 Position;    // Absolute position to teleport to
-    public bool Additive;       // Choose single or additive loading of scenes
+    public Object Scene;
+    public Vector3 Position;
+    public string PortalName;
+    public bool Additive;
 
-    // On Collide with a 'player' go to the scene and relocate
+    private IEnumerator coroutine;
+
     void OnTriggerEnter( Collider other )
     {
         if ( other.gameObject.CompareTag( "Player" ) )
         {
-            SceneManagerScript.goToScene( Scene.name, Additive );
-            Debug.Log( other.gameObject.transform.position );
-            other.transform.position = Position + new Vector3( 0, other.transform.position.y, 0 );
+            Debug.Log( gameObject.name + " : " + Scene.name );
+            SceneManagerScript.goToScene( Scene.name, Additive , this);
         }
+    }
+
+    public void teleport()
+    {
+        // Find portal
+        GameObject portalObject = GameObject.Find( PortalName );
+        PortalManager portalScript = portalObject.GetComponent<PortalManager>();
+
+        // Find player
+        GameObject other = GameObject.FindGameObjectWithTag( "Player" );
+        other.transform.position = portalObject.transform.position + portalScript.Position + new Vector3( 0, other.transform.position.y, 0 );
     }
 
 }
