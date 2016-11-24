@@ -1,19 +1,19 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Bullit : MonoBehaviour {
+public class Bullet : MonoBehaviour {
 	public float firespeed = 7.0f;
 	private Vector3 direction;
 	private GameObject Player;
 
-	//wordt gebruikt om directie van de kogel te vinden
+	// Find the player and get the direction
 	void Start () {
 
-		Player = GameObject.FindGameObjectsWithTag( "Player" )[ 0 ];
+		Player = GameObject.FindGameObjectWithTag( "Player" );
 		direction = (Player.transform.position - transform.position).normalized;
 	}
 	
-    //Kogel snelheid
+    //Bullet speed
 	void Update () {
 
 		transform.position += direction * (firespeed * Time.deltaTime);
