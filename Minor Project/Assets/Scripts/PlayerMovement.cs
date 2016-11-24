@@ -9,7 +9,7 @@ public class PlayerMovement : HealthSystem
     public float rotationSpeed = 1;
 	public float gravity = 14.0f;    // Gravity effect
 	public float jumpForce = 1.0f;  // Force of jump
-	public float zweefConstant = 5.0f;	//Gravity effect during float
+	public float zweefConstant = -5.0f;	//Gravity effect during float
 
 	private CharacterController controller;     // Controller of the movement
 	private float verticalVelocity;            // Velocity regarding jump/gravity
@@ -26,8 +26,10 @@ public class PlayerMovement : HealthSystem
 	}
 
 	// Make the object move
-	void Update()
+	protected override void Update()		//Now overrides the Update of HealthSystem to check y position
 	{
+		base.Update ();						//Call to Update of Parent
+
 		// Jump if not floating
 		if (controller.isGrounded)
 		{
@@ -40,7 +42,7 @@ public class PlayerMovement : HealthSystem
 		else
 		{
 			if (Input.GetKey (KeyCode.Space) && verticalVelocity < 0) {
-				verticalVelocity -= zweefConstant * Time.deltaTime;
+				verticalVelocity = zweefConstant;		//Constant falling speed when hovering
 			} else {
 				verticalVelocity -= gravity * Time.deltaTime;
 			}
@@ -73,6 +75,7 @@ public class PlayerMovement : HealthSystem
 	}
 
 	public override void Death()
+	protected override void Death()		//Death is now protected
 	{
 		Debug.Log( "Player died" );
 		//Awake();

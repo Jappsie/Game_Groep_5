@@ -19,23 +19,22 @@ public class EnemyFollowing : HealthSystem
     }
 
     // Follow a 'player' if within followDistance
-    void Update()
-    {
-            Player = GameObject.FindGameObjectsWithTag( "Player" )[ 0 ];
-            Vector3 playerPos = Player.transform.position;
-            Vector3 objectPos = gameObject.transform.position;
-            Quaternion objectRot = gameObject.transform.rotation;
+	protected override void Update()			//Now overrides the Update of HealthSystem to check y pos
+	{
+		base.Update ();							//Call to Update of Parent
 
-            if ( Vector3.Distance( playerPos, objectPos ) < followDistance )
-            {
-                gameObject.transform.rotation = Quaternion.Slerp( objectRot, Quaternion.LookRotation( playerPos - objectPos ), rotationSpeed * Time.deltaTime );
-            }
-            else
-            {
-                gameObject.transform.rotation = Quaternion.Slerp( objectRot, Quaternion.LookRotation( startPos - objectPos ), rotationSpeed * Time.deltaTime );
-            }
-            gameObject.transform.position += gameObject.transform.forward * moveSpeed * Time.deltaTime;
-    }
+		Player = GameObject.FindGameObjectsWithTag ("Player") [0];
+		Vector3 playerPos = Player.transform.position;
+		Vector3 objectPos = gameObject.transform.position;
+		Quaternion objectRot = gameObject.transform.rotation;
+
+		if (Vector3.Distance (playerPos, objectPos) < followDistance) {
+			gameObject.transform.rotation = Quaternion.Slerp (objectRot, Quaternion.LookRotation (playerPos - objectPos), rotationSpeed * Time.deltaTime);
+		} else {
+			gameObject.transform.rotation = Quaternion.Slerp (objectRot, Quaternion.LookRotation (startPos - objectPos), rotationSpeed * Time.deltaTime);
+		}
+		gameObject.transform.position += gameObject.transform.forward * moveSpeed * Time.deltaTime;
+	}
 
     private void OnCollisionStay( Collision collision )
     {
@@ -51,7 +50,7 @@ public class EnemyFollowing : HealthSystem
         Debug.Log( other.gameObject.name + " Got Triggered" );
     }
 
-    public override void Death()
+    protected override void Death()
     {
         Destroy(gameObject);
     }
