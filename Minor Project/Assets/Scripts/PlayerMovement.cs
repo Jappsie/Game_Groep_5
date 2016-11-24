@@ -14,6 +14,7 @@ public class PlayerMovement : HealthSystem
 	private CharacterController controller;     // Controller of the movement
 	private float verticalVelocity;            // Velocity regarding jump/gravity
     private Quaternion axisRotation;                // Align movement with camera position
+	private Vector3 movement;
 
 	// Get reference to the CharacterController
 	void Start()
@@ -48,7 +49,7 @@ public class PlayerMovement : HealthSystem
 		// Move about in the 2D area
 		float horizontalMovement = Input.GetAxis( "Horizontal" );
 		float verticalMovement = Input.GetAxis( "Vertical" );
-        Vector3 movement = axisRotation * new Vector3( speed * horizontalMovement, verticalVelocity, speed * verticalMovement );
+        movement = axisRotation * new Vector3( speed * horizontalMovement, verticalVelocity, speed * verticalMovement );
         controller.Move( movement * Time.deltaTime );
         movement.y = 0;
         Quaternion rotation = Quaternion.LookRotation( Vector3.right, Vector3.up );	// Rotate player object to correct orientation
@@ -61,6 +62,14 @@ public class PlayerMovement : HealthSystem
 
 
 
+	}
+
+	private void OnControllerColliderHit( ControllerColliderHit hit) {
+		Rigidbody body = hit.gameObject.GetComponent<Rigidbody> ();
+		if (body != null) {
+			Debug.Log (hit.gameObject.name);
+			hit.rigidbody.AddForce(50/hit.rigidbody.mass * movement);
+		}
 	}
 
 	public override void Death()

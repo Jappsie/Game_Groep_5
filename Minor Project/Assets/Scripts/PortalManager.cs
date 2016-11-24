@@ -15,7 +15,7 @@ public class PortalManager : MonoBehaviour
         {
             SceneManagerScript.goToScene( Scene.name, Additive );
             Debug.Log( other.gameObject.transform.position );
-            other.transform.position = Position + new Vector3( 0, other.transform.position.y, 0 );
+            other.transform.position = Position;
         }
     }
 

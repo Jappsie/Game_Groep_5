@@ -15,7 +15,7 @@ public class NewPortalManager : MonoBehaviour {
             SceneManagerScript.goToScene( Scene.name, Additive );
             GameObject portalObject = GameObject.Find( PortalName );
             NewPortalManager portalScript = portalObject.GetComponent<NewPortalManager>();
-            other.transform.position = portalObject.transform.position + portalScript.Position + new Vector3( 0, other.transform.position.y, 0 );
+            other.transform.position = portalObject.transform.position + portalScript.Position;
         }
     }
 
