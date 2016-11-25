@@ -52,7 +52,7 @@ public class Turret : MonoBehaviour {
 		Vector3 playerPos = Player.transform.position;
 		Vector3 objectPos = gameObject.transform.position;
 
-		if ( Vector3.Distance( playerPos, objectPos ) < LineofSight )
+		if ( Vector3.Distance( playerPos, objectPos ) < LineofSight && gameObject.activeSelf)
 		{
 			Instantiate (bullet, transform.position, transform.rotation);
 		}
