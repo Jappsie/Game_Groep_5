@@ -55,16 +55,22 @@ public class Pushable : MonoBehaviour {
 			}
 			if (GridMode) {
 				switch (id) {
-					case 0:
-						target = this.transform.position + new Vector3(gridSize.x, 0, 0);
-						break;
-					case 1:
-						target = this.transform.position + new Vector3(0, gridSize.y, 0);
-						break;
-					case 2:
-						target = this.transform.position + new Vector3(0, 0, gridSize.z);
-						break;
-							}
+				case 0:
+					if (move_over_X) {
+						target = this.transform.position + new Vector3 (gridSize.x, 0, 0);
+					}
+					break;
+				case 1:
+					if (move_over_Y) {
+						target = this.transform.position + new Vector3 (0, gridSize.y, 0);
+					}
+					break;
+				case 2:
+					if (move_over_Z) {
+						target = this.transform.position + new Vector3 (0, 0, gridSize.z);
+					}
+					break;
+				}
 				push = true;
 			}
 		}
