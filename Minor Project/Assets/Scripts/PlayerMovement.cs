@@ -42,8 +42,8 @@ public class PlayerMovement : HealthSystem
 		}
 		else
 		{
-			if (Input.GetKey (KeyCode.Space) && verticalVelocity < 0) {
-				verticalVelocity = zweefConstant;		//Constant falling speed when hovering
+			if (Input.GetKey (KeyCode.Space) && verticalVelocity <= 0) {
+				verticalVelocity = -zweefConstant * Time.deltaTime;		//Constant falling speed when hovering
 			} else {
 				verticalVelocity -= gravity * Time.deltaTime;
 			}
