@@ -10,11 +10,16 @@ public class PlayerMovement : HealthSystem
 	public float gravity = 14.0f;    // Gravity effect
 	public float jumpForce = 1.0f;  // Force of jump
 	public float zweefConstant = -5.0f;	//Gravity effect during float
+	public static bool  AbleShoot = true; // Bool to check if player is able to shoot
+	public GameObject Playerbullet; // Bullet Player uses
+	public Vector3 MousePosition; // Position mouseRaycast on plane
 
 	private CharacterController controller;     // Controller of the movement
 	private float verticalVelocity;            // Velocity regarding jump/gravity
     private Quaternion axisRotation;                // Align movement with camera position
 	private Vector3 movement;
+
+
 
 	// Get reference to the CharacterController
 	void Start()
@@ -52,7 +57,17 @@ public class PlayerMovement : HealthSystem
 		float horizontalMovement = Input.GetAxis( "Horizontal" );
 		float verticalMovement = Input.GetAxis( "Vertical" );
         movement = axisRotation * new Vector3( speed * horizontalMovement, verticalVelocity, speed * verticalMovement );
-        controller.Move( movement * Time.deltaTime );
+
+		// Stops the player from moving when he has shot a bullet
+		if (AbleShoot == true) {
+			controller.Move (movement * Time.deltaTime); 
+		}
+		else {
+		  movement = axisRotation * new Vector3( 0, verticalVelocity, 0 );	
+			controller.Move (movement * Time.deltaTime);
+		}
+
+
         movement.y = 0;
         Quaternion rotation = Quaternion.LookRotation( Vector3.right, Vector3.up );	// Rotate player object to correct orientation
         if ( !(movement.magnitude == 0) )
@@ -62,9 +77,33 @@ public class PlayerMovement : HealthSystem
 
         }
 
+		//Finds mouse position in the world on a plane at height of the main caracter
+		var ray = Camera.main.ScreenPointToRay (Input.mousePosition);
+		Plane Hitplane = new Plane(new Vector3(0,1,0), transform.position);
+		float distance = 0f;
 
+		if (Hitplane.Raycast (ray, out distance)) {
+			MousePosition = ray.GetPoint (distance);
+			transform.LookAt (MousePosition);	
+		}
+
+		//Left mouse click to fire a bullet
+		if (Input.GetKey (KeyCode.Mouse0) && AbleShoot == true) {
+			AbleShoot = false;
+			Instantiate (Playerbullet, transform.position, transform.rotation);
+
+
+		
+		
+		}
+	}
+
+	private void BulletTrigger(){
+		
 
 	}
+
+
 
 	// Apply force on collision
 	private void OnControllerColliderHit( ControllerColliderHit hit) {
@@ -79,4 +118,7 @@ public class PlayerMovement : HealthSystem
 	{
 		GameObject.Find( "SceneController" ).GetComponent<SceneManagerScript>().reset();
 	}
+
+
+
 }
