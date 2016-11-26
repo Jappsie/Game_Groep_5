@@ -85,9 +85,9 @@ public class PlayerMovement : HealthSystem
 		}
 	}
 
-	// reset the scene
+	// reset the scene when player dies
 	protected override void Death()		//Death is now protected
 	{
-		GameObject.Find( "SceneController" ).GetComponent<SceneManagerScript>().reset();
+		GameObject.Find( "SceneController" ).GetComponent<SceneManagerScript>().resetOnDeath();
 	}
 }

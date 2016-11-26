@@ -11,9 +11,14 @@ public class SceneManagerScript : MonoBehaviour
     public Object StartScene;               // Scene to reset to
     public KeyCode resetKey = KeyCode.R;    // Reset key
 
+	//Variables that track the time played & amount of deaths
+	public float time;
+	public int deaths;
+
     private static SceneManagerScript SceneManagementInstance;  // Static SceneManager to check for duplication
     private static IEnumerator coroutine;
     private PortalManager portal;
+
 
     // If SceneManagementInstance exists, destroy the existing objects first to avoid duplication
     void Awake()
@@ -34,6 +39,9 @@ public class SceneManagerScript : MonoBehaviour
             {
                 DontDestroyOnLoad( obj );
             }
+			//Initialize the time and amount of deaths on awake
+			time = 0f;
+			deaths = 0;
             SceneManagementInstance = this;
         }
     }
@@ -45,6 +53,7 @@ public class SceneManagerScript : MonoBehaviour
         {
             reset();
         }
+		time = Time.time;
     }
 
     public void reset()
@@ -52,6 +61,15 @@ public class SceneManagerScript : MonoBehaviour
         this.Awake();
         SceneManager.LoadScene( StartScene.name );
     }
+
+	//Create a resetOnDeath() that increments the death counter if called
+	public void resetOnDeath()
+	{
+		this.Awake();
+		Debug.Log ("You Died");
+		deaths++;
+		SceneManager.LoadScene( StartScene.name );
+	}
 
     // Main method to switch scenes
     public static void goToScene( string scene, bool Additive, PortalManager portal )
