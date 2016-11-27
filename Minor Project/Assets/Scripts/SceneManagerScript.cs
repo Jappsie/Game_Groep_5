@@ -11,11 +11,9 @@ public class SceneManagerScript : MonoBehaviour
     public Object StartScene;               // Scene to reset to
     public KeyCode resetKey = KeyCode.R;    // Reset key
 
-	//Variables that track the time played & amount of deaths
+	//Variables that track the time played & a list of all the death times
 	public float time;
-	public static int deaths;
-
-	//Variables to display deaths/time
+	public static List<float> deathList = new List<float>();
 
     private static SceneManagerScript SceneManagementInstance;  // Static SceneManager to check for duplication
     private static IEnumerator coroutine;
@@ -66,8 +64,11 @@ public class SceneManagerScript : MonoBehaviour
 	public void resetOnDeath()
 	{
 		this.Awake();
-		deaths++;
-		Debug.Log (deaths);
+		deathList.Add (this.time);			//Add another death to the list
+		foreach (float dood in deathList) {
+			Debug.Log (dood);
+		}
+		Debug.Log ("Amount of deaths: " + deathList.Count);		//Log the death times and amount of deaths
 		SceneManager.LoadScene( StartScene.name );
 	}
 
