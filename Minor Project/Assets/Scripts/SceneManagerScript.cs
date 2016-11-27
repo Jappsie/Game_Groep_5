@@ -13,7 +13,9 @@ public class SceneManagerScript : MonoBehaviour
 
 	//Variables that track the time played & amount of deaths
 	public float time;
-	public int deaths;
+	public static int deaths;
+
+	//Variables to display deaths/time
 
     private static SceneManagerScript SceneManagementInstance;  // Static SceneManager to check for duplication
     private static IEnumerator coroutine;
@@ -40,11 +42,9 @@ public class SceneManagerScript : MonoBehaviour
                 DontDestroyOnLoad( obj );
             }
 			//Initialize the time and amount of deaths on awake
-			time = 0f;
-			deaths = 0;
             SceneManagementInstance = this;
         }
-    }
+	}
 
     // Check the reset key
     void Update()
@@ -66,8 +66,8 @@ public class SceneManagerScript : MonoBehaviour
 	public void resetOnDeath()
 	{
 		this.Awake();
-		Debug.Log ("You Died");
 		deaths++;
+		Debug.Log (deaths);
 		SceneManager.LoadScene( StartScene.name );
 	}
 
