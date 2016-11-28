@@ -8,6 +8,7 @@ public class EnemyFollowing : HealthSystem
     public float moveSpeed = 2.0f;
     public float rotationSpeed = 3.0f;
     public float Damage = 1;
+	public int Enemylife = 4;
 
     private GameObject Player;
     private Vector3 startPos;
@@ -50,8 +51,19 @@ public class EnemyFollowing : HealthSystem
         Debug.Log( other.gameObject.name + " Got Triggered" );
     }
 
+	private void OnTriggerEnter(Collider col){
+		if (col.gameObject.CompareTag("PlayerBullet")) {
+			Enemylife -= 1;
+			Destroy (col.gameObject);
+			if (Enemylife == 0) {
+				Destroy (this.gameObject);
+			}
+		}
+	}
+
     protected override void Death()
     {
         Destroy(gameObject);
     }
+
 }
