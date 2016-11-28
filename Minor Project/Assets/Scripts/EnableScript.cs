@@ -14,6 +14,7 @@ public class EnableScript : MonoBehaviour {
 
 	void OnTriggerEnter (Collider other) {
 		if (other.gameObject.CompareTag("Player")) {
+            Debug.Log("Activated");
 			for (int i = 0; i < toEnable.Length; i++) {
 				toEnable[i].gameObject.SetActive (!curStatus);
 			}

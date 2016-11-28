@@ -1,31 +1,17 @@
 fileFormatVersion: 2
-guid: c150b5b6701d36444b6bb0b885f4a9d4
-timeCreated: 1480169682
+guid: 9fc83bb1101ee0b4d8408584533da6ad
+timeCreated: 1480341654
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
-    100000: Cube
+    100000: default
     100002: //RootNode
-    100004: Null
-    100006: Pyramid
-    100008: Pyramid_2
-    100010: Taper
-    400000: Cube
+    400000: default
     400002: //RootNode
-    400004: Null
-    400006: Pyramid
-    400008: Pyramid_2
-    400010: Taper
-    2300000: Cube
-    2300002: Pyramid_2
-    3300000: Cube
-    3300002: Pyramid_2
-    4300000: Pyramid_2
-    4300002: Cube
-    6400000: Cube
-    6400002: Pyramid_2
-    9500000: //RootNode
+    2300000: default
+    3300000: default
+    4300000: default
   materials:
     importMaterials: 1
     materialName: 0
@@ -50,9 +36,9 @@ ModelImporter:
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: 3
+    globalScale: 1
     meshCompression: 0
-    addColliders: 1
+    addColliders: 0
     importBlendShapes: 1
     swapUVChannels: 0
     generateSecondaryUV: 0
@@ -84,7 +70,7 @@ ModelImporter:
     rootMotionBoneName: 
     hasTranslationDoF: 0
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 2
+  animationType: 0
   humanoidOversampling: 1
   additionalBone: 0
   userData: 

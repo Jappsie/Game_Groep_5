@@ -1,30 +1,34 @@
 fileFormatVersion: 2
-guid: c150b5b6701d36444b6bb0b885f4a9d4
-timeCreated: 1480169682
+guid: 9f07e7f6c7fa46e468727aad5e7d40dc
+timeCreated: 1480345349
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
-    100000: Cube
-    100002: //RootNode
-    100004: Null
-    100006: Pyramid
-    100008: Pyramid_2
-    100010: Taper
-    400000: Cube
-    400002: //RootNode
-    400004: Null
-    400006: Pyramid
-    400008: Pyramid_2
-    400010: Taper
+    100000: CINEMA_4D_Editor
+    100002: Cube
+    100004: Cube_1
+    100006: Cube_2
+    100008: stair
+    100010: //RootNode
+    400000: CINEMA_4D_Editor
+    400002: Cube
+    400004: Cube_1
+    400006: Cube_2
+    400008: stair
+    400010: //RootNode
     2300000: Cube
-    2300002: Pyramid_2
+    2300002: Cube_1
+    2300004: Cube_2
     3300000: Cube
-    3300002: Pyramid_2
-    4300000: Pyramid_2
-    4300002: Cube
+    3300002: Cube_1
+    3300004: Cube_2
+    4300000: Cube_1
+    4300002: Cube_2
+    4300004: Cube
     6400000: Cube
-    6400002: Pyramid_2
+    6400002: Cube_1
+    6400004: Cube_2
     9500000: //RootNode
   materials:
     importMaterials: 1
@@ -50,7 +54,7 @@ ModelImporter:
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: 3
+    globalScale: 1
     meshCompression: 0
     addColliders: 1
     importBlendShapes: 1
