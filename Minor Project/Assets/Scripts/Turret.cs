@@ -8,6 +8,7 @@ public class Turret : MonoBehaviour {
 	public float LineofSight = 10f;
 	public float rotationSpeed = 3.0f;
 	public GameObject bullet;
+	public int TurretLife = 3;
 
 	private Vector3 startPos;
 	private Quaternion startRot;
@@ -22,39 +23,58 @@ public class Turret : MonoBehaviour {
 
 		// Call BulletTrigger every so often
 		InvokeRepeating("BulletTrigger",triggertime,repeatrate);
+
 	}
 	
 
 	void Update () {
 		// Aim at the player
 
-		Player = GameObject.FindGameObjectsWithTag( "Player" )[ 0 ];
+		Player = GameObject.FindGameObjectsWithTag ("Player") [0];
 		Vector3 playerPos = Player.transform.position;
 		Vector3 objectPos = gameObject.transform.position;
-		Quaternion objectRot = gameObject.transform.rotation;;
+		Quaternion objectRot = gameObject.transform.rotation;
+		;
 
+		//Destroys Turret if Turrerlife equals zero
+		if (TurretLife == 0) {
+			Destroy (this.gameObject);
+		}
 
-		if ( Vector3.Distance( playerPos, objectPos ) < LineofSight )
-		{
-			gameObject.transform.rotation = Quaternion.Slerp( objectRot, Quaternion.LookRotation( playerPos - objectPos ), rotationSpeed * Time.deltaTime );
+		if (Vector3.Distance (playerPos, objectPos) < LineofSight) {
+			gameObject.transform.rotation = Quaternion.Slerp (objectRot, Quaternion.LookRotation (playerPos - objectPos), rotationSpeed * Time.deltaTime);
 		}
 		// Return to start position if no player is found
-		else
-		{
-			gameObject.transform.rotation = Quaternion.Slerp( objectRot, startRot, rotationSpeed * Time.deltaTime );
+		else {
+			gameObject.transform.rotation = Quaternion.Slerp (objectRot, startRot, rotationSpeed * Time.deltaTime);
+		}
+
+	}	
+
+	//Checks if the turret is hit by the player bullet
+	private void OnTriggerEnter(Collider col){
+		if (col.gameObject.CompareTag("PlayerBullet")) {
+			TurretLife -= 1;
+			Destroy (col.gameObject);
 		}
 	}
+		
+	
+
 
 	public void BulletTrigger(){
 		// Fire a bullet
 
 		Player = GameObject.FindGameObjectWithTag( "Player" );
-		Vector3 playerPos = Player.transform.position;
-		Vector3 objectPos = gameObject.transform.position;
 
-		if ( Vector3.Distance( playerPos, objectPos ) < LineofSight && gameObject.activeSelf)
-		{
-			Instantiate (bullet, transform.position, transform.rotation);
+		if (Player != null) {
+			Vector3 playerPos = Player.transform.position;
+			Vector3 objectPos = gameObject.transform.position;
+			if ( Vector3.Distance( playerPos, objectPos ) < LineofSight && gameObject.activeSelf)
+			{
+				Instantiate (bullet, transform.position, transform.rotation);
+			}
 		}
+
 	}
 }
