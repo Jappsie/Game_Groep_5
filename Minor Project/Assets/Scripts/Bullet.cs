@@ -24,10 +24,15 @@ public class Bullet : MonoBehaviour {
 
 	private void OnTriggerEnter( Collider collision )
 	{
-		if ( collision.gameObject.CompareTag( "Player" ) )
-		{
+		if ( collision.gameObject.CompareTag( "Player" ) ){
+
+			Vector3 impact = direction.normalized;
+			object[] temp = new object[2];
+			temp[0] = damage;
+			temp [1] = impact;
+
 			Debug.Log( collision.gameObject.name + " Got Damaged");
-			collision.gameObject.SendMessage( "TakeDamage", damage );
+			collision.gameObject.SendMessage( "TakeDamage", temp);
 		}
 		if ( !collision.gameObject.CompareTag( "Turret" )) {
 		 Destroy (gameObject);

@@ -83,6 +83,12 @@ public class PlayerMovement : HealthSystem
 		else if (body != null) {
 			hit.rigidbody.AddForce(strength/hit.rigidbody.mass * movement);
 		}
+
+//		if (body != null && hit.gameObject.){
+//			Vector3 impact = body.velocity.normalized;
+//			hit.controller.SimpleMove (impact * knockback);
+//
+//		}
 	}
 
 	// reset the scene
