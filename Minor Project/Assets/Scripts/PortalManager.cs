@@ -27,7 +27,7 @@ public class PortalManager : MonoBehaviour {
 
         // Find player
         GameObject other = GameObject.FindGameObjectWithTag( "Player" );
-        other.transform.position = portalObject.transform.position + portalScript.Position + new Vector3( 0, other.transform.position.y, 0 );
+        other.transform.position = portalObject.transform.position + portalScript.Position;
     }
 
 }
