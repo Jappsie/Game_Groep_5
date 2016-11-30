@@ -48,6 +48,14 @@ public class spawn : MonoBehaviour {
         // make an instance of a random enemy at the spawnPoint and align it with world coordinates
 		GameObject enemy = enemies[Random.Range(0, enemies.Length)];
 
-		Instantiate (enemy, gameObject.transform.position + spawnPoint + enemy.transform.position, Quaternion.identity);
+		//Check where the center of the collider of the enemy is
+		Vector3 enemyCenter = enemy.GetComponent<BoxCollider> ().size * 0.5f + spawnPoint;
+		//Fill an array with all the collision with a sphere around the enemy's BoxCollider with a ray of 0.5 * the width of the BoxCollider
+		Collider[] colliderChecker = Physics.OverlapSphere (enemyCenter, enemy.GetComponent<BoxCollider>().size.x * 0.5f);
+		Debug.Log (colliderChecker.Length);
+		//When the enemy only collides with the plane, place it
+		if (colliderChecker.Length == 1) {
+			Instantiate (enemy, gameObject.transform.position + spawnPoint + enemy.transform.position, Quaternion.identity);
+		}
     }
 }
