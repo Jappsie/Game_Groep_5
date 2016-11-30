@@ -9,14 +9,15 @@ public abstract class HealthSystem : MonoBehaviour
 
     public float MaxHealth;     // Starting amount of Health
     public float CurHealth;     // Current amount of Health
-	public float KnockbackForce;		// knockback factor
-	public float KnockbackDistance;		// knockback distance
+	public float KnockbackForce;		// knockback force
+	public float KnockbackFade;		//simulated character drag
 
     protected bool isDead;    // Variable to track death-ness 
     private bool damaged;  // Variable to track damaged-ness
 	protected float CurHeight; //Variable to track height of an Object
-	private bool knocked;
-	private Vector3 direction;
+	private bool knocked;	//checks whether the character must be knocked back
+	private Vector3 direction; //direction of the object hitting the character
+	private float impact;		//copy of KnockbackForce that fades over a set time using KnockbackFade
     // Get reference to playerMovement and revive object
     void Awake()
     {
@@ -34,23 +35,27 @@ public abstract class HealthSystem : MonoBehaviour
 		}
 	}
 	void FixedUpdate(){
-		if (knocked) {
-			gameObject.transform.Translate (-1f * direction * KnockbackForce * Time.deltaTime);
-			if (gameObject.transform.Equals((-1f * direction * KnockbackDistance) + gameObject.transform.position)){
-				knocked = false;
+		if (knocked) {							//when the player must be knocked back
+			gameObject.transform.Translate (direction * impact * Time.deltaTime, Space.World); //push back character with impact amount
+			impact -= KnockbackFade;			//simulate drag by subtracting Knockbackfade from impact, every update
+
+			if (impact <= 0) {					//when the impact is 0or lower (thus no more knockback)
+				knocked = false;				//stop the function from executing
 			}
 		}
 	}
 
+
     // Method to give the object damage
-	public void TakeDamage( object[] temp )
-    {
-        damaged = true;
+	public void TakeDamage( object[] temp ){	//takes an object array with on [0] the damage done(float) and on [1] the directopm vetor for knockback (Vector3)
+        
+		damaged = true;
 		CurHealth -= (float) temp[0];
-		if(gameObject.CompareTag("Player")){
-			direction = (Vector3)temp [1];
-			knocked = true;
-			//gameObject.transform.Translate (-1f * (Vector3)temp [1] * Knockback * Time.deltaTime);
+		
+	if(gameObject.CompareTag("Player")){		//only run the knockback when a player is damaged
+			direction = (Vector3)temp [1];		
+			impact = KnockbackForce;			//copy the set KnockbackForce to a value used for calculation
+			knocked = true;						//starts the knockback sequence while true
 		}
 
         // Check for negative health and if not dead yet, invoke death
