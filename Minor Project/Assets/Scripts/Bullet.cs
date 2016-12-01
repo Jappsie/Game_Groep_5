@@ -7,17 +7,10 @@ public class Bullet : MonoBehaviour {
 	private Vector3 direction;
 	private GameObject Player;
 
-	// Find the player and get the direction
-	void Start () {
-
-		Player = GameObject.FindGameObjectWithTag( "Player" );
-		direction = (Player.transform.position - transform.position).normalized;
-	}
-	
     //Bullet speed
 	void Update () {
 
-		transform.position += direction * (firespeed * Time.deltaTime);
+		transform.position += gameObject.transform.rotation * Vector3.forward * (firespeed * Time.deltaTime);
 		Destroy (this.gameObject, 3.0f);
 
 	}
