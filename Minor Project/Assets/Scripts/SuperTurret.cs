@@ -71,8 +71,18 @@ public class SuperTurret : Turret {
 				outputOutput [k] = sigmoid (summation (hiddenOutput, weightsOutput[k]));
 			}
 			float[] gradOutput;
-			for (int k = 0; k < outputSize; k++) {
-				
+			float[][] deltaWeightOutput;
+			float[][] deltaWeightInput;
+			for (int j = 0; j < hiddenSize; j++) {
+				for (int k = 0; k < outputSize; k++) {
+					deltaWeightOutput [k] [j] = deltaWeightsOutput (hiddenOutput [j], outputOutput [k], desOutputs [k]);
+					gradOutput [k] = deltaWeightOutput [k] [j] / (alpha * hiddenOutput [j]);
+				}
+			}
+			for (int features = 0; features < inputSize; features++) {
+				for (int j = 0; j < hiddenSize; j++) {
+					deltaWeightInput [j] [features] = deltaWeightsHidden (curInput [features], hiddenOutput [j], deltaWeightOutput [j], gradOutput); 
+				}
 			}
 		}
 	}
