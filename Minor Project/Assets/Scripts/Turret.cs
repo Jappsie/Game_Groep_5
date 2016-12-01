@@ -10,9 +10,9 @@ public class Turret : MonoBehaviour {
 	public GameObject bullet;
 	public int TurretLife = 3;
 
-	private Vector3 startPos;
-	private Quaternion startRot;
-	private GameObject Player;
+	protected Vector3 startPos;
+	protected Quaternion startRot;
+	protected GameObject Player;
 
 	// Use this for initialization
 	void Start () 
@@ -62,7 +62,7 @@ public class Turret : MonoBehaviour {
 	
 
 
-	public void BulletTrigger(){
+	virtual protected void BulletTrigger(){
 		// Fire a bullet
 
 		Player = GameObject.FindGameObjectWithTag( "Player" );

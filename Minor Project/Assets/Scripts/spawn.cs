@@ -52,9 +52,11 @@ public class spawn : MonoBehaviour {
 		Vector3 enemyCenter = enemy.GetComponent<BoxCollider> ().size * 0.5f + spawnPoint;
 		//Fill an array with all the collision with a sphere around the enemy's BoxCollider with a ray of 0.5 * the width of the BoxCollider
 		Collider[] colliderChecker = Physics.OverlapSphere (enemyCenter, enemy.GetComponent<BoxCollider>().size.x * 0.5f);
-		Debug.Log (colliderChecker.Length);
+		for (int i = 0; i < colliderChecker.Length; i++) {
+			Debug.Log ("Collider " + i + " collides with: " + colliderChecker [i]);
+		}
 		//When the enemy only collides with the plane, place it
-		if (colliderChecker.Length == 1) {
+		if (colliderChecker.Length == 2) {
 			Instantiate (enemy, gameObject.transform.position + spawnPoint + enemy.transform.position, Quaternion.identity);
 		}
     }
