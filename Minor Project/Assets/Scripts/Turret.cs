@@ -30,7 +30,7 @@ public class Turret : MonoBehaviour {
 	void Update () {
 		// Aim at the player
 
-		Player = GameObject.FindGameObjectsWithTag ("Player") [0];
+		Player = GameObject.FindGameObjectWithTag("Player");
 		Vector3 playerPos = Player.transform.position;
 		Vector3 objectPos = gameObject.transform.position;
 		Quaternion objectRot = gameObject.transform.rotation;
@@ -57,8 +57,11 @@ public class Turret : MonoBehaviour {
 			TurretLife -= 1;
 			Destroy (col.gameObject);
 		}
+		if (col.gameObject.CompareTag ("TurretBullet")) {
+			TurretLife -= 1;
+			Destroy (col.gameObject); 
+		}
 	}
-		
 	
 
 
@@ -70,9 +73,10 @@ public class Turret : MonoBehaviour {
 		if (Player != null) {
 			Vector3 playerPos = Player.transform.position;
 			Vector3 objectPos = gameObject.transform.position;
+			Vector3 Spawnpoint = transform.GetChild (1).position;
 			if ( Vector3.Distance( playerPos, objectPos ) < LineofSight && gameObject.activeSelf)
 			{
-				Instantiate (bullet, transform.position, transform.rotation);
+				Instantiate (bullet, Spawnpoint, transform.rotation);
 			}
 		}
 
