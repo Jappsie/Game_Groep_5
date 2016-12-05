@@ -11,7 +11,8 @@ public class EnemyFollowing : HealthSystem
     public float Damage = 1;
 	public float teleportDistance = 0.8f;		//teleportDistance with respect to the player
 	public float teleportRate = 2f;				//Once every teleportRate seconds the enemy teleports (Exponential Distribution)
-	public bool canTeleport = false;
+	public float exponentialBias = 0;			//Bias for the exponential distribution
+	public bool canTeleport = false;			//Boolean that allows teleporting
 
     private GameObject Player;					
     private Vector3 startPos;
@@ -75,12 +76,13 @@ public class EnemyFollowing : HealthSystem
 	//Teleport method
 	private IEnumerator Teleport() {
 		float exponential = Uni2Exp (UnityEngine.Random.value, teleportRate);	//Draw exponentially distributed number (wait time)
-		yield return new WaitForSeconds( exponential );							//Wait for this long
+		yield return new WaitForSeconds( exponential + exponentialBias );							//Wait for this long
 		Vector3 playerPosition = Player.gameObject.transform.position;  		//Player position
 		Quaternion playerRotation = Player.gameObject.transform.rotation;		//Player rotation
 		Vector3 teleportDirection = playerRotation * Vector3.back;				//Behind the player
 		Vector3 teleportLocation = teleportDirection * (gameObject.transform.position - playerPosition).magnitude * teleportDistance;	//Teleport location
 		gameObject.transform.position = teleportLocation + playerPosition;					//Apply teleport
+		gameObject.transform.rotation = playerRotation;							//Turn the enemy in the same direction as player
 		teleportReady = true;													//Enemy is ready to teleport again
 	}
 
