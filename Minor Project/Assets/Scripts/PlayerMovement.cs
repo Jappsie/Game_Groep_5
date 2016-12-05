@@ -127,6 +127,26 @@ public class PlayerMovement : HealthSystem
         }
     }
 
+    private void OnTriggerEnter(Collider obj)
+    {
+        if (obj.gameObject.CompareTag("speedUp")) {
+            speed += 5.0f;
+            obj.gameObject.SetActive(false);
+        }
+
+        if (obj.gameObject.CompareTag("powerUp"))
+        {
+            strength = 5 * strength;
+            obj.gameObject.SetActive(false);
+        }
+
+        if (obj.gameObject.CompareTag("gravityUp"))
+        {
+            zweefConstant = 100;
+            obj.gameObject.SetActive(false);
+        }
+    }
+
     // Reset the scene when player dies
     protected override void Death()     //Death is now protected
     {
