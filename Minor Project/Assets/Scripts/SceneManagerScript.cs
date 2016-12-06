@@ -10,6 +10,7 @@ public class SceneManagerScript : MonoBehaviour
     public List<Object> DontDestroy;        // List of object to keep between scenes
     public Object StartScene;               // Scene to reset to
     public KeyCode resetKey = KeyCode.R;    // Reset key
+	public GUIText Scoretext;               // Used for displaying the score on the screen
 
 	//Variables that track the time played & a list of all the death times
 	public float time;
@@ -18,6 +19,8 @@ public class SceneManagerScript : MonoBehaviour
     private static SceneManagerScript SceneManagementInstance;  // Static SceneManager to check for duplication
     private static IEnumerator coroutine;
     private PortalManager portal;
+
+	private int Deathcount = 0; // Counts how many times the main character died
 
 
     // If SceneManagementInstance exists, destroy the existing objects first to avoid duplication
@@ -42,6 +45,9 @@ public class SceneManagerScript : MonoBehaviour
 			//Initialize the time and amount of deaths on awake
             SceneManagementInstance = this;
         }
+		// Changes the amount of deaths on the screen
+		Deathcount = deathList.Count;
+		Scoretext.text = "Deaths: " + Deathcount; 
 	}
 
     // Check the reset key
@@ -52,6 +58,7 @@ public class SceneManagerScript : MonoBehaviour
             reset();
         }
 		time = Time.time;
+
     }
 
     public void reset()
@@ -106,5 +113,4 @@ public class SceneManagerScript : MonoBehaviour
         portal.teleport();
         SceneManager.sceneLoaded -= teleport;
     }
-
 }

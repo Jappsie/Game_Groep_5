@@ -11,13 +11,12 @@ public class Bullet : MonoBehaviour {
 	void Start () {
 
 		Player = GameObject.FindGameObjectWithTag( "Player" );
-		direction = (Player.transform.position - transform.position).normalized;
 	}
 	
     //Bullet speed
 	void Update () {
 
-		transform.position += direction * (firespeed * Time.deltaTime);
+		transform.position += transform.forward * (firespeed * Time.deltaTime);
 		Destroy (this.gameObject, 3.0f);
 
 	}
