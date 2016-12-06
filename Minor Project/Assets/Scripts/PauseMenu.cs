@@ -60,6 +60,7 @@ public void showPaused(){
 	foreach(GameObject g in pauseObjects){
 		g.SetActive(true);
 	}
+		PlayerMovement.AbleShoot = false;
 }
 
 //hides objects with ShowOnPause tag
@@ -67,6 +68,7 @@ public void hidePaused(){
 	foreach(GameObject g in pauseObjects){
 		g.SetActive(false);
 	}
+		PlayerMovement.AbleShoot = true;
 }
 
 //Reloads main menu
