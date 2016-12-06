@@ -92,7 +92,7 @@ public class PlayerMovement : HealthSystem
         if ( Input.GetKey( KeyCode.Mouse0 ) && AbleShoot == true )
         {
             AbleShoot = false;
-            Instantiate( Playerbullet, transform.position, transform.rotation );
+            Instantiate( Playerbullet, transform.position + transform.rotation * Vector3.forward, transform.rotation );
         }
     }
 

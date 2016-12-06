@@ -51,7 +51,6 @@ public class spawn : MonoBehaviour {
 		Vector3 enemyCenter = enemy.transform.GetComponent<BoxCollider> ().size * 0.5f + spawnPoint;
 		// Fill an array with all the collision with a sphere around the enemy's BoxCollider with a ray of 0.5 * the width of the BoxCollider
 		Collider[] colliderChecker = Physics.OverlapSphere (enemyCenter, enemy.GetComponent<BoxCollider>().size.x * 0.5f);
-		Debug.Log (colliderChecker.Length);
 		//When the enemy only collides with the plane, place it
 		if (colliderChecker.Length == 1) {
             GameObject spawnedOne = (GameObject)Instantiate(enemy, gameObject.transform.position + spawnPoint

@@ -63,11 +63,15 @@ public class EnemyFollowing : HealthSystem
             Debug.Log( collision.gameObject.name + " Got Damaged");
             collision.gameObject.SendMessage( "TakeDamage", Damage );
         }
-    }
-
-    private void OnTriggerStay( Collider other )
-    {
-        Debug.Log( other.gameObject.name + " Got Triggered" );
+        if (collision.gameObject.CompareTag("PlayerBullet"))
+        {
+            Enemylife -= 1;
+            Destroy( collision.gameObject );
+            if (Enemylife <= 0)
+            {
+                Destroy( this.gameObject );
+            }
+        }
     }
 
 	private void OnTriggerEnter(Collider col){

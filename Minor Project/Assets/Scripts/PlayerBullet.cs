@@ -13,12 +13,13 @@ public class PlayerBullet : MonoBehaviour {
 		GameObject Player = GameObject.FindGameObjectWithTag("Player"); // Finds Player with Tag Player
 	    Playermovement = Player.GetComponent<PlayerMovement>(); // Gets the script PlayerMovemennt
 		direction = (Playermovement.MousePosition - Player.transform.position).normalized;// Difference between mousePosition and Playey
+        gameObject.GetComponent<Rigidbody>().velocity = direction * bulletspeed ;
 	
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		transform.position += direction * (bulletspeed * Time.deltaTime);
+		//transform.position += direction * (bulletspeed * Time.deltaTime);
 
 		Destroy (this.gameObject, DestroyTime);
 
