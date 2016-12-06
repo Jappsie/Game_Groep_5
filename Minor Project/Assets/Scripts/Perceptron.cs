@@ -57,8 +57,7 @@ public class Perceptron : Turret
     // Step function [-1,1]
     float step( float x )
     {
-        float sigmoid = 1f / (1 + Mathf.Exp( -x ));
-        return sigmoid;
+		return x > 0.5f ? 1 : -1;
     }
 
     // Calculate output network
@@ -91,9 +90,7 @@ public class Perceptron : Turret
                 float[] curInput = input[i].getInput();
                 float desOutput = input[ i ].getOutput();
                 //Debug.Log( "Input: " + curInput[0] + " " + curInput[1] );
-                float temp = calculate( curInput, weights, 0.2f );
-                temp = temp > 0.75f ? 1 : temp < 0.25 ? -1 : 0;
-                outputs[ i ] = temp;
+				outputs[ i ] = calculate( curInput, weights, 0.2f );
                     
                 //Debug.Log( "output: " + outputs[ i ] );
                 //Debug.Log( "desOut: " + desOutputs[ i ] );
@@ -120,6 +117,7 @@ public class Perceptron : Turret
             Ray playerRay = new Ray( objectPos, playerPos - objectPos + new Vector3(0,0.5f,0)); // Vector as compensation for mass-position
             if ( Physics.Raycast(playerRay , out hit ) )
             {
+				Debug.Log (hit.collider.gameObject.name);
                 if (hit.collider.gameObject.Equals(Player))
                 {
                     if ( Vector3.Distance( playerPos, objectPos ) < LineofSight && gameObject.activeSelf )
@@ -137,7 +135,7 @@ public class Perceptron : Turret
                                 turretLeftRight += Mathf.Sign( Vector3.Dot( plane, turretDistance ) );
                             }
                         }
-                        float offset = 2f * calculate( new float[] { distance.magnitude, turretLeftRight }, weights, 0.2f ) - 1;
+                        float offset = calculate( new float[] { distance.magnitude, turretLeftRight }, weights, 0.2f );
 
                         Instantiate( bullet, transform.position, transform.rotation * Quaternion.Euler( 0, offset * -20f, 0 ) );
                         IEnumerator coroutine = trackPlayer(playerRay.direction);
