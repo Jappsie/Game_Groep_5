@@ -19,6 +19,7 @@ public class PlayerMovement : HealthSystem
     private Quaternion axisRotation;                // Align movement with camera position
     private Vector3 movement;
     private int id;                             //Contains encoded movement direction
+	private GameObject cam;
 
 
 
@@ -75,7 +76,9 @@ public class PlayerMovement : HealthSystem
         }
 
         //Finds mouse position in the world on a plane at height of the main caracter
-        var ray = Camera.main.ScreenPointToRay( Input.mousePosition );
+		cam = GameObject.FindGameObjectWithTag("MainCamera");
+		Camera camera = cam.GetComponent<Camera> ();
+        var ray = camera.ScreenPointToRay( Input.mousePosition );
         Plane Hitplane = new Plane( new Vector3( 0, 1, 0 ), transform.position );
         float distance = 0f;
 
@@ -121,6 +124,26 @@ public class PlayerMovement : HealthSystem
         else if ( body != null )
         {
             hit.rigidbody.AddForce( strength / hit.rigidbody.mass * movement );
+        }
+    }
+
+    private void OnTriggerEnter(Collider obj)
+    {
+        if (obj.gameObject.CompareTag("speedUp")) {
+            speed += 5.0f;
+            obj.gameObject.SetActive(false);
+        }
+
+        if (obj.gameObject.CompareTag("powerUp"))
+        {
+            strength = 5 * strength;
+            obj.gameObject.SetActive(false);
+        }
+
+        if (obj.gameObject.CompareTag("gravityUp"))
+        {
+            zweefConstant = 100;
+            obj.gameObject.SetActive(false);
         }
     }
 

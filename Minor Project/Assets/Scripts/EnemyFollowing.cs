@@ -14,6 +14,7 @@ public class EnemyFollowing : HealthSystem
 	public float exponentialBias = 0;			//Bias for the exponential distribution
 	public bool canTeleport = false;			//Boolean that allows teleporting
 	public float teleportOrientation = 1;		//Before or behind the player
+	public int Enemylife = 4;
 
     private GameObject Player;					
     private Vector3 startPos;
@@ -68,6 +69,16 @@ public class EnemyFollowing : HealthSystem
     {
         Debug.Log( other.gameObject.name + " Got Triggered" );
     }
+
+	private void OnTriggerEnter(Collider col){
+		if (col.gameObject.CompareTag("PlayerBullet")) {
+			Enemylife -= 1;
+			Destroy (col.gameObject);
+			if (Enemylife == 0) {
+				Destroy (this.gameObject);
+			}
+		}
+	}
 
     protected override void Death()
     {

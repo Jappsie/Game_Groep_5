@@ -9,6 +9,7 @@ public abstract class HealthSystem : MonoBehaviour
 
     public float MaxHealth;     // Starting amount of Health
     public float CurHealth;     // Current amount of Health
+    public float deathHeight;   // Consider the player dead if it falls below this threshold
 
     protected bool isDead;    // Variable to track death-ness 
     private bool damaged;  // Variable to track damaged-ness
@@ -26,7 +27,7 @@ public abstract class HealthSystem : MonoBehaviour
 
 	protected virtual void Update() {			//virtual means it can be overriden by child class
 		CurHeight = gameObject.transform.position.y;
-		if (CurHeight < -10.0f) {				//Whenever the object is below -10.0f, its death function gets called
+		if (CurHeight < deathHeight) {				//Whenever the object is below -10.0f, its death function gets called
 			Death ();
 		}
 	}
