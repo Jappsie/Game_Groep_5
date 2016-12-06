@@ -63,20 +63,19 @@ public class SceneManagerScript : MonoBehaviour
 
     public void reset()
     {
-        this.Awake();
         SceneManager.LoadScene( StartScene.name );
+		this.Awake();
     }
 
 	//Create a resetOnDeath() that increments the death counter if called
 	public void resetOnDeath()
 	{
-		this.Awake();
+		this.reset ();
 		deathList.Add (this.time);			//Add another death to the list
 		foreach (float dood in deathList) {
 			Debug.Log (dood);
 		}
 		Debug.Log ("Amount of deaths: " + deathList.Count);		//Log the death times and amount of deaths
-		SceneManager.LoadScene( StartScene.name );
 	}
 
     // Main method to switch scenes
