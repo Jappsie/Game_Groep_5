@@ -79,14 +79,14 @@ public class EnemyFollowing : HealthSystem
 		yield return new WaitForSeconds( exponential + exponentialBias );							//Wait for this long
 		Vector3 playerPosition = Player.gameObject.transform.position;  		//Player position
 		Quaternion playerRotation = Player.gameObject.transform.rotation;		//Player rotation
-		Vector3 teleportDirection = playerRotation * Vector3.back;				//Behind the player
+		Vector3 teleportDirection = playerRotation * Vector3.forward;				//Before the player
 		Vector3 teleportLocation = teleportDirection * (gameObject.transform.position - playerPosition).magnitude * teleportDistance;	//Teleport location
 		gameObject.transform.position = teleportLocation + playerPosition;					//Apply teleport
-		gameObject.transform.rotation = playerRotation;							//Turn the enemy in the same direction as player
+		gameObject.transform.rotation = playerRotation * Quaternion.Euler(0, 180f, 0);							//Turn the enemy in the same direction as player
 		teleportReady = true;													//Enemy is ready to teleport again
 	}
 
-	//Inverse transform method: F(x) = y => F^-1(y) = x
+	//Inverse transform method: F(x) = y => F^-1(y) = x (Could also try Gaussian distribution?)
 	protected float Uni2Exp(float uniform, float lambda) {
 		return -(lambda) * Mathf.Log (uniform);					//if uniform~U(0,1) then for the returned value y: y~EXP(lambda) (lambda * exp( -lambda * y )
 	}
