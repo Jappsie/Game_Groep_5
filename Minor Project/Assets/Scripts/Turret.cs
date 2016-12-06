@@ -10,12 +10,12 @@ public class Turret : MonoBehaviour {
 	public GameObject bullet;
 	public int TurretLife = 3;
 
-	private Vector3 startPos;
-	private Quaternion startRot;
-	private GameObject Player;
+	protected Vector3 startPos;
+	protected Quaternion startRot;
+	protected GameObject Player;
 
 	// Use this for initialization
-	void Start () 
+	protected virtual void Start () 
 	{
 		//Start position + rotation of the turret
 		startPos = gameObject.transform.position;
@@ -34,10 +34,9 @@ public class Turret : MonoBehaviour {
 		Vector3 playerPos = Player.transform.position;
 		Vector3 objectPos = gameObject.transform.position;
 		Quaternion objectRot = gameObject.transform.rotation;
-		;
 
-		//Destroys Turret if Turrerlife equals zero
-		if (TurretLife == 0) {
+        //Destroys Turret if Turrerlife equals zero
+        if ( TurretLife == 0) {
 			Destroy (this.gameObject);
 		}
 
@@ -62,7 +61,7 @@ public class Turret : MonoBehaviour {
 	
 
 
-	public void BulletTrigger(){
+	virtual protected void BulletTrigger(){
 		// Fire a bullet
 
 		Player = GameObject.FindGameObjectWithTag( "Player" );
