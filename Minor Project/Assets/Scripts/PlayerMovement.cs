@@ -13,13 +13,18 @@ public class PlayerMovement : HealthSystem
     public static bool AbleShoot = true; // Bool to check if player is able to shoot
     public GameObject Playerbullet; // Bullet Player uses
     public Vector3 MousePosition; // Position mouseRaycast on plane
+	public float MinMomentum =1; // Minimum momentum
+	public float Momentum; // Momentum on the playerbullet
+	public float MaxMomentum = 10f;//Maxmomentum
+	public float Momentumscale =5f; //Used for scaling the maximunmomentum
 
-    private CharacterController controller;     // Controller of the movement
+	private CharacterController controller;     // Controller of the movement
     private float verticalVelocity;            // Velocity regarding jump/gravity
     private Quaternion axisRotation;                // Align movement with camera position
     private Vector3 movement;
     private int id;                             //Contains encoded movement direction
 	private GameObject cam;
+	private bool Mouserelease;
 
 
 
@@ -30,71 +35,73 @@ public class PlayerMovement : HealthSystem
         Vector3 camera = GameObject.FindGameObjectWithTag( "MainCamera" ).transform.position;
         camera.y = gameObject.transform.position.y;
         axisRotation = Quaternion.LookRotation( gameObject.transform.position - camera, Vector3.up );
+
     }
 
     // Make the object move
     protected override void Update()        //Now overrides the Update of HealthSystem to check y position
-    {
-        base.Update();                      //Call to Update of Parent
+	{
+		base.Update ();                      //Call to Update of Parent
 
-        // Jump if not floating
-        if ( controller.isGrounded )
-        {
-            verticalVelocity = 0.0f;
-            if ( Input.GetKey( KeyCode.Space ) )
-            {
-                verticalVelocity = jumpForce;
-            }
-        }
-        else
-        {
-            // If holding space and falling glide
-            if ( Input.GetKey( KeyCode.Space ) && verticalVelocity <= 0 )
-            {
-                verticalVelocity = -zweefConstant * Time.deltaTime;     //Constant falling speed when hovering
-            }
-            else
-            {
-                verticalVelocity -= gravity * Time.deltaTime;
-            }
-        }
+		// Jump if not floating
+		if (controller.isGrounded) {
+			verticalVelocity = 0.0f;
+			if (Input.GetKey (KeyCode.Space)) {
+				verticalVelocity = jumpForce;
+			}
+		} else {
+			// If holding space and falling glide
+			if (Input.GetKey (KeyCode.Space) && verticalVelocity <= 0) {
+				verticalVelocity = -zweefConstant * Time.deltaTime;     //Constant falling speed when hovering
+			} else {
+				verticalVelocity -= gravity * Time.deltaTime;
+			}
+		}
 
-        // Move about in the 2D area
-        float horizontalMovement = Input.GetAxis( "Horizontal" );
-        float verticalMovement = Input.GetAxis( "Vertical" );
-        movement = axisRotation * new Vector3( speed * horizontalMovement, verticalVelocity, speed * verticalMovement );
+		// Move about in the 2D area
+		float horizontalMovement = Input.GetAxis ("Horizontal");
+		float verticalMovement = Input.GetAxis ("Vertical");
+		movement = axisRotation * new Vector3 (speed * horizontalMovement, verticalVelocity, speed * verticalMovement);
 
-        // Stops the player from moving when he has shot a bullet
-        if ( AbleShoot == true )
-        {
-            controller.Move( movement * Time.deltaTime );
-        }
-        else
-        {
-            movement = axisRotation * new Vector3( 0, verticalVelocity, 0 );
-            controller.Move( movement * Time.deltaTime );
-        }
+		// Stops the player from moving when he has shot a bullet
+		if (AbleShoot == true) {
+			controller.Move (movement * Time.deltaTime);
+		} else {
+			movement = axisRotation * new Vector3 (0, verticalVelocity, 0);
+			controller.Move (movement * Time.deltaTime);
+		}
 
-        //Finds mouse position in the world on a plane at height of the main caracter
-		cam = GameObject.FindGameObjectWithTag("MainCamera");
+		//Finds mouse position in the world on a plane at height of the main caracter
+		cam = GameObject.FindGameObjectWithTag ("MainCamera");
 		Camera camera = cam.GetComponent<Camera> ();
-        var ray = camera.ScreenPointToRay( Input.mousePosition );
-        Plane Hitplane = new Plane( new Vector3( 0, 1, 0 ), transform.position );
-        float distance = 0f;
+		var ray = camera.ScreenPointToRay (Input.mousePosition);
+		Plane Hitplane = new Plane (new Vector3 (0, 1, 0), transform.position);
+		float distance = 0f;
 
-        if ( Hitplane.Raycast( ray, out distance ) )
-        {
-            MousePosition = ray.GetPoint( distance );
-            transform.LookAt( MousePosition );
-        }
+		if (Hitplane.Raycast (ray, out distance)) {
+			MousePosition = ray.GetPoint (distance);
+			transform.LookAt (MousePosition);
+		}
 
-        //Left mouse click to fire a bullet
-        if ( Input.GetKey( KeyCode.Mouse0 ) && AbleShoot == true )
-        {
-            AbleShoot = false;
-            Instantiate( Playerbullet, transform.position, transform.rotation );
-        }
-    }
+
+
+		// Counts how many seconds the left mouse butten is hold down
+		if (Input.GetMouseButton (0) && AbleShoot == true) {
+			Momentum += Time.deltaTime;
+			Mouserelease = true;
+			Momentum = Mathf.Clamp (Momentum, MinMomentum, MaxMomentum);
+			//Debug.Log (Momentum);
+		
+		}
+		// Shoots bullet when left mouse click is released
+		if (Input.GetMouseButton (0) == false && Mouserelease == true) {
+			Instantiate (Playerbullet, transform.position, transform.rotation);
+			Momentum = Momentum * Momentumscale;
+			AbleShoot = false;
+			Mouserelease = false;
+			}
+		}
+
 
     // Empty method
     private void BulletTrigger()
