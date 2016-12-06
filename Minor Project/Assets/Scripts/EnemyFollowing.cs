@@ -13,6 +13,7 @@ public class EnemyFollowing : HealthSystem
 	public float teleportRate = 2f;				//Once every teleportRate seconds the enemy teleports (Exponential Distribution)
 	public float exponentialBias = 0;			//Bias for the exponential distribution
 	public bool canTeleport = false;			//Boolean that allows teleporting
+	public float teleportOrientation = 1;		//Before or behind the player
 
     private GameObject Player;					
     private Vector3 startPos;
@@ -79,10 +80,10 @@ public class EnemyFollowing : HealthSystem
 		yield return new WaitForSeconds( exponential + exponentialBias );							//Wait for this long
 		Vector3 playerPosition = Player.gameObject.transform.position;  		//Player position
 		Quaternion playerRotation = Player.gameObject.transform.rotation;		//Player rotation
-		Vector3 teleportDirection = playerRotation * Vector3.forward;				//Before the player
+		Vector3 teleportDirection = playerRotation * Vector3.forward * teleportOrientation;				//Before the player
 		Vector3 teleportLocation = teleportDirection * (gameObject.transform.position - playerPosition).magnitude * teleportDistance;	//Teleport location
 		gameObject.transform.position = teleportLocation + playerPosition;					//Apply teleport
-		gameObject.transform.rotation = playerRotation * Quaternion.Euler(0, 180f, 0);							//Turn the enemy in the same direction as player
+		gameObject.transform.rotation = Quaternion.LookRotation( teleportLocation );							//Turn the enemy in the same direction as player
 		teleportReady = true;													//Enemy is ready to teleport again
 	}
 
