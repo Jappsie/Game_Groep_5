@@ -119,8 +119,11 @@ public class PlayerMovement : HealthSystem
     private void OnControllerColliderHit( ControllerColliderHit hit )
     {
         Rigidbody body = hit.gameObject.GetComponent<Rigidbody>();
-
-        if ( body != null && hit.gameObject.CompareTag( "Constrained" ) )
+        if (body != null && hit.gameObject.CompareTag("Tree")) {
+            Debug.Log( "Send message" );
+            hit.gameObject.SendMessage( "playAnimation" );
+        }
+        else if ( body != null && hit.gameObject.CompareTag( "Constrained" ) )
         {
             Debug.Log( movement );
             if ( Mathf.Abs( movement.x ) > Mathf.Abs( movement.z ) )
