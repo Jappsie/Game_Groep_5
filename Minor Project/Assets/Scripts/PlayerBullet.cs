@@ -11,6 +11,7 @@ public class PlayerBullet : MonoBehaviour {
 
 	void Start () {
 		GameObject Player = GameObject.FindGameObjectWithTag("Player"); // Finds Player with Tag Player
+		this.tag = "Attack";
 	    Playermovement = Player.GetComponent<PlayerMovement>(); // Gets the script PlayerMovemennt
 		direction = (Playermovement.MousePosition - Player.transform.position).normalized;// Difference between mousePosition and Playey
 	
