@@ -20,6 +20,7 @@ public class PlayerBullet : MonoBehaviour {
 		bullet.AddForce (direction*Playermovement.Momentum, ForceMode.Impulse);//Adds force on Bullet
 		Debug.Log (Playermovement.Momentum);
 		Playermovement.Momentum = 1; //Sets the momentum in the playermovement script back to 1
+		Physics.IgnoreCollision(bullet.GetComponent<BoxCollider>(),Player.GetComponent<CharacterController>());
 	}
 	
 	// Update is called once per frame
