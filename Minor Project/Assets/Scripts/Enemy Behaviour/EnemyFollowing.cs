@@ -14,7 +14,13 @@ public class EnemyFollowing : HealthSystem
 	public float exponentialBias = 0;			//Bias for the exponential distribution
 	public bool canTeleport = false;			//Boolean that allows teleporting
 	public float teleportOrientation = 1;		//Before or behind the player
-	public int Enemylife = 4;
+	public int Enemylife = 4;                   
+	public GameObject Eggs;              
+	public bool eggCapability;                  //determines if enemy is capable of laying eggs
+	public int maxEggs = 5;                     //Max amount of eggs a enemy can lay
+	public int Birthtime = 10;                  // ammount of seconds before enemy starts laying eggs
+	public int MinBirthRepeatTime = 1;          // Minumum Birth repeatrate  
+	public int MaxBirthRepeatTime = 10;         //Maximum Birth repeatrate
 
     private GameObject Player;					
     private Vector3 startPos;
@@ -24,8 +30,11 @@ public class EnemyFollowing : HealthSystem
     // Use this for initialization
     void Start()
     {
-        startPos = gameObject.transform.position;
+		int start_Birth = UnityEngine.Random.Range (1, Birthtime);
+		int Birth_repeat = UnityEngine.Random.Range (MinBirthRepeatTime, MaxBirthRepeatTime);
+		startPos = gameObject.transform.position;
 		teleportReady = true;					//Enemy can teleport from the beginning
+		InvokeRepeating("Lay_Eggs", start_Birth, Birth_repeat);
     }
 
     // Follow a 'player' if within followDistance
@@ -105,5 +114,16 @@ public class EnemyFollowing : HealthSystem
 	//Inverse transform method: F(x) = y => F^-1(y) = x (Could also try Gaussian distribution?)
 	protected float Uni2Exp(float uniform, float lambda) {
 		return -(lambda) * Mathf.Log (uniform);					//if uniform~U(0,1) then for the returned value y: y~EXP(lambda) (lambda * exp( -lambda * y )
+	}
+
+	// Lays a random number of eggs
+	void Lay_Eggs(){
+		if (eggCapability) {
+			int number = UnityEngine.Random.Range (1, maxEggs);
+			for (int i = 0; i < number; i++) {
+
+				Instantiate (Eggs, transform.position, transform.rotation);
+			}
+		}
 	}
 }
