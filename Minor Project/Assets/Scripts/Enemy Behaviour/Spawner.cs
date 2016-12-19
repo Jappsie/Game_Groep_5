@@ -39,26 +39,34 @@ public class Spawner : MonoBehaviour {
 
     // spawn function
     void spawnEnemy ()
-    {        
-        // randomly assign a coordinate within world space to the enemy
-		spawnPoint.x = Random.Range(-radius, radius);
-		spawnPoint.z = Random.Range(-radius, radius);
+    {
+		// Create collider array to check collision with environment
+		Collider[] colliderChecker;
+		//Pick a random enemy type
+		GameObject enemy = enemies [Random.Range (0, enemies.Length)];
+		int counter = 0;
 
-        // make an instance of a random enemy at the spawnPoint and align it with world coordinates
-		GameObject enemy = enemies[Random.Range(0, enemies.Length)];
+		do {
+			// randomly assign a coordinate within world space to the enemy
+			spawnPoint.x = Random.Range(-radius, radius);
+			spawnPoint.z = Random.Range(-radius, radius);
 
-		// Check where the center of the collider of the enemy is
-		Vector3 enemyCenter = enemy.transform.GetComponent<BoxCollider> ().size * 0.5f + spawnPoint;
-		// Fill an array with all the collision with a sphere around the enemy's BoxCollider with a ray of 0.5 * the width of the BoxCollider
-		Collider[] colliderChecker = Physics.OverlapSphere (enemyCenter, enemy.GetComponent<BoxCollider>().size.x * 0.5f);
-		//When the enemy only collides with the plane, place it
-		if (colliderChecker.Length == 1) {
-            GameObject spawnedOne = (GameObject)Instantiate(enemy, gameObject.transform.position + spawnPoint
-                + enemy.transform.position, Quaternion.identity);
-            count++;
-            // apply procedural generation on the spawned GameObject
-            proceduralEnemyGeneration(spawnedOne);
-        }
+			Vector3 finalSpawn = gameObject.transform.position + spawnPoint + enemy.transform.position;
+
+			// Fill an array with all the collision with a sphere around the enemy's BoxCollider with a ray of 0.5 * the width of the BoxCollider
+			colliderChecker = Physics.OverlapSphere (finalSpawn, enemy.GetComponent<BoxCollider>().size.x * 0.5f);
+
+			for (int i = 0; i < colliderChecker.Length; i++) {
+				Debug.Log(colliderChecker[i]);
+			}
+			counter++;
+		//Pick spawnpoints until it doesn't collide
+		} while (colliderChecker.Length != 0 && counter < 10);
+		GameObject spawnedOne = (GameObject)Instantiate(enemy, gameObject.transform.position + spawnPoint
+			+ enemy.transform.position, Quaternion.identity);
+		count++;
+		// apply procedural generation on the spawned GameObject
+		proceduralEnemyGeneration(spawnedOne);
     }
 
     // procedurally generates enemies that differ in strength
