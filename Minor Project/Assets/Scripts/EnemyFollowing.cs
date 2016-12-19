@@ -52,16 +52,18 @@ public class EnemyFollowing : HealthSystem
 			Bullet = GameObject.FindGameObjectsWithTag ("Attack") [0];
 			Vector3 bulletPos = Bullet.transform.position;
 			Vector3 Direction = - this.transform.position + bulletPos;
+			Vector3 BulletDirection = Bullet.transform.forward;
 
 			//if this bullet gets close enough, calculate the dot product the enemy/bullet vector and the enemiy's forward vector
 			//also determin if the bullet enters the FoV cone
 			if (Vector3.Distance (bulletPos, objectPos) < BulletDistanceTrigger) {
-				float AtUs = Vector3.Dot (this.transform.forward, Direction);
+				float AtUs = Vector3.Dot (this.transform.forward, BulletDirection);
+				Debug.Log (AtUs);
 				float Angle = Vector3.Angle (Direction, this.transform.forward);
 				Debug.Log ("Bullet near! " + Time.time);
 
 				//if the dotproduct is possitive and the angle small enough, check enemy surroundings for obstacles
-				if (Angle <= FOV && AtUs >= 0) {
+				if (Angle <= FOV && AtUs < 0) {
 					Ray left = new Ray (transform.position, transform.right * -1f);
 					Ray right = new Ray (transform.position, transform.right);
 					Debug.Log ("IT'S COMING RIGHT AT US " + Time.time);
