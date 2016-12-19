@@ -51,7 +51,7 @@ public class MenuScript : MonoBehaviour {
 	//If you press New Game;
 	public void NewGamePress(){
         SceneManagerScript.goToScene( "scene1", false );
-		}
+	}
 	
 	}
 	

@@ -87,8 +87,9 @@ public class PauseMenu : MonoBehaviour
     }
 
     //Reloads main menu
-    public void LoadMainMenu( string level )
+    public void LoadMainMenu()
     {
+        Destroy( UnityEngine.EventSystems.EventSystem.current );
         SceneManagerScript.goToScene( "main menu", false );
     }
 

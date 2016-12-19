@@ -119,7 +119,7 @@ public class Perceptron : Turret
             // TODO: Change order of life of sight and raycasting for performance
             if ( Physics.Raycast(playerRay , out hit ) )
             {
-				Debug.Log (hit.collider.gameObject.name);
+				//Debug.Log (hit.collider.gameObject.name);
                 if (hit.collider.gameObject.Equals(Player))
                 {
                     if ( Vector3.Distance( playerPos, objectPos ) < LineofSight && gameObject.activeSelf )

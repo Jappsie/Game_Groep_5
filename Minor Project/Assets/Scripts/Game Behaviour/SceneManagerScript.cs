@@ -23,31 +23,43 @@ public class SceneManagerScript : MonoBehaviour
     private int Deathcount = 0; // Counts how many times the main character died
 
 
-    // If SceneManagementInstance exists, destroy the existing objects first to avoid duplication
-    void Awake()
+    private void Awake()
     {
-        // Make sure this object is included
-        DontDestroy.Add( gameObject );
-
-        if ( SceneManagementInstance != null )
+        Debug.Log( "Awake! " + this.gameObject.name );
+        if ( GameObject.FindGameObjectsWithTag("GameController").Length > 1 )
         {
-            foreach ( Object obj in DontDestroy )
+            Debug.Log( "Duplicate: " + SceneManagementInstance.gameObject.name );
+            Debug.Log( "Duplicates: " + SceneManagementInstance.DontDestroy.Count );
+            foreach ( Object obj in SceneManagementInstance.DontDestroy )
             {
+                Debug.Log( "Destroy: " + obj.name );
                 Destroy( obj );
             }
+            SceneManagementInstance = null;
         }
-        else
+    }
+
+    // If SceneManagementInstance exists, destroy the existing objects first to avoid duplication
+    void Start()
+    {
+        Debug.Log( "Start! " + this.gameObject.name );
+        // Make sure this object is included
+        this.DontDestroy.Add( gameObject );
+        //else
         {
-            foreach ( Object obj in DontDestroy )
+            foreach ( Object obj in this.DontDestroy )
             {
                 DontDestroyOnLoad( obj );
             }
-            //Initialize the time and amount of deaths on awake
             SceneManagementInstance = this;
         }
+
         // Changes the amount of deaths on the screen
-        Deathcount = deathList.Count;
-        Scoretext.text = "Deaths: " + Deathcount;
+        if ( Scoretext != null )
+        {
+            Deathcount = deathList.Count;
+            Scoretext.text = "Deaths: " + Deathcount;
+        }
     }
 
     // Check the reset key
@@ -58,7 +70,6 @@ public class SceneManagerScript : MonoBehaviour
             reset();
         }
         time = Time.time;
-
     }
 
     public void reset()
@@ -109,20 +120,9 @@ public class SceneManagerScript : MonoBehaviour
         {
             mode = LoadSceneMode.Additive;
         }
-        SceneManager.sceneLoaded += SceneManagementInstance.empty;
         IEnumerator coroutine = SceneManagementInstance.loadScene( scene, mode );
         SceneManagementInstance.StartCoroutine( coroutine );
 
-
-    }
-
-    private void empty( Scene scene, LoadSceneMode mode )
-    {
-        foreach ( Object obj in SceneManagementInstance.DontDestroy )
-        {
-            Destroy( obj );
-        }
-        SceneManager.sceneLoaded -= empty;
     }
 
     private IEnumerator loadScene( string scene, LoadSceneMode mode )

@@ -34,8 +34,11 @@ public class PlayerMovement : HealthSystem
     // Get reference to the CharacterController
     void Start()
     {
+        Debug.Log( "Player start" );
         controller = GetComponent<CharacterController>();
-        Vector3 camera = GameObject.FindGameObjectWithTag( "MainCamera" ).transform.position;
+        GameObject[] cameras = GameObject.FindGameObjectsWithTag( "MainCamera" );
+        cam = cameras[ cameras.Length - 1 ];
+        Vector3 camera = cam.transform.position;
         camera.y = gameObject.transform.position.y;
         axisRotation = Quaternion.LookRotation( gameObject.transform.position - camera, Vector3.up );
     }
@@ -84,7 +87,6 @@ public class PlayerMovement : HealthSystem
         }
 
         //Finds mouse position in the world on a plane at height of the main character
-        cam = GameObject.FindGameObjectWithTag( "MainCamera" );
         Camera camera = cam.GetComponent<Camera>();
         var ray = camera.ScreenPointToRay( Input.mousePosition );
         Plane Hitplane = new Plane( new Vector3( 0, 1, 0 ), transform.position );
@@ -141,7 +143,8 @@ public class PlayerMovement : HealthSystem
     // Reset the scene when player dies
     protected override void Death()     //Death is now protected
     {
-        GameObject.Find( "SceneController" ).GetComponent<SceneManagerScript>().resetOnDeath();
+        //GameObject.Find( "SceneController" ).GetComponent<SceneManagerScript>().resetOnDeath();
+        GameObject.FindGameObjectWithTag( "GameController" ).GetComponent<SceneManagerScript>().resetOnDeath();
     }
 
 }
