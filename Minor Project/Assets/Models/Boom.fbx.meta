@@ -24,6 +24,9 @@ ModelImporter:
     4300000: Icosphere
     4300002: Arbre Hiver
     4300004: Cylinder.003
+    6400000: Arbre Hiver
+    6400002: Cylinder.003
+    6400004: Icosphere
   materials:
     importMaterials: 1
     materialName: 0
@@ -50,7 +53,7 @@ ModelImporter:
     lODScreenPercentages: []
     globalScale: 1
     meshCompression: 0
-    addColliders: 0
+    addColliders: 1
     importBlendShapes: 1
     swapUVChannels: 0
     generateSecondaryUV: 0

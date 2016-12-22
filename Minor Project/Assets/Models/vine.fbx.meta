@@ -1,60 +1,34 @@
 fileFormatVersion: 2
-guid: 6dad57816ee04463da6bfd82de308e08
-timeCreated: 1482226506
+guid: 84c1c648d1f0e484a88087861ec02a0f
+timeCreated: 1482430356
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
-    100000: bbranch
-    100002: bbranch2
-    100004: branch
-    100006: branch2
-    100008: CINEMA_4D_Editor
-    100010: Cylinder
-    100012: Cylinder_1
-    100014: Cylinder_1_2
-    100016: Cylinder_1_3
-    100018: Cylinder_2
-    100020: //RootNode
-    100022: Sky
-    100024: trunk
-    400000: bbranch
-    400002: bbranch2
-    400004: branch
-    400006: branch2
-    400008: CINEMA_4D_Editor
-    400010: Cylinder
-    400012: Cylinder_1
-    400014: Cylinder_1_2
-    400016: Cylinder_1_3
-    400018: Cylinder_2
-    400020: //RootNode
-    400022: Sky
-    400024: trunk
-    2300000: bbranch2
-    2300002: Cylinder
-    2300004: Cylinder_1
-    2300006: Cylinder_1_2
-    2300008: Cylinder_1_3
-    2300010: Cylinder_2
-    3300000: bbranch2
-    3300002: Cylinder
-    3300004: Cylinder_1
-    3300006: Cylinder_1_2
-    3300008: Cylinder_1_3
-    3300010: Cylinder_2
-    4300000: Cylinder_1
-    4300002: Cylinder_1_2
-    4300004: Cylinder_1_3
-    4300006: bbranch2
-    4300008: Cylinder_2
-    4300010: Cylinder
-    6400000: bbranch2
-    6400002: Cylinder
-    6400004: Cylinder_1
-    6400006: Cylinder_1_2
-    6400008: Cylinder_1_3
-    6400010: Cylinder_2
+    100000: CINEMA_4D_Editor
+    100002: Sweep
+    100004: Vine
+    100006: //RootNode
+    100008: Cap_1
+    100010: Cap_2
+    400000: CINEMA_4D_Editor
+    400002: Sweep
+    400004: Vine
+    400006: //RootNode
+    400008: Cap_1
+    400010: Cap_2
+    2300000: Cap_1
+    2300002: Cap_2
+    2300004: Sweep
+    3300000: Cap_1
+    3300002: Cap_2
+    3300004: Sweep
+    4300000: Sweep
+    4300002: Cap_1
+    4300004: Cap_2
+    6400000: Cap_1
+    6400002: Cap_2
+    6400004: Sweep
     9500000: //RootNode
   materials:
     importMaterials: 1
@@ -80,7 +54,7 @@ ModelImporter:
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: 1
+    globalScale: 0.25
     meshCompression: 0
     addColliders: 1
     importBlendShapes: 1
