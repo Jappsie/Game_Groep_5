@@ -28,6 +28,7 @@ public class PlayerMovement : HealthSystem
     private Vector3 movement;                   // Movement vector
     private GameObject cam;                     // Camera object
     private bool Mouserelease;                  // Track mouse clicking
+	private Renderer render;					// Renderer that is used to update color of player
 
 
 
@@ -41,6 +42,7 @@ public class PlayerMovement : HealthSystem
         Vector3 camera = cam.transform.position;
         camera.y = gameObject.transform.position.y;
         axisRotation = Quaternion.LookRotation( gameObject.transform.position - camera, Vector3.up );
+		render = this.gameObject.transform.FindChild ("default").GetComponent<Renderer> ();
     }
 
     // Make the object move
@@ -122,6 +124,9 @@ public class PlayerMovement : HealthSystem
             AbleShoot = false;
             Mouserelease = false;
         }
+
+		//Color depends on health left
+		render.material.color = new Color(1f, 1f - (MaxHealth - CurHealth)/MaxHealth, 1f - (MaxHealth - CurHealth)/MaxHealth);
     }
 
     // Apply force on collision with Constrained Objects
