@@ -15,7 +15,9 @@ public class PlayerMovement : HealthSystem
     public GameObject Playerbullet;             // Bullet Player uses
     public float MinMomentum = 1f;              // Minimum momentum
     public float MaxMomentum = 10f;             // Maxmomentum
-    public float Momentumcharge = 5f;            // Used for scaling the momentum increase
+    public float Momentumcharge = 5f;           // Used for scaling the momentum increase
+	public bool Saw_Equipped;                   // Checks if Saw is equipped 
+
 
     [HideInInspector]
     public Vector3 MousePosition;               // Position mouseRaycast on plane
@@ -28,10 +30,10 @@ public class PlayerMovement : HealthSystem
     private Vector3 movement;                   // Movement vector
     private GameObject cam;                     // Camera object
     private bool Mouserelease;                  // Track mouse clicking
-	private bool Sawanimation = true;                  // Checking ability to play animation
+	private bool Sawanimation = true;           // Checking ability to play animation
 	private Animation anim;                     // Anamation from character component
-	private bool Bullet_Equipped;
-	private bool Saw_Equipped;
+	private bool Bullet_Equipped;  
+	                             
 
     // Get reference to the CharacterController
     void Start()
@@ -126,6 +128,13 @@ public class PlayerMovement : HealthSystem
 
 		}
 
+		if(Saw_Equipped == true & Input.GetMouseButton(1)){
+			GameObject child = GameObject.FindGameObjectWithTag ("saw");
+			Saw_Equipped = false;
+			child.transform.parent = null;
+			Bullet_Equipped = true;
+		}
+
     }
 
     // Apply force on collision with Constrained Objects
@@ -155,6 +164,7 @@ public class PlayerMovement : HealthSystem
 	void OnTriggerEnter(Collider col){
 		if (col.gameObject.tag == "saw") {
 			col.transform.parent = transform;
+			col.transform.localPosition = new Vector3 (0f, 3.5f, 0f);
 			Bullet_Equipped = false;
 			Saw_Equipped = true;
 		}
