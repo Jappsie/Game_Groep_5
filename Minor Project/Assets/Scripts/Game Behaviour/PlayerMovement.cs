@@ -12,7 +12,7 @@ public class PlayerMovement : HealthSystem
     public float zweefConstant = 5.0f;          // Gravity effect during float
     public static bool AbleShoot = true;        // Bool to check if player is able to shoot
     public Vector3 bulletSpawn;                 // Position where the bullit will spawn
-    public GameObject Playerbullet;             // Bullet Player uses
+    public GameObject[] Playerbullet;             // Bullet Player uses
     public float MinMomentum = 1f;              // Minimum momentum
     public float MaxMomentum = 10f;             // Maxmomentum
     public float Momentumcharge = 5f;            // Used for scaling the momentum increase
@@ -76,7 +76,7 @@ public class PlayerMovement : HealthSystem
         movement = axisRotation * new Vector3( speed * horizontalMovement, verticalVelocity, speed * verticalMovement );
 
         // Stops the player from moving when he has shot a bullet
-        if ( AbleShoot == true )
+		if ( AbleShoot == true && !Mouserelease)
         {
             controller.Move( movement * Time.deltaTime );
         }
@@ -104,13 +104,20 @@ public class PlayerMovement : HealthSystem
             Momentum += Momentumcharge * Time.deltaTime;
             Mouserelease = true;
             Momentum = Mathf.Clamp( Momentum, MinMomentum, MaxMomentum );
-            //Debug.Log (Momentum);
+            Debug.Log (Momentum);
 
         }
         // Shoots bullet when left mouse click is released
         if ( Input.GetMouseButton( 0 ) == false && Mouserelease == true )
         {
-            Instantiate( Playerbullet, transform.position + transform.rotation * bulletSpawn, transform.rotation );
+			float MomentumRange = MaxMomentum - MinMomentum;
+			if (MinMomentum <= Momentum && Momentum < MinMomentum + MomentumRange / 3.0) {
+				Instantiate (Playerbullet [0], transform.position + transform.rotation * bulletSpawn, transform.rotation);
+			} else if (MinMomentum + MomentumRange / 3.0 <= Momentum && Momentum < MinMomentum + 2.0 * MomentumRange / 3.0) {
+				Instantiate (Playerbullet [1], transform.position + transform.rotation * bulletSpawn, transform.rotation);
+			} else if (MinMomentum + MomentumRange * 2.0 / 3.0 <= Momentum && Momentum <= MaxMomentum) {
+				Instantiate (Playerbullet [2], transform.position + transform.rotation * bulletSpawn, transform.rotation);
+			}
             //Momentum = Momentum * Momentumscale;
             AbleShoot = false;
             Mouserelease = false;
