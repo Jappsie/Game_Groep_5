@@ -4,6 +4,8 @@ using System.Collections;
 public class EnableScript : MonoBehaviour {
 	public GameObject[] toEnable;
     public string collideTag;
+	public bool repeat;
+
 	private bool curStatus;
 
 	void Start() {
@@ -13,11 +15,15 @@ public class EnableScript : MonoBehaviour {
 		}
 	}
 
-	void OnTriggerEnter (Collider other) {
+	void OnCollisionEnter (Collision other) {
 		if (other.gameObject.CompareTag(collideTag)) {
             Debug.Log("Activated");
 			for (int i = 0; i < toEnable.Length; i++) {
-				toEnable[i].gameObject.SetActive (!curStatus);
+				if (repeat) {
+					toEnable [i].gameObject.SetActive (!curStatus);
+				} else {
+					toEnable [i].gameObject.SetActive (true);
+				}
 			}
 			curStatus = !curStatus;
 		}
