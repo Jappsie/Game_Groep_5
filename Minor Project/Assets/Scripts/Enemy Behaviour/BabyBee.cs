@@ -9,7 +9,7 @@ public class BabyBee : MonoBehaviour
 	public float rotationSpeed = 3.0f; 
 	public float moveSpeed = 2.0f;
 	public int BeeLife = 1;
-	public float Damage=1f; //Damage by babybee on player
+	public float Damage= 1f; //Damage by babybee on player
 
 
 	private GameObject Player; // maincharacter
@@ -27,7 +27,7 @@ public class BabyBee : MonoBehaviour
 	{
 		// Baby folows Player but not into the air
 		if (Player.GetComponent<CharacterController> ().isGrounded) {
-			ypos = Player.transform.position.y + 1f;
+			ypos = Player.transform.position.y + 0f;
 		}
 		playerPos = new Vector3 (Player.transform.position.x, ypos, Player.transform.position.z);
 		Vector3 objectPos = gameObject.transform.position;
@@ -37,12 +37,13 @@ public class BabyBee : MonoBehaviour
 	}
 
 	// checks triggerenter with player and playerbullet
-	private void OnTriggerEnter(Collider col){
+	private void OnCollisionEnter(Collision col){
 		if (col.gameObject.CompareTag ("Player")) {
 			gameObject.SendMessage( "TakeDamage", Damage );
 		}
 
 		if (col.gameObject.CompareTag("PlayerBullet")) {
+			Debug.Log ("hit");
 			BeeLife -= 1;
 			Destroy (col.gameObject);
 			if (BeeLife == 0) {

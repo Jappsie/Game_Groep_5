@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class QueenBee : MonoBehaviour {
+public class QueenBee : HealthSystem {
 	public float speed = 1.0f;
 	public int PingPongRange = 6;
 	public GameObject Eggs;              
@@ -30,20 +30,28 @@ public class QueenBee : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		transform.position = Vector3.Lerp (pos1, pos2, (Mathf.Sin(speed * Time.time) + 1.0f) / 2.0f);
-		Physics.IgnoreCollision (gameObject.GetComponentInChildren<CapsuleCollider>(), Eggs.GetComponent<CapsuleCollider>());
+		Physics.IgnoreCollision (gameObject.GetComponentInChildren<Collider>(), Eggs.GetComponent<CapsuleCollider>());
 	}
 
 
-void Lay_Eggs(){
-//  instantiates a random number of eggs
+	void Lay_Eggs(){
+	//  instantiates a random number of eggs
 		if (eggCapability) {
-		int number = UnityEngine.Random.Range (1, maxEggs);
-		for (int i = 0; i < number; i++) {
-
-				Instantiate (Eggs, gameObject.transform.GetChild(0).GetChild(0).position, gameObject.transform.GetChild(0).GetChild(0).rotation);
-
-	
+			int number = UnityEngine.Random.Range (1, maxEggs);
+			for (int i = 0; i < number; i++) {
+				Instantiate (Eggs, gameObject.transform.position, gameObject.transform.rotation);
+			}
 		}
+	}
+
+	protected override void Death() {
+		Destroy (gameObject);
+	}
+
+	private void OnCollisionEnter (Collision other) {
+		if (other.gameObject.CompareTag ("PlayerBullet")) {
+			Debug.Log ("test");
+			TakeDamage (1);
 		}
 	}
 	
