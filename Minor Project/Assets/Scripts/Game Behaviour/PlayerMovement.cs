@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System;
+using Image = UnityEngine.UI.Image;
+using UnityEngine.UI;
 
 public class PlayerMovement : HealthSystem
 {
@@ -29,6 +31,10 @@ public class PlayerMovement : HealthSystem
     private GameObject cam;                     // Camera object
     private bool Mouserelease;                  // Track mouse clicking
 
+	Image Healthbar; 
+	public Text Timer;
+	public float Tijd; 
+
 
 
     // Get reference to the CharacterController
@@ -41,6 +47,7 @@ public class PlayerMovement : HealthSystem
         Vector3 camera = cam.transform.position;
         camera.y = gameObject.transform.position.y;
         axisRotation = Quaternion.LookRotation( gameObject.transform.position - camera, Vector3.up );
+		Healthbar = GameObject.Find("Main Camera").transform.FindChild ("Canvas").FindChild ("Healthbar").GetComponent<Image> (); 
     }
 
     // Make the object move
@@ -70,6 +77,10 @@ public class PlayerMovement : HealthSystem
             }
         }
 
+		//Update healthbar
+		Healthbar.fillAmount = (CurHealth / MaxHealth); 
+	
+	
         // Move about in the 2D area
         float horizontalMovement = Input.GetAxis( "Horizontal" );
         float verticalMovement = Input.GetAxis( "Vertical" );
