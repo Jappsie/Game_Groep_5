@@ -1,15 +1,16 @@
 fileFormatVersion: 2
-guid: 2ab71fb36bd60014bb890a6c0352f5be
-timeCreated: 1482503138
+guid: f095def259c06724084338830a4702a5
+timeCreated: 1482527880
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
-    100000: Sweep
-    100002: //RootNode
-    400000: Sweep
-    400002: //RootNode
-    9500000: //RootNode
+    100000: //RootNode
+    400000: //RootNode
+    2300000: //RootNode
+    3300000: //RootNode
+    4300000: bush
+    6400000: //RootNode
   materials:
     importMaterials: 1
     materialName: 0
@@ -34,9 +35,9 @@ ModelImporter:
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: 1
+    globalScale: 0.4
     meshCompression: 0
-    addColliders: 0
+    addColliders: 1
     importBlendShapes: 1
     swapUVChannels: 0
     generateSecondaryUV: 0
@@ -68,7 +69,7 @@ ModelImporter:
     rootMotionBoneName: 
     hasTranslationDoF: 0
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 2
+  animationType: 0
   humanoidOversampling: 1
   additionalBone: 0
   userData: 
