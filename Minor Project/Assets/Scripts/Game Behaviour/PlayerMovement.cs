@@ -122,22 +122,17 @@ public class PlayerMovement : HealthSystem
     {
         Rigidbody body = hit.gameObject.GetComponent<Rigidbody>();
 
-        if ( body != null && hit.gameObject.CompareTag( "Constrained" ) )
-        {
-            Debug.Log( movement );
-            if ( Mathf.Abs( movement.x ) > Mathf.Abs( movement.z ) )
-            {
-                body.AddForce( strength / body.mass * new Vector3( 1f, 0, 0 ) );
-            }
-            else if ( Mathf.Abs( movement.z ) > Mathf.Abs( movement.x ) )
-            {
-                body.AddForce( strength / body.mass * new Vector3( 0, 0, 1f ) );
-            }
-        }
-        else if ( body != null )
-        {
-            hit.rigidbody.AddForce( strength / hit.rigidbody.mass * movement );
-        }
+		if (body != null && hit.gameObject.CompareTag ("Constrained")) {
+			Debug.Log (movement);
+			if (Mathf.Abs (movement.x) > Mathf.Abs (movement.z)) {
+				body.AddForce (strength / body.mass * new Vector3 (1f, 0, 0));
+			} else if (Mathf.Abs (movement.z) > Mathf.Abs (movement.x)) {
+				body.AddForce (strength / body.mass * new Vector3 (0, 0, 1f));
+			}
+		} else if (body != null) {
+			hit.rigidbody.AddForce (strength / hit.rigidbody.mass * movement);
+		}
+
     }
 
     // Reset the scene when player dies
