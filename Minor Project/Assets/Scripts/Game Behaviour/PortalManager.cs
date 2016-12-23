@@ -3,7 +3,7 @@ using System.Collections;
 
 public class PortalManager : MonoBehaviour {
 
-    public Object Scene;
+    public string Scene;
     public Vector3 Position;
     public string PortalName;
     public bool Additive;
@@ -14,8 +14,8 @@ public class PortalManager : MonoBehaviour {
     {
         if ( other.gameObject.CompareTag( "Player" ) )
         {
-            Debug.Log( gameObject.name + " : " + Scene.name );
-            SceneManagerScript.goToScene( Scene.name, Additive , this);
+            Debug.Log( gameObject.name + " : " + Scene );
+            SceneManagerScript.goToScene( Scene, Additive , this);
         }
     }
 

@@ -7,9 +7,9 @@ using System.Collections;
 public abstract class HealthSystem : MonoBehaviour
 {
 
-    public float MaxHealth;     // Starting amount of Health
-    public float CurHealth;     // Current amount of Health
-    public float deathHeight;   // Consider the player dead if it falls below this threshold
+    public float MaxHealth = 1f; // Starting amount of Health
+    public float CurHealth; // Current amount of Health
+    public float deathHeight = -10f; // Consider the player dead if it falls below this threshold
 
     protected bool isDead;    // Variable to track death-ness 
     private bool damaged;  // Variable to track damaged-ness
