@@ -1,37 +1,16 @@
 fileFormatVersion: 2
-guid: adfe0f3645f884b2ba21b7dc1d7cede8
-timeCreated: 1482226615
+guid: 9c9f628fcdb921047a62bab878feb36d
+timeCreated: 1482509271
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
-    100000: CINEMA_4D_Editor
-    100002: Cylinder
-    100004: Cylinder_1
-    100006: fTree
-    100008: Sphere
-    100010: Trunk
-    100012: //RootNode
-    400000: CINEMA_4D_Editor
-    400002: Cylinder
-    400004: Cylinder_1
-    400006: fTree
-    400008: Sphere
-    400010: Trunk
-    400012: //RootNode
-    2300000: Cylinder
-    2300002: Cylinder_1
-    2300004: Sphere
-    3300000: Cylinder
-    3300002: Cylinder_1
-    3300004: Sphere
-    4300000: Sphere
-    4300002: Cylinder_1
-    4300004: Cylinder
-    6400000: Cylinder
-    6400002: Cylinder_1
-    6400004: Sphere
-    9500000: //RootNode
+    100000: //RootNode
+    400000: //RootNode
+    2300000: //RootNode
+    3300000: //RootNode
+    4300000: Grid
+    6400000: //RootNode
   materials:
     importMaterials: 1
     materialName: 0
@@ -56,7 +35,7 @@ ModelImporter:
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: 0.25
+    globalScale: 2
     meshCompression: 0
     addColliders: 1
     importBlendShapes: 1
@@ -90,7 +69,7 @@ ModelImporter:
     rootMotionBoneName: 
     hasTranslationDoF: 0
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 2
+  animationType: 0
   humanoidOversampling: 1
   additionalBone: 0
   userData: 
