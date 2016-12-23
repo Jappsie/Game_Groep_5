@@ -13,6 +13,8 @@ public class QueenBee : HealthSystem {
 
 	private Vector3 pos1;
 	private Vector3 pos2;
+	public GameObject[] clouds;
+	private Renderer[][] cloudRenderer;
 
 
 	// Use this for initialization
@@ -20,7 +22,13 @@ public class QueenBee : HealthSystem {
 		//queenbee moves between pos1 and pos 2
 		pos1 = new Vector3 (transform.position.x - PingPongRange, transform.position.y, transform.position.z);
 		pos2 = new Vector3 (transform.position.x + PingPongRange, transform.position.y, transform.position.z);
-
+		clouds = GameObject.FindGameObjectsWithTag ("Cloud");
+		cloudRenderer = new Renderer[clouds.Length][];
+		for (int i = 0; i < clouds.Length; i++) {
+			Debug.Log (i);
+			cloudRenderer [i] = clouds [i].gameObject.GetComponentsInChildren<Renderer> ();
+			//Debug.Log (cloudRenderer [i]);
+		}
 
 		int start_Birth = UnityEngine.Random.Range (1, Birthtime);
 		int Birth_repeat = UnityEngine.Random.Range (MinBirthRepeatTime, MaxBirthRepeatTime);
@@ -51,7 +59,13 @@ public class QueenBee : HealthSystem {
 	private void OnCollisionEnter (Collision other) {
 		if (other.gameObject.CompareTag ("PlayerBullet")) {
 			Debug.Log ("test");
+			Destroy (other.gameObject);
 			TakeDamage (1);
+			for (int i = 0; i < clouds.Length; i++) {
+				for (int j = 0; j < cloudRenderer [i].Length; j++) {
+					cloudRenderer [i] [j].material.color = new Color (1f, CurHealth/MaxHealth, CurHealth/MaxHealth);
+				}
+			}
 		}
 	}
 	

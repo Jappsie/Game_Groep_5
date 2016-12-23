@@ -118,22 +118,31 @@ public class PlayerMovement : HealthSystem
     }
 
     // Apply force on collision with Constrained Objects
-    private void OnControllerColliderHit( ControllerColliderHit hit )
-    {
-        Rigidbody body = hit.gameObject.GetComponent<Rigidbody>();
-
-		if (body != null && hit.gameObject.CompareTag ("Constrained")) {
-			Debug.Log (movement);
-			if (Mathf.Abs (movement.x) > Mathf.Abs (movement.z)) {
-				body.AddForce (strength / body.mass * new Vector3 (1f, 0, 0));
-			} else if (Mathf.Abs (movement.z) > Mathf.Abs (movement.x)) {
-				body.AddForce (strength / body.mass * new Vector3 (0, 0, 1f));
-			}
-		} else if (body != null) {
-			hit.rigidbody.AddForce (strength / hit.rigidbody.mass * movement);
+//    private void OnControllerColliderHit( ControllerColliderHit hit )
+//    {
+//        Rigidbody body = hit.gameObject.GetComponent<Rigidbody>();
+//
+//		if (body.gameObject.CompareTag("Egg")) {
+//			TakeDamage(0.1f);
+//		}
+//
+//		if (body != null && hit.gameObject.CompareTag ("Constrained")) {
+//			Debug.Log (movement);
+//			if (Mathf.Abs (movement.x) > Mathf.Abs (movement.z)) {
+//				body.AddForce (strength / body.mass * new Vector3 (1f, 0, 0));
+//			} else if (Mathf.Abs (movement.z) > Mathf.Abs (movement.x)) {
+//				body.AddForce (strength / body.mass * new Vector3 (0, 0, 1f));
+//			}
+//		} else if (body != null) {
+//			hit.rigidbody.AddForce (strength / hit.rigidbody.mass * movement);
+//		}
+//
+//    }
+	private void OnControllerColliderHit( ControllerColliderHit other ) {
+		if (other.gameObject.CompareTag("Egg")) {
+			TakeDamage(0.5f);
 		}
-
-    }
+	}
 
     // Reset the scene when player dies
     protected override void Death()     //Death is now protected

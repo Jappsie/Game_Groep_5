@@ -38,10 +38,6 @@ public class BabyBee : MonoBehaviour
 
 	// checks triggerenter with player and playerbullet
 	private void OnCollisionEnter(Collision col){
-		if (col.gameObject.CompareTag ("Player")) {
-			gameObject.SendMessage( "TakeDamage", Damage );
-		}
-
 		if (col.gameObject.CompareTag("PlayerBullet")) {
 			Debug.Log ("hit");
 			BeeLife -= 1;
@@ -51,5 +47,4 @@ public class BabyBee : MonoBehaviour
 			}
 		}
 	}
-
 }
