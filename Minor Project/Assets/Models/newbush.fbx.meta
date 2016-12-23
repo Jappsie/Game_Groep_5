@@ -1,32 +1,15 @@
 fileFormatVersion: 2
-guid: c977a5749451a439581f79504491ab33
-timeCreated: 1482222088
+guid: 464cebc594146384a87f4a66f2a0cca1
+timeCreated: 1482524910
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
-    100000: Arbre Hiver
-    100002: //RootNode
-    100004: Camera
-    100006: Cylinder.003
-    100008: Icosphere
-    400000: Arbre Hiver
-    400002: //RootNode
-    400004: Camera
-    400006: Cylinder.003
-    400008: Icosphere
-    2300000: Arbre Hiver
-    2300002: Cylinder.003
-    2300004: Icosphere
-    3300000: Arbre Hiver
-    3300002: Cylinder.003
-    3300004: Icosphere
-    4300000: Icosphere
-    4300002: Arbre Hiver
-    4300004: Cylinder.003
-    6400000: Arbre Hiver
-    6400002: Cylinder.003
-    6400004: Icosphere
+    100000: //RootNode
+    400000: //RootNode
+    2300000: //RootNode
+    3300000: //RootNode
+    4300000: bush
   materials:
     importMaterials: 1
     materialName: 0
@@ -53,7 +36,7 @@ ModelImporter:
     lODScreenPercentages: []
     globalScale: 1
     meshCompression: 0
-    addColliders: 1
+    addColliders: 0
     importBlendShapes: 1
     swapUVChannels: 0
     generateSecondaryUV: 0
