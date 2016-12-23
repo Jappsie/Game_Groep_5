@@ -17,7 +17,9 @@ public class PlayerMovement : HealthSystem
     public GameObject Playerbullet;             // Bullet Player uses
     public float MinMomentum = 1f;              // Minimum momentum
     public float MaxMomentum = 10f;             // Maxmomentum
-    public float Momentumcharge = 5f;            // Used for scaling the momentum increase
+    public float Momentumcharge = 5f;           // Used for scaling the momentum increase
+	public bool Saw_Equipped;                   // Checks if Saw is equipped 
+
 
     [HideInInspector]
     public Vector3 MousePosition;               // Position mouseRaycast on plane
@@ -36,6 +38,10 @@ public class PlayerMovement : HealthSystem
 	public float Tijd; 
 
 
+	private bool Sawanimation = true;           // Checking ability to play animation
+	private Animation anim;                     // Anamation from character component
+	private bool Bullet_Equipped;  
+	                             
 
     // Get reference to the CharacterController
     void Start()
@@ -48,6 +54,9 @@ public class PlayerMovement : HealthSystem
         camera.y = gameObject.transform.position.y;
         axisRotation = Quaternion.LookRotation( gameObject.transform.position - camera, Vector3.up );
 		Healthbar = GameObject.Find("Main Camera").transform.FindChild ("Canvas").FindChild ("Healthbar").GetComponent<Image> (); 
+		anim = GetComponent<Animation> ();
+		Bullet_Equipped = true;
+		Saw_Equipped = false;
     }
 
     // Make the object move
@@ -110,7 +119,7 @@ public class PlayerMovement : HealthSystem
         }
         
         // Counts how many seconds the left mouse butten is hold down
-        if ( Input.GetMouseButton( 0 ) && AbleShoot == true )
+		if ( Input.GetMouseButton( 0 ) && AbleShoot == true && Bullet_Equipped == true )
         {
             Momentum += Momentumcharge * Time.deltaTime;
             Mouserelease = true;
@@ -119,13 +128,28 @@ public class PlayerMovement : HealthSystem
 
         }
         // Shoots bullet when left mouse click is released
-        if ( Input.GetMouseButton( 0 ) == false && Mouserelease == true )
+		if ( Input.GetMouseButton( 0 ) == false && Mouserelease == true && Bullet_Equipped == true)
         {
             Instantiate( Playerbullet, transform.position + transform.rotation * bulletSpawn, transform.rotation );
             //Momentum = Momentum * Momentumscale;
             AbleShoot = false;
             Mouserelease = false;
         }
+
+		// Starts rotating animation when mouse is pressed
+		if (Sawanimation == true & Input.GetMouseButton(0) == true & Saw_Equipped == true) {
+			Sawanimation = false;
+			anim.Play ("ZaagAnimatie");
+
+		}
+
+		if(Saw_Equipped == true & Input.GetMouseButton(1)){
+			GameObject child = GameObject.FindGameObjectWithTag ("saw");
+			Saw_Equipped = false;
+			child.transform.parent = null;
+			Bullet_Equipped = true;
+		}
+
     }
 
     // Apply force on collision with Constrained Objects
@@ -151,6 +175,16 @@ public class PlayerMovement : HealthSystem
         }
     }
 
+	// detects collision with powerups
+	void OnTriggerEnter(Collider col){
+		if (col.gameObject.tag == "saw") {
+			col.transform.parent = transform;
+			col.transform.localPosition = new Vector3 (0f, 3.5f, 0f);
+			Bullet_Equipped = false;
+			Saw_Equipped = true;
+		}
+	}
+
     // Reset the scene when player dies
     protected override void Death()     //Death is now protected
     {
@@ -158,4 +192,8 @@ public class PlayerMovement : HealthSystem
         GameObject.FindGameObjectWithTag( "GameController" ).GetComponent<SceneManagerScript>().resetOnDeath();
     }
 
+	//Changes bool at the end of the animation
+	public void AnimationEnded(){
+		Sawanimation = true;
+	}
 }
