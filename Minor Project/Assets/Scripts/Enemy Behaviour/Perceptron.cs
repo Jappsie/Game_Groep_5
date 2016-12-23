@@ -126,7 +126,6 @@ public class Perceptron : Turret
                     {
                         Vector3 distance = Player.transform.position - gameObject.transform.position;
                         Vector3 plane = Vector3.Cross( gameObject.transform.rotation * Vector3.forward , Vector3.up );
-                        float dodge = Vector3.Dot( plane, distance );
                         GameObject[] turrets = GameObject.FindGameObjectsWithTag( "Turret" );
                         float turretLeftRight = 0;
                         foreach ( GameObject turret in turrets )

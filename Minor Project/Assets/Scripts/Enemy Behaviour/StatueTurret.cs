@@ -77,8 +77,12 @@ public class StatueTurret : HealthSystem
 
     private void OnCollisionEnter( Collision collision )
     {
-        Debug.Log( "Taking damage!" );
-        TakeDamage( 1f );
+        if (collision.gameObject.CompareTag("PlayerBullet"))
+        {
+            TakeDamage( 1f );
+            Destroy( collision.gameObject );
+        }
+        
     }
 
     // What happens when the object dies
