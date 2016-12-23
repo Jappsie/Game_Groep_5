@@ -49,6 +49,12 @@ ModelImporter:
     4300006: bbranch2
     4300008: Cylinder_2
     4300010: Cylinder
+    6400000: bbranch2
+    6400002: Cylinder
+    6400004: Cylinder_1
+    6400006: Cylinder_1_2
+    6400008: Cylinder_1_3
+    6400010: Cylinder_2
     9500000: //RootNode
   materials:
     importMaterials: 1
@@ -76,7 +82,7 @@ ModelImporter:
     lODScreenPercentages: []
     globalScale: 1
     meshCompression: 0
-    addColliders: 0
+    addColliders: 1
     importBlendShapes: 1
     swapUVChannels: 0
     generateSecondaryUV: 0
