@@ -20,7 +20,7 @@ public class Eggs : MonoBehaviour {
 
 	void OnCollisionEnter (Collision col){
 		if (col.gameObject.tag == "Egg") {
-			Physics.IgnoreCollision (gameObject.GetComponent<CapsuleCollider> (), col.gameObject.GetComponent<SphereCollider> ());
+			Physics.IgnoreCollision (gameObject.GetComponent<CapsuleCollider> (), col.gameObject.GetComponent<CapsuleCollider> ());
 		
 		
 		} else if (col.gameObject.tag == "PlayerBullet") {

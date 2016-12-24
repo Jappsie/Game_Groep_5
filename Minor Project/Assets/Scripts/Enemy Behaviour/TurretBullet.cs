@@ -24,13 +24,8 @@ public class TurretBullet : MonoBehaviour
     {
         if ( collision.gameObject.CompareTag( "Player" ) )
         {
-            Vector3 impact = direction.normalized;
-            object[] temp = new object[ 2 ];
-            temp[ 0 ] = damage;
-            temp[ 1 ] = impact;
-
             Debug.Log( collision.gameObject.name + " Got Damaged" );
-            collision.gameObject.SendMessage( "TakeDamage", temp );
+            collision.gameObject.SendMessage( "TakeDamage", damage );
         }
 
         if ( !collision.gameObject.CompareTag( "Turret" ) )
