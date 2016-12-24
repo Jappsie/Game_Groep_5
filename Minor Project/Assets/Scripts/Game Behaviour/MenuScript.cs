@@ -52,6 +52,7 @@ public class MenuScript : MonoBehaviour {
     public void ContinuePress()
     {
         string CheckPoint = GameManager.checkpoint.name;
+		Debug.Log ("Current Checkpoint: " + CheckPoint);
         if (!string.IsNullOrEmpty(CheckPoint))
         {
             PauseMenu.PauzeKey = KeyCode.Escape;

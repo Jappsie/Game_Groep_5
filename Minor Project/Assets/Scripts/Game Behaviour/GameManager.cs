@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
 
     public float trackInterval = 2f;
     public static Scene checkpoint;
+	public string checkpoint2;
     public List<GameObject> objects;
 
     private string UserName;
@@ -49,6 +50,10 @@ public class GameManager : MonoBehaviour
             SetUserName();
         }
     }
+
+	void Update() {
+		checkpoint2 = checkpoint.name;
+	}
 
     private void trackScene( Scene scene, LoadSceneMode mode )
     {

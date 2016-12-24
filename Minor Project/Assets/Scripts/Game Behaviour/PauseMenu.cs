@@ -27,13 +27,11 @@ public class PauseMenu : MonoBehaviour
         {
             if ( Time.timeScale == 1 )
             {
-                Time.timeScale = 0;
                 showPaused();
             }
             else if ( Time.timeScale == 0 )
             {
                 Debug.Log( "high" );
-                Time.timeScale = 1;
                 hidePaused();
             }
         }
@@ -73,6 +71,7 @@ public class PauseMenu : MonoBehaviour
     //shows objects with ShowOnPause tag
     public void showPaused()
     {
+		Time.timeScale = 0;
         foreach ( GameObject g in pauseObjects )
         {
             g.SetActive( true );
@@ -83,6 +82,7 @@ public class PauseMenu : MonoBehaviour
     //hides objects with ShowOnPause tag
     public void hidePaused()
     {
+		Time.timeScale = 1;
         foreach ( GameObject g in pauseObjects )
         {
             g.SetActive( false );

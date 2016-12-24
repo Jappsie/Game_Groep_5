@@ -59,8 +59,9 @@ public class SceneManagerScript : MonoBehaviour
             Deathcount = deathList.Count;
             Scoretext.text = "Deaths: " + Deathcount;
         }
-
-        GameManager.checkpoint = SceneManager.GetActiveScene();
+		if (!SceneManager.GetActiveScene().name.Equals("main menu")) {
+        	GameManager.checkpoint = SceneManager.GetActiveScene();
+		}
     }
 
     // Check the reset key
