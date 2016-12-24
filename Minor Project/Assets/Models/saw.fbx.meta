@@ -1,22 +1,15 @@
 fileFormatVersion: 2
-guid: 338bbf29339d945cda8846e8c6a01122
-timeCreated: 1482223784
+guid: 08d3c429213e0402d840c430fdc0e87a
+timeCreated: 1482499733
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
-    100000: Camera
-    100002: Grid
-    100004: Lamp
-    100006: //RootNode
-    400000: Camera
-    400002: Grid
-    400004: Lamp
-    400006: //RootNode
-    2300000: Grid
-    3300000: Grid
-    4300000: Grid
-    6400000: Grid
+    100000: //RootNode
+    400000: //RootNode
+    2300000: //RootNode
+    3300000: //RootNode
+    4300000: Circle
   materials:
     importMaterials: 1
     materialName: 0
@@ -43,7 +36,7 @@ ModelImporter:
     lODScreenPercentages: []
     globalScale: 1
     meshCompression: 0
-    addColliders: 1
+    addColliders: 0
     importBlendShapes: 1
     swapUVChannels: 0
     generateSecondaryUV: 0
