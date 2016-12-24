@@ -29,12 +29,14 @@ public class CameraController : MonoBehaviour
         Vector3 targetPos1 = new Vector3(x, player.transform.position.y + CameraPos, z);
         Vector3 targetPos2 = new Vector3(x, transform.position.y, z);
 
-        if (player.GetComponent<CharacterController>().isGrounded)
+		gameObject.transform.position = targetPos1;
+
+        /*if (player.GetComponent<CharacterController>().isGrounded)
         {
             gameObject.transform.position = targetPos1;
         }
         else
-            gameObject.transform.position = targetPos2;
+            gameObject.transform.position = targetPos2;*/
     }
 
 }

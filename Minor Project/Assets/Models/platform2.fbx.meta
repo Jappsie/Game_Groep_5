@@ -1,61 +1,36 @@
 fileFormatVersion: 2
-guid: 6dad57816ee04463da6bfd82de308e08
-timeCreated: 1482226506
+guid: f789b5d32e98205408662728eb02b8e8
+timeCreated: 1482432727
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
-    100000: bbranch
-    100002: bbranch2
-    100004: branch
-    100006: branch2
-    100008: CINEMA_4D_Editor
-    100010: Cylinder
-    100012: Cylinder_1
-    100014: Cylinder_1_2
-    100016: Cylinder_1_3
-    100018: Cylinder_2
-    100020: //RootNode
-    100022: Sky
-    100024: trunk
-    400000: bbranch
-    400002: bbranch2
-    400004: branch
-    400006: branch2
-    400008: CINEMA_4D_Editor
-    400010: Cylinder
-    400012: Cylinder_1
-    400014: Cylinder_1_2
-    400016: Cylinder_1_3
-    400018: Cylinder_2
-    400020: //RootNode
-    400022: Sky
-    400024: trunk
-    2300000: bbranch2
-    2300002: Cylinder
-    2300004: Cylinder_1
-    2300006: Cylinder_1_2
-    2300008: Cylinder_1_3
-    2300010: Cylinder_2
-    3300000: bbranch2
-    3300002: Cylinder
-    3300004: Cylinder_1
-    3300006: Cylinder_1_2
-    3300008: Cylinder_1_3
-    3300010: Cylinder_2
-    4300000: Cylinder_1
-    4300002: Cylinder_1_2
-    4300004: Cylinder_1_3
-    4300006: bbranch2
-    4300008: Cylinder_2
-    4300010: Cylinder
-    6400000: bbranch2
-    6400002: Cylinder
-    6400004: Cylinder_1
-    6400006: Cylinder_1_2
-    6400008: Cylinder_1_3
-    6400010: Cylinder_2
-    9500000: //RootNode
+    100000: Cube
+    100002: Cube_1
+    100004: Cube_2
+    100006: Null
+    100008: //RootNode
+    100010: Pyramid
+    100012: Pyramid_2
+    400000: Cube
+    400002: Cube_1
+    400004: Cube_2
+    400006: Null
+    400008: //RootNode
+    400010: Pyramid
+    400012: Pyramid_2
+    2300000: Cube_1
+    2300002: Cube_2
+    2300004: Pyramid_2
+    3300000: Cube_1
+    3300002: Cube_2
+    3300004: Pyramid_2
+    4300000: Cube_1
+    4300002: Cube_2
+    4300004: Pyramid_2
+    6400000: Cube_1
+    6400002: Cube_2
+    6400004: Pyramid_2
   materials:
     importMaterials: 1
     materialName: 0
@@ -114,7 +89,7 @@ ModelImporter:
     rootMotionBoneName: 
     hasTranslationDoF: 0
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 2
+  animationType: 0
   humanoidOversampling: 1
   additionalBone: 0
   userData: 
