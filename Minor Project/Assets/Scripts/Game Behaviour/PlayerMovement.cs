@@ -53,7 +53,7 @@ public class PlayerMovement : HealthSystem
         Vector3 camera = cam.transform.position;
         camera.y = gameObject.transform.position.y;
         axisRotation = Quaternion.LookRotation( gameObject.transform.position - camera, Vector3.up );
-		Healthbar = GameObject.Find("Main Camera").transform.FindChild ("Canvas").FindChild ("Healthbar").GetComponent<Image> (); 
+	//	Healthbar = GameObject.Find("Main Camera").transform.FindChild ("Canvas").FindChild ("Healthbar").GetComponent<Image> (); 
 		anim = GetComponent<Animation> ();
 		Bullet_Equipped = true;
 		Saw_Equipped = false;
@@ -87,7 +87,7 @@ public class PlayerMovement : HealthSystem
         }
 
 		//Update healthbar
-		Healthbar.fillAmount = (CurHealth / MaxHealth); 
+//		Healthbar.fillAmount = (CurHealth / MaxHealth); 
 	
 	
         // Move about in the 2D area

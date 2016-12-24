@@ -15,7 +15,7 @@ public class QueenBee : HealthSystem {
 	private Vector3 pos2;
 	public GameObject[] clouds;
 	private Renderer[][] cloudRenderer;
-
+	private Transform SpawnEgg;
 
 	// Use this for initialization
 	void Start () {
@@ -29,7 +29,7 @@ public class QueenBee : HealthSystem {
 			cloudRenderer [i] = clouds [i].gameObject.GetComponentsInChildren<Renderer> ();
 			//Debug.Log (cloudRenderer [i]);
 		}
-
+			
 		int start_Birth = UnityEngine.Random.Range (1, Birthtime);
 		int Birth_repeat = UnityEngine.Random.Range (MinBirthRepeatTime, MaxBirthRepeatTime);
 		InvokeRepeating("Lay_Eggs", start_Birth, Birth_repeat);
@@ -39,15 +39,15 @@ public class QueenBee : HealthSystem {
 	void Update () {
 		transform.position = Vector3.Lerp (pos1, pos2, (Mathf.Sin(speed * Time.time) + 1.0f) / 2.0f);
 		Physics.IgnoreCollision (gameObject.GetComponent<Collider>(), Eggs.GetComponent<CapsuleCollider>());
+		SpawnEgg = gameObject.transform.GetChild(1);
 	}
-
 
 	void Lay_Eggs(){
 	//  instantiates a random number of eggs
 		if (eggCapability) {
 			int number = UnityEngine.Random.Range (1, maxEggs);
 			for (int i = 0; i < number; i++) {
-				Instantiate (Eggs, gameObject.transform.position + new Vector3(0f, 1f, 0f), Quaternion.FromToRotation(Vector3.up, Vector3.forward));
+				Instantiate (Eggs, SpawnEgg.position, SpawnEgg.rotation);
 			}
 		}
 	}

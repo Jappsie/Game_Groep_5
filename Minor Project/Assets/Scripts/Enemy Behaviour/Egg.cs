@@ -4,10 +4,12 @@ using System.Collections;
 public class Egg : MonoBehaviour {
 	public GameObject Enemy;
 	public int EggLife = 1;
+	public float thrust = 350f;
 
 	// Use this for initialization
 	void Start () {
 		Invoke ("EnemyBirth", 4);
+		this.gameObject.GetComponent<Rigidbody> ().AddForce (Vector3.back * thrust);
 	}
 		
 	
