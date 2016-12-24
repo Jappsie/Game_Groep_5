@@ -38,7 +38,7 @@ public class QueenBee : HealthSystem {
 	// Update is called once per frame
 	void Update () {
 		transform.position = Vector3.Lerp (pos1, pos2, (Mathf.Sin(speed * Time.time) + 1.0f) / 2.0f);
-		Physics.IgnoreCollision (gameObject.GetComponentInChildren<Collider>(), Eggs.GetComponent<CapsuleCollider>());
+		Physics.IgnoreCollision (gameObject.GetComponent<Collider>(), Eggs.GetComponent<CapsuleCollider>());
 	}
 
 
@@ -47,7 +47,7 @@ public class QueenBee : HealthSystem {
 		if (eggCapability) {
 			int number = UnityEngine.Random.Range (1, maxEggs);
 			for (int i = 0; i < number; i++) {
-				Instantiate (Eggs, gameObject.transform.position, gameObject.transform.rotation);
+				Instantiate (Eggs, gameObject.transform.position + new Vector3(0f, 1f, 0f), Quaternion.FromToRotation(Vector3.up, Vector3.forward));
 			}
 		}
 	}
