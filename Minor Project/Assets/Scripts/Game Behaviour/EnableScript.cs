@@ -2,30 +2,25 @@
 using System.Collections;
 
 public class EnableScript : MonoBehaviour {
+
 	public GameObject[] toEnable;
-    public string collideTag;
-	public bool repeat;
+	public bool Status;
 
-	private bool curStatus;
+    private void Start()
+    {
+        toggle( Status );
+    }
 
-	void Start() {
-		curStatus = false;
-		for (int i = 0; i < toEnable.Length; i++) {
-			toEnable[i].SetActive (false);
-		}
-	}
+    public void toggle ()
+    {
+        toggle( !Status );
+    }
 
-	void OnCollisionEnter (Collision other) {
-		if (other.gameObject.CompareTag(collideTag)) {
-            Debug.Log("Activated");
-			for (int i = 0; i < toEnable.Length; i++) {
-				if (repeat) {
-					toEnable [i].gameObject.SetActive (!curStatus);
-				} else {
-					toEnable [i].gameObject.SetActive (true);
-				}
-			}
-			curStatus = !curStatus;
-		}
-	}
+    public void toggle(bool curStatus)
+    {
+        for (int i = 0; i < toEnable.Length; i++ )
+        {
+            toEnable[ i ].gameObject.SetActive( curStatus );
+        }
+    }
 }

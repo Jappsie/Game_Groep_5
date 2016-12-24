@@ -76,7 +76,7 @@ public class PlayerMovement : HealthSystem
         else
         {
             // If holding space and falling glide
-            if ( Input.GetKey( KeyCode.Space ) && verticalVelocity <= 0 )
+            if ( Input.GetKey( KeyCode.Space ) && verticalVelocity <= 0 && zweefConstant != 0 )
             {
                 verticalVelocity = -zweefConstant * Time.deltaTime;     //Constant falling speed when hovering
             }

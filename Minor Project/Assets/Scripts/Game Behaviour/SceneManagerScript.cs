@@ -8,7 +8,6 @@ public class SceneManagerScript : MonoBehaviour
 {
 
     public List<Object> DontDestroy;        // List of object to keep between scenes
-    public Object StartScene;               // Scene to reset to
     public KeyCode resetKey = KeyCode.R;    // Reset key
     public GUIText Scoretext;               // Used for displaying the score on the screen
 
@@ -25,7 +24,7 @@ public class SceneManagerScript : MonoBehaviour
 
     private void Awake()
     {
-        Debug.Log( "Awake! " + this.gameObject.name );
+        Debug.Log( "Awake! " + gameObject.name );
         if ( GameObject.FindGameObjectsWithTag("GameController").Length > 1 )
         {
             Debug.Log( "Duplicate: " + SceneManagementInstance.gameObject.name );
@@ -60,6 +59,8 @@ public class SceneManagerScript : MonoBehaviour
             Deathcount = deathList.Count;
             Scoretext.text = "Deaths: " + Deathcount;
         }
+
+        GameManager.checkpoint = SceneManager.GetActiveScene();
     }
 
     // Check the reset key
@@ -74,7 +75,7 @@ public class SceneManagerScript : MonoBehaviour
 
     public void reset()
     {
-        SceneManager.LoadScene( StartScene.name );
+        SceneManager.LoadScene( GameManager.checkpoint.name );
         this.Awake();
     }
 

@@ -4,7 +4,8 @@ using System.Collections;
 
 public class PauseMenu : MonoBehaviour
 {
-
+    public static KeyCode PauzeKey = KeyCode.None;
+    public KeyCode pauzeKey2;
     private GameObject[] pauseObjects;
     private SceneManagerScript SceneManager;
 
@@ -20,8 +21,9 @@ public class PauseMenu : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        pauzeKey2 = PauzeKey;
         //uses the p button to pause and unpause the game
-        if ( Input.GetKeyDown( KeyCode.P ) )
+        if (Input.GetKeyDown( PauzeKey ) )
         {
             if ( Time.timeScale == 1 )
             {
@@ -48,7 +50,9 @@ public class PauseMenu : MonoBehaviour
     //Reloads the Level
     public void Reload()
     {
+        hidePaused();
         SceneManager.resetOnDeath();
+        
     }
 
     //controls the pausing of the scene
@@ -89,7 +93,8 @@ public class PauseMenu : MonoBehaviour
     //Reloads main menu
     public void LoadMainMenu()
     {
-        Destroy( UnityEngine.EventSystems.EventSystem.current );
+        //UnityEngine.EventSystems.EventSystem.current.enabled = false;
+        hidePaused();
         SceneManagerScript.goToScene( "main menu", false );
     }
 

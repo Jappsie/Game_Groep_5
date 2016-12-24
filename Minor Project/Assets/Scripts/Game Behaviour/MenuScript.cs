@@ -20,6 +20,7 @@ public class MenuScript : MonoBehaviour {
 		avatarText = avatarText.GetComponent<Button> (); 
 		quitText = quitText.GetComponent<Button> ();
 		quitMenu.enabled = false;
+        PauseMenu.PauzeKey = KeyCode.None;
 	
 	}
 	//Load a new scene when you want to change the avatar
@@ -48,9 +49,21 @@ public class MenuScript : MonoBehaviour {
 		Application.Quit (); 
 	}
 
+    public void ContinuePress()
+    {
+        string CheckPoint = GameManager.checkpoint.name;
+        if (!string.IsNullOrEmpty(CheckPoint))
+        {
+            PauseMenu.PauzeKey = KeyCode.Escape;
+            SceneManagerScript.goToScene( CheckPoint, false );
+        }
+        
+    }
+
 	//If you press New Game;
 	public void NewGamePress(){
-        SceneManagerScript.goToScene( "scene1", false );
+        PauseMenu.PauzeKey = KeyCode.Escape;
+        SceneManagerScript.goToScene( "Level1", false );
 	}
 	
 	}
