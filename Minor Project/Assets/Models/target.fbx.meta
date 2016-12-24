@@ -31,7 +31,7 @@ ModelImporter:
     6400004: Cylinder.002
   materials:
     importMaterials: 1
-    materialName: 0
+    materialName: 2
     materialSearch: 1
   animations:
     legacyGenerateAnimations: 4
