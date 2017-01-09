@@ -14,6 +14,7 @@ public class PlayerBullet : MonoBehaviour {
 
     void Start () {
 		GameObject Player = GameObject.FindGameObjectWithTag("Player"); // Finds Player with Tag Player
+<<<<<<< HEAD:Minor Project/Assets/Scripts/Game Behaviour/PlayerBullet.cs
 	    Playermovement = Player.GetComponent<PlayerMovement>(); // Gets the script PlayerMovement
 		direction = (Playermovement.MousePosition - Player.transform.position).normalized;// Difference between mousePosition and Player
 		bullet = this.GetComponent<Rigidbody>();
@@ -21,6 +22,12 @@ public class PlayerBullet : MonoBehaviour {
 		Debug.Log (Playermovement.Momentum);
 		Playermovement.Momentum = 1; //Sets the momentum in the playermovement script back to 1
 		Physics.IgnoreCollision(bullet.GetComponent<SphereCollider>(),Player.GetComponent<CharacterController>());
+=======
+		this.tag = "Attack";
+	    Playermovement = Player.GetComponent<PlayerMovement>(); // Gets the script PlayerMovemennt
+		direction = (Playermovement.MousePosition - Player.transform.position).normalized;// Difference between mousePosition and Playey
+	
+>>>>>>> origin/EnemyDodge:Minor Project/Assets/Scripts/PlayerBullet.cs
 	}
 	
 	// Update is called once per frame
