@@ -39,11 +39,7 @@ ModelImporter:
     6400008: Cube_2
   materials:
     importMaterials: 1
-<<<<<<< HEAD
     materialName: 2
-=======
-    materialName: 0
->>>>>>> origin/MartijnLevel
     materialSearch: 1
   animations:
     legacyGenerateAnimations: 4

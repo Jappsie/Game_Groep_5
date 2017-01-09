@@ -30,13 +30,8 @@ public class CameraController : MonoBehaviour
         Vector3 targetPos2 = new Vector3(x, transform.position.y, z);
 
 		gameObject.transform.position = targetPos1;
-<<<<<<< HEAD
 
         /*if (player.GetComponent<CharacterController>().isGrounded)
-=======
-		/*
-        if (player.GetComponent<CharacterController>().isGrounded)
->>>>>>> origin/MartijnLevel
         {
             gameObject.transform.position = targetPos1;
         }

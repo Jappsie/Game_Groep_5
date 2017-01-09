@@ -1,11 +1,6 @@
 fileFormatVersion: 2
-<<<<<<< HEAD
 guid: adfe0f3645f884b2ba21b7dc1d7cede8
 timeCreated: 1482226615
-=======
-guid: ea9c36dd9ba19ea4f8e0263ad5c9f857
-timeCreated: 1482148702
->>>>>>> origin/forestScenery
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
@@ -39,11 +34,7 @@ ModelImporter:
     9500000: //RootNode
   materials:
     importMaterials: 1
-<<<<<<< HEAD
     materialName: 2
-=======
-    materialName: 0
->>>>>>> origin/forestScenery
     materialSearch: 1
   animations:
     legacyGenerateAnimations: 4
@@ -65,15 +56,7 @@ ModelImporter:
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-<<<<<<< HEAD
-<<<<<<< HEAD
     globalScale: 0.3
-=======
-    globalScale: 0.25
->>>>>>> origin/MartijnLevel
-=======
-    globalScale: 0.5
->>>>>>> origin/forestScenery
     meshCompression: 0
     addColliders: 1
     importBlendShapes: 1

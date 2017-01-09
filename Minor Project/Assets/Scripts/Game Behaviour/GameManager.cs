@@ -4,7 +4,6 @@ using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 
-<<<<<<< HEAD
 public class GameManager : MonoBehaviour
 {
 
@@ -12,11 +11,6 @@ public class GameManager : MonoBehaviour
     public static Scene checkpoint;
 	public string checkpoint2;
     public List<GameObject> objects;
-=======
-public class GameManager: MonoBehaviour {
-
-    public float trackInterval = 2f;
->>>>>>> origin/platform1
 
     private string UserName;
     [SerializeField]
@@ -29,7 +23,6 @@ public class GameManager: MonoBehaviour {
     private string glyph = "abcdefghijklmnopqrstuvwxyz0123456789";
     private int glyphLength = 32;
 
-<<<<<<< HEAD
     private void Awake()
     {
 
@@ -50,18 +43,12 @@ public class GameManager: MonoBehaviour {
         {
             DontDestroyOnLoad( obj );
         }
-=======
-	// Use this for initialization
-	void Start () {
-        DontDestroyOnLoad( gameObject );
->>>>>>> origin/platform1
         SceneManager.sceneLoaded += trackScene;
         InvokeRepeating( "trackPlayer", 0, trackInterval );
         if ( UserName == null )
         {
             SetUserName();
         }
-<<<<<<< HEAD
     }
 
 	void Update() {
@@ -72,14 +59,6 @@ public class GameManager: MonoBehaviour {
     {
         Debug.Log( "Scene changed" );
         if ( mode.Equals( LoadSceneMode.Single ) )
-=======
-	}
-
-    private void trackScene(Scene scene, LoadSceneMode mode)
-    {
-        Debug.Log( "Scene changed" );
-        if ( mode.Equals( LoadSceneMode.Single) )
->>>>>>> origin/platform1
         {
             currentScene = scene;
             player = GameObject.FindGameObjectWithTag( "Player" );
@@ -88,11 +67,7 @@ public class GameManager: MonoBehaviour {
 
     private void trackPlayer()
     {
-<<<<<<< HEAD
         if ( player != null && userId != -1 )
-=======
-        if (player != null && userId != -1)
->>>>>>> origin/platform1
         {
             WWWForm form = new WWWForm();
             form.AddField( "userId", userId );
@@ -104,19 +79,11 @@ public class GameManager: MonoBehaviour {
         }
         else
         {
-<<<<<<< HEAD
             trackScene( currentScene, LoadSceneMode.Single );
         }
     }
 
     public void deadPlayer( Vector3 position )
-=======
-            trackScene(currentScene, LoadSceneMode.Single);
-        }
-    }
-
-    public void deadPlayer(Vector3 position)
->>>>>>> origin/platform1
     {
         if ( userId != -1 )
         {
@@ -133,15 +100,9 @@ public class GameManager: MonoBehaviour {
     private void SetUserName()
     {
         UserName = "";
-<<<<<<< HEAD
         for ( int i = 0; i < glyphLength; i++ )
         {
             UserName += glyph[ Random.Range( 0, glyph.Length ) ];
-=======
-        for (int i = 0; i < glyphLength; i++)
-        {
-            UserName += glyph[Random.Range(0,glyph.Length)];
->>>>>>> origin/platform1
         }
         StartCoroutine( newUser() );
     }
@@ -155,7 +116,6 @@ public class GameManager: MonoBehaviour {
 
         yield return www;
 
-<<<<<<< HEAD
         if ( !string.IsNullOrEmpty( www.error ) )
         {
             Debug.Log( www.error );
@@ -174,33 +134,9 @@ public class GameManager: MonoBehaviour {
         yield return www;
 
         if ( !string.IsNullOrEmpty( www.error ) )
-=======
-        if (!string.IsNullOrEmpty(www.error))
-        {
-            Debug.Log( www.error );
-            CancelInvoke("trackPlayer");
-        }
-        else
-        {
-            JsonUtility.FromJsonOverwrite(www.text, this);
-        }
-    }
-
-    IEnumerator sendData(string url, WWWForm form)
-    {
-        Debug.Log("Sending data");
-        WWW www = new WWW( "http://insyprojects.ewi.tudelft.nl:8085/" + url, form );
-        yield return www;
-
-        if (!string.IsNullOrEmpty(www.error))
->>>>>>> origin/platform1
         {
             Debug.Log( www.error );
         }
     }
-<<<<<<< HEAD
 
-=======
-	
->>>>>>> origin/platform1
 }

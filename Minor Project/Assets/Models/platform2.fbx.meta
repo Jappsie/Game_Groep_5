@@ -33,11 +33,7 @@ ModelImporter:
     6400004: Pyramid_2
   materials:
     importMaterials: 1
-<<<<<<< HEAD
     materialName: 2
-=======
-    materialName: 0
->>>>>>> origin/MartijnLevel
     materialSearch: 1
   animations:
     legacyGenerateAnimations: 4

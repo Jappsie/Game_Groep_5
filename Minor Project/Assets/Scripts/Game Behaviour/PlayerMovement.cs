@@ -32,7 +32,6 @@ public class PlayerMovement : HealthSystem
     private Vector3 movement;                   // Movement vector
     private GameObject cam;                     // Camera object
     private bool Mouserelease;                  // Track mouse clicking
-	private Renderer render;					// Renderer that is used to update color of player
 
 	Image Healthbar; 
 	public Text Timer;
@@ -54,14 +53,10 @@ public class PlayerMovement : HealthSystem
         Vector3 camera = cam.transform.position;
         camera.y = gameObject.transform.position.y;
         axisRotation = Quaternion.LookRotation( gameObject.transform.position - camera, Vector3.up );
-<<<<<<< HEAD
 	//	Healthbar = GameObject.Find("Main Camera").transform.FindChild ("Canvas").FindChild ("Healthbar").GetComponent<Image> (); 
 		anim = GetComponent<Animation> ();
 		Bullet_Equipped = true;
 		Saw_Equipped = false;
-=======
-		render = this.gameObject.transform.FindChild ("default").GetComponent<Renderer> ();
->>>>>>> origin/Projectile_ObjectDeath
     }
 
     // Make the object move
@@ -147,15 +142,7 @@ public class PlayerMovement : HealthSystem
             AbleShoot = false;
             Mouserelease = false;
         }
-<<<<<<< HEAD
-=======
 
-		//Color depends on health left
-		render.material.color = new Color(1f, 1f - (MaxHealth - CurHealth)/MaxHealth, 1f - (MaxHealth - CurHealth)/MaxHealth);
-    }
->>>>>>> origin/Projectile_ObjectDeath
-
-<<<<<<< HEAD
 		// Starts rotating animation when mouse is pressed
 		if (Sawanimation == true & Input.GetMouseButton(0) == true & Saw_Equipped == true) {
 			Sawanimation = false;
@@ -170,32 +157,6 @@ public class PlayerMovement : HealthSystem
 			Bullet_Equipped = true;
 		}
 
-=======
-    // Apply force on collision with Constrained Objects
-    private void OnControllerColliderHit( ControllerColliderHit hit )
-    {
-        Rigidbody body = hit.gameObject.GetComponent<Rigidbody>();
-        if (body != null && hit.gameObject.CompareTag("Tree")) {
-            Debug.Log( "Send message" );
-            hit.gameObject.SendMessage( "playAnimation" );
-        }
-        else if ( body != null && hit.gameObject.CompareTag( "Constrained" ) )
-        {
-            Debug.Log( movement );
-            if ( Mathf.Abs( movement.x ) > Mathf.Abs( movement.z ) )
-            {
-                body.AddForce( strength / body.mass * new Vector3( 1f, 0, 0 ) );
-            }
-            else if ( Mathf.Abs( movement.z ) > Mathf.Abs( movement.x ) )
-            {
-                body.AddForce( strength / body.mass * new Vector3( 0, 0, 1f ) );
-            }
-        }
-        else if ( body != null )
-        {
-            hit.rigidbody.AddForce( strength / hit.rigidbody.mass * movement );
-        }
->>>>>>> origin/TreeAnimation
     }
 
     // Apply force on collision with Constrained Objects
@@ -238,12 +199,8 @@ public class PlayerMovement : HealthSystem
     // Reset the scene when player dies
     protected override void Death()     //Death is now protected
     {
-<<<<<<< HEAD
         //GameObject.Find( "SceneController" ).GetComponent<SceneManagerScript>().resetOnDeath();
 		GameObject.FindGameObjectWithTag( "GameManager" ).GetComponent<GameManager>().deadPlayer(gameObject.transform.position);
-=======
-        GameObject.FindGameObjectWithTag( "GameManager" ).GetComponent<GameManager>().deadPlayer( gameObject.transform.position );
->>>>>>> origin/platform1
         GameObject.FindGameObjectWithTag( "GameController" ).GetComponent<SceneManagerScript>().resetOnDeath();
     }
 
