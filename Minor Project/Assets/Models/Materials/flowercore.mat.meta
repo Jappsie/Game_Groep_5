@@ -1,6 +1,11 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 guid: c3f013d789b0d49b3beecc17c5c2ca25
 timeCreated: 1482226506
+=======
+guid: 1318509c9b91174469d33c27d59f2632
+timeCreated: 1482151437
+>>>>>>> origin/forestScenery
 licenseType: Free
 NativeFormatImporter:
   userData: 

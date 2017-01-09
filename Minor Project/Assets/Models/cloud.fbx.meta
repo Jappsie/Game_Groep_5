@@ -1,49 +1,63 @@
 fileFormatVersion: 2
-<<<<<<< HEAD
-guid: adfe0f3645f884b2ba21b7dc1d7cede8
-timeCreated: 1482226615
-=======
-guid: ea9c36dd9ba19ea4f8e0263ad5c9f857
-timeCreated: 1482148702
->>>>>>> origin/forestScenery
+guid: a81fd8a1eac9d6e49b3f9b0fddea0268
+timeCreated: 1482145868
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
     100000: CINEMA_4D_Editor
-    100002: Cylinder
-    100004: Cylinder_1
-    100006: fTree
+    100002: //RootNode
+    100004: cloud
+    100006: cloud_3
     100008: Sphere
-    100010: Trunk
-    100012: //RootNode
+    100010: Sphere_1
+    100012: Sphere_2
+    100014: Sphere_2_2
+    100016: Sphere_3
+    100018: Sphere_3_2
+    100020: Sphere_5
     400000: CINEMA_4D_Editor
-    400002: Cylinder
-    400004: Cylinder_1
-    400006: fTree
+    400002: //RootNode
+    400004: cloud
+    400006: cloud_3
     400008: Sphere
-    400010: Trunk
-    400012: //RootNode
-    2300000: Cylinder
-    2300002: Cylinder_1
+    400010: Sphere_1
+    400012: Sphere_2
+    400014: Sphere_2_2
+    400016: Sphere_3
+    400018: Sphere_3_2
+    400020: Sphere_5
+    2300000: cloud
+    2300002: cloud_3
     2300004: Sphere
-    3300000: Cylinder
-    3300002: Cylinder_1
+    2300006: Sphere_1
+    2300008: Sphere_2
+    2300010: Sphere_2_2
+    2300012: Sphere_3
+    2300014: Sphere_3_2
+    2300016: Sphere_5
+    3300000: cloud
+    3300002: cloud_3
     3300004: Sphere
-    4300000: Sphere
-    4300002: Cylinder_1
-    4300004: Cylinder
-    6400000: Cylinder
-    6400002: Cylinder_1
-    6400004: Sphere
+    3300006: Sphere_1
+    3300008: Sphere_2
+    3300010: Sphere_2_2
+    3300012: Sphere_3
+    3300014: Sphere_3_2
+    3300016: Sphere_5
+    4300000: cloud
+    4300002: cloud_3
+    4300004: Sphere
+    4300006: Sphere_3
+    4300008: Sphere_5
+    4300010: Sphere_3_2
+    4300012: Sphere_2
+    4300014: Sphere_1
+    4300016: Sphere_2_2
     9500000: //RootNode
   materials:
     importMaterials: 1
-<<<<<<< HEAD
-    materialName: 2
-=======
     materialName: 0
->>>>>>> origin/forestScenery
     materialSearch: 1
   animations:
     legacyGenerateAnimations: 4
@@ -65,17 +79,9 @@ ModelImporter:
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-<<<<<<< HEAD
-<<<<<<< HEAD
-    globalScale: 0.3
-=======
-    globalScale: 0.25
->>>>>>> origin/MartijnLevel
-=======
-    globalScale: 0.5
->>>>>>> origin/forestScenery
+    globalScale: 3
     meshCompression: 0
-    addColliders: 1
+    addColliders: 0
     importBlendShapes: 1
     swapUVChannels: 0
     generateSecondaryUV: 0
