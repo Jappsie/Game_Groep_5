@@ -47,7 +47,11 @@ ModelImporter:
     isReadable: 1
   meshes:
     lODScreenPercentages: []
+<<<<<<< HEAD
     globalScale: 0.3
+=======
+    globalScale: 0.2
+>>>>>>> origin/MartijnLevel
     meshCompression: 0
     addColliders: 1
     importBlendShapes: 1

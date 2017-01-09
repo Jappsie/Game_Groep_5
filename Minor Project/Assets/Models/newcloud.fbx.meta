@@ -1,6 +1,11 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 guid: cd98dbd264034c44fbbfadc6493959e8
 timeCreated: 1482524910
+=======
+guid: 634ad5091980d234ba9f6e328a1a752a
+timeCreated: 1482527879
+>>>>>>> origin/MartijnLevel
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
@@ -44,7 +49,11 @@ ModelImporter:
     4300012: Sphere_2_2
   materials:
     importMaterials: 1
+<<<<<<< HEAD
     materialName: 2
+=======
+    materialName: 0
+>>>>>>> origin/MartijnLevel
     materialSearch: 1
   animations:
     legacyGenerateAnimations: 4
