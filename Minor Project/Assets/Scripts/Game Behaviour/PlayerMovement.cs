@@ -32,6 +32,7 @@ public class PlayerMovement : HealthSystem
     private Vector3 movement;                   // Movement vector
     private GameObject cam;                     // Camera object
     private bool Mouserelease;                  // Track mouse clicking
+	private Renderer render;					// Renderer that is used to update color of player
 
 	Image Healthbar; 
 	public Text Timer;
@@ -53,10 +54,14 @@ public class PlayerMovement : HealthSystem
         Vector3 camera = cam.transform.position;
         camera.y = gameObject.transform.position.y;
         axisRotation = Quaternion.LookRotation( gameObject.transform.position - camera, Vector3.up );
+<<<<<<< HEAD
 	//	Healthbar = GameObject.Find("Main Camera").transform.FindChild ("Canvas").FindChild ("Healthbar").GetComponent<Image> (); 
 		anim = GetComponent<Animation> ();
 		Bullet_Equipped = true;
 		Saw_Equipped = false;
+=======
+		render = this.gameObject.transform.FindChild ("default").GetComponent<Renderer> ();
+>>>>>>> origin/Projectile_ObjectDeath
     }
 
     // Make the object move
@@ -142,6 +147,13 @@ public class PlayerMovement : HealthSystem
             AbleShoot = false;
             Mouserelease = false;
         }
+<<<<<<< HEAD
+=======
+
+		//Color depends on health left
+		render.material.color = new Color(1f, 1f - (MaxHealth - CurHealth)/MaxHealth, 1f - (MaxHealth - CurHealth)/MaxHealth);
+    }
+>>>>>>> origin/Projectile_ObjectDeath
 
 		// Starts rotating animation when mouse is pressed
 		if (Sawanimation == true & Input.GetMouseButton(0) == true & Saw_Equipped == true) {
