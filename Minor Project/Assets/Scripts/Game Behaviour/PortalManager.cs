@@ -16,6 +16,7 @@ public class PortalManager : MonoBehaviour {
         if ( other.gameObject.CompareTag( "Player" ) )
         {
             Debug.Log( gameObject.name + " : " + Scene );
+<<<<<<< HEAD
             if ( toPortal )
             {
                 SceneManagerScript.goToScene( Scene, Additive, this );
@@ -24,6 +25,9 @@ public class PortalManager : MonoBehaviour {
             {
                 SceneManagerScript.goToScene( Scene, Additive );
             }
+=======
+            SceneManagerScript.goToScene( Scene, Additive , this);
+>>>>>>> origin/platform1
         }
     }
 

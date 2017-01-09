@@ -1,11 +1,16 @@
 fileFormatVersion: 2
 <<<<<<< HEAD
+<<<<<<< HEAD
 guid: 20adc51887a3648e8a51cb9240ee306a
 timeCreated: 1482500244
 =======
 guid: c5fab2e9c2a8aff468fa9016258f6941
 timeCreated: 1482436690
 >>>>>>> origin/MartijnLevel
+=======
+guid: 20adc51887a3648e8a51cb9240ee306a
+timeCreated: 1482500244
+>>>>>>> origin/platform1
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
@@ -16,6 +21,9 @@ ModelImporter:
     100006: Platonic_1
     100008: Platonic_10
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> origin/platform1
     100010: Platonic_100
     100012: Platonic_101
     100014: Platonic_102
@@ -418,6 +426,7 @@ ModelImporter:
     100808: Platonic_97
     100810: Platonic_98
     100812: Platonic_99
+<<<<<<< HEAD
 =======
     100010: Platonic_11
     100012: Platonic_12
@@ -822,12 +831,17 @@ ModelImporter:
     100810: Platonic_403
     100812: Platonic_404
 >>>>>>> origin/MartijnLevel
+=======
+>>>>>>> origin/platform1
     400000: Cloner
     400002: //RootNode
     400004: Platonic_0
     400006: Platonic_1
     400008: Platonic_10
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> origin/platform1
     400010: Platonic_100
     400012: Platonic_101
     400014: Platonic_102
@@ -2040,6 +2054,7 @@ ModelImporter:
     3300804: Platonic_97
     3300806: Platonic_98
     3300808: Platonic_99
+<<<<<<< HEAD
 =======
     400010: Platonic_11
     400012: Platonic_12
@@ -3254,6 +3269,8 @@ ModelImporter:
     3300806: Platonic_403
     3300808: Platonic_404
 >>>>>>> origin/MartijnLevel
+=======
+>>>>>>> origin/platform1
     4300000: Platonic_0
     4300002: Platonic_1
     4300004: Platonic_2
@@ -3659,6 +3676,7 @@ ModelImporter:
     4300804: Platonic_402
     4300806: Platonic_403
     4300808: Platonic_404
+<<<<<<< HEAD
     6400000: Platonic_0
     6400002: Platonic_1
     6400004: Platonic_10
@@ -4343,6 +4361,8 @@ ModelImporter:
     6400804: Platonic_402
     6400806: Platonic_403
     6400808: Platonic_404
+=======
+>>>>>>> origin/platform1
   materials:
     importMaterials: 1
     materialName: 0
@@ -4370,7 +4390,11 @@ ModelImporter:
     lODScreenPercentages: []
     globalScale: 1
     meshCompression: 0
+<<<<<<< HEAD
     addColliders: 1
+=======
+    addColliders: 0
+>>>>>>> origin/platform1
     importBlendShapes: 1
     swapUVChannels: 0
     generateSecondaryUV: 0

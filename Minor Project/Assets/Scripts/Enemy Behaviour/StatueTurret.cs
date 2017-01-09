@@ -20,7 +20,10 @@ public class StatueTurret : HealthSystem
     protected Vector3 objectPos;
     protected Quaternion objectRot;
     protected Vector3 bulletPos;
+<<<<<<< HEAD
     private EnableScript toggler;
+=======
+>>>>>>> origin/platform1
 
     // Get the player object
     protected virtual void Start()
@@ -28,7 +31,10 @@ public class StatueTurret : HealthSystem
         player = GameObject.FindGameObjectWithTag( "Player" );
         startPos = gameObject.transform.position;
         startRot = gameObject.transform.rotation;
+<<<<<<< HEAD
         toggler = GetComponent<EnableScript>();
+=======
+>>>>>>> origin/platform1
     }
 
     // Always look at the player
@@ -91,10 +97,13 @@ public class StatueTurret : HealthSystem
     protected override void Death()
     {
         Debug.Log( "Im dead!" );
+<<<<<<< HEAD
         if ( toggler != null )
         {
             toggler.toggle( true );
         }
+=======
+>>>>>>> origin/platform1
         Destroy( gameObject );
     }
 }

@@ -6,32 +6,29 @@ using UnityEngine.UI;
 
 public class SceneManagerScript : MonoBehaviour
 {
-
     public List<Object> DontDestroy;        // List of object to keep between scenes
     public KeyCode resetKey = KeyCode.R;    // Reset key
     public GUIText Scoretext;               // Used for displaying the score on the screen
 
+
     //Variables that track the time played & a list of all the death times
-    public float time;
-    public static List<float> deathList = new List<float>();
-
+    private float time;
+    private static List<float> deathList = new List<float>();
     private static SceneManagerScript SceneManagementInstance;  // Static SceneManager to check for duplication
-    private static IEnumerator coroutine;
     private PortalManager portal;
-
-    private int Deathcount = 0; // Counts how many times the main character died
 
 
     private void Awake()
     {
+<<<<<<< HEAD
         Debug.Log( "Awake! " + gameObject.name );
         if ( GameObject.FindGameObjectsWithTag("GameController").Length > 1 )
+=======
+        if ( GameObject.FindGameObjectsWithTag( "GameController" ).Length > 1 )
+>>>>>>> origin/platform1
         {
-            Debug.Log( "Duplicate: " + SceneManagementInstance.gameObject.name );
-            Debug.Log( "Duplicates: " + SceneManagementInstance.DontDestroy.Count );
             foreach ( Object obj in SceneManagementInstance.DontDestroy )
             {
-                Debug.Log( "Destroy: " + obj.name );
                 Destroy( obj );
             }
             SceneManagementInstance = null;
@@ -41,23 +38,18 @@ public class SceneManagerScript : MonoBehaviour
     // If SceneManagementInstance exists, destroy the existing objects first to avoid duplication
     void Start()
     {
-        Debug.Log( "Start! " + this.gameObject.name );
         // Make sure this object is included
         this.DontDestroy.Add( gameObject );
-        //else
+        foreach ( Object obj in this.DontDestroy )
         {
-            foreach ( Object obj in this.DontDestroy )
-            {
-                DontDestroyOnLoad( obj );
-            }
-            SceneManagementInstance = this;
+            DontDestroyOnLoad( obj );
         }
+        SceneManagementInstance = this;
 
         // Changes the amount of deaths on the screen
         if ( Scoretext != null )
         {
-            Deathcount = deathList.Count;
-            Scoretext.text = "Deaths: " + Deathcount;
+            Scoretext.text = "Deaths: " + deathList.Count;
         }
 		if (!SceneManager.GetActiveScene().name.Equals("main menu")) {
         	GameManager.checkpoint = SceneManager.GetActiveScene();
@@ -84,12 +76,7 @@ public class SceneManagerScript : MonoBehaviour
     public void resetOnDeath()
     {
         this.reset();
-        deathList.Add( this.time );         //Add another death to the list
-        foreach ( float dood in deathList )
-        {
-            Debug.Log( dood );
-        }
-        Debug.Log( "Amount of deaths: " + deathList.Count );        //Log the death times and amount of deaths
+        deathList.Add( this.time );
     }
 
     // Main method to switch scenes
@@ -105,7 +92,6 @@ public class SceneManagerScript : MonoBehaviour
         // Only reload scene if actually changing scenes
         if ( !SceneManager.GetActiveScene().Equals( SceneManager.GetSceneByName( scene ) ) )
         {
-            //SceneManager.LoadScene( scene, mode );
             IEnumerator coroutine = SceneManagementInstance.loadScene( scene, mode );
             SceneManagementInstance.StartCoroutine( coroutine );
         }
@@ -124,7 +110,6 @@ public class SceneManagerScript : MonoBehaviour
         }
         IEnumerator coroutine = SceneManagementInstance.loadScene( scene, mode );
         SceneManagementInstance.StartCoroutine( coroutine );
-
     }
 
     private IEnumerator loadScene( string scene, LoadSceneMode mode )
