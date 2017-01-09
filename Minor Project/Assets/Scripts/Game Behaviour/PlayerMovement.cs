@@ -155,6 +155,7 @@ public class PlayerMovement : HealthSystem
     }
 >>>>>>> origin/Projectile_ObjectDeath
 
+<<<<<<< HEAD
 		// Starts rotating animation when mouse is pressed
 		if (Sawanimation == true & Input.GetMouseButton(0) == true & Saw_Equipped == true) {
 			Sawanimation = false;
@@ -169,6 +170,32 @@ public class PlayerMovement : HealthSystem
 			Bullet_Equipped = true;
 		}
 
+=======
+    // Apply force on collision with Constrained Objects
+    private void OnControllerColliderHit( ControllerColliderHit hit )
+    {
+        Rigidbody body = hit.gameObject.GetComponent<Rigidbody>();
+        if (body != null && hit.gameObject.CompareTag("Tree")) {
+            Debug.Log( "Send message" );
+            hit.gameObject.SendMessage( "playAnimation" );
+        }
+        else if ( body != null && hit.gameObject.CompareTag( "Constrained" ) )
+        {
+            Debug.Log( movement );
+            if ( Mathf.Abs( movement.x ) > Mathf.Abs( movement.z ) )
+            {
+                body.AddForce( strength / body.mass * new Vector3( 1f, 0, 0 ) );
+            }
+            else if ( Mathf.Abs( movement.z ) > Mathf.Abs( movement.x ) )
+            {
+                body.AddForce( strength / body.mass * new Vector3( 0, 0, 1f ) );
+            }
+        }
+        else if ( body != null )
+        {
+            hit.rigidbody.AddForce( strength / hit.rigidbody.mass * movement );
+        }
+>>>>>>> origin/TreeAnimation
     }
 
     // Apply force on collision with Constrained Objects
