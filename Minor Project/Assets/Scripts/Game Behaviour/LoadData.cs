@@ -6,17 +6,25 @@ using System.IO;
 public class LoadData : MonoBehaviour {
 
     public GameObject sphere;
+	public string level;
+
+	private Collider[] curColliders;
 
 	// Use this for initialization
 	void Start () {
         StreamReader reader = new StreamReader( "Data.json" );
         string dataText = reader.ReadToEnd();
         Data[] data = JSONHelper.getJsonArray<Data>( dataText );
+		float radius = sphere.transform.localScale.x;
         foreach (Data value in data)
         {
-            if ( value.Scene.Equals( "Boss" ) )
+            if ( value.Scene.Equals( level ) )
             {
                 Vector3 position = new Vector3( value.XPos, value.YPos, value.ZPos );
+				curColliders = Physics.OverlapSphere (position, radius);
+				foreach (Collider col in curColliders) {
+					col.gameObject.GetComponent<Renderer> ().material.color -= new Color(-3f/255f, 3f/255f, 0, -1f/255f);
+				}
                 GameObject.Instantiate( sphere, position, Quaternion.identity );
             }
         }
