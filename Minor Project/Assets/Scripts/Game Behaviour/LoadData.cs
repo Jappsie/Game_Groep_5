@@ -6,6 +6,7 @@ using System.IO;
 public class LoadData : MonoBehaviour {
 
     public GameObject sphere;
+	public GameObject skull;
 	public string level;
 
 	private Collider[] curColliders;
@@ -18,15 +19,17 @@ public class LoadData : MonoBehaviour {
 		float radius = sphere.transform.localScale.x;
         foreach (Data value in data)
         {
-            if ( value.Scene.Equals( level ) )
-            {
-                Vector3 position = new Vector3( value.XPos, value.YPos, value.ZPos );
+			if (value.Scene.Equals (level) && value.Death == 0) {
+				Vector3 position = new Vector3 (value.XPos, value.YPos, value.ZPos);
 				curColliders = Physics.OverlapSphere (position, radius);
 				foreach (Collider col in curColliders) {
-					col.gameObject.GetComponent<Renderer> ().material.color -= new Color(-3f/255f, 3f/255f, 0, -1f/255f);
+					col.gameObject.GetComponent<Renderer> ().material.color -= new Color (-3f / 255f, 3f / 255f, 0, -1f / 255f);
 				}
-                GameObject.Instantiate( sphere, position, Quaternion.identity );
-            }
+				GameObject.Instantiate (sphere, position, Quaternion.identity);
+			} else if (value.Scene.Equals (level) && value.Death == 1) {
+				Vector3 position = new Vector3 (value.XPos, value.YPos, value.ZPos);
+				GameObject.Instantiate (skull, position, Quaternion.identity);
+			}
         }
 	}
 
