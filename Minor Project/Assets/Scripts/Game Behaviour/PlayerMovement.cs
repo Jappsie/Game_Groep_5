@@ -200,7 +200,10 @@ public class PlayerMovement : HealthSystem
     protected override void Death()     //Death is now protected
     {
         //GameObject.Find( "SceneController" ).GetComponent<SceneManagerScript>().resetOnDeath();
-		GameObject.FindGameObjectWithTag( "GameManager" ).GetComponent<GameManager>().deadPlayer(gameObject.transform.position);
+        if ( GameObject.FindGameObjectWithTag( "GameManager" ) != null )
+        {
+            GameObject.FindGameObjectWithTag( "GameManager" ).GetComponent<GameManager>().deadPlayer( gameObject.transform.position );
+        }
         GameObject.FindGameObjectWithTag( "GameController" ).GetComponent<SceneManagerScript>().resetOnDeath();
     }
 
