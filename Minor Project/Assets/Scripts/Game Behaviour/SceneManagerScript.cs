@@ -60,7 +60,7 @@ public class SceneManagerScript : MonoBehaviour
             Scoretext.text = "Deaths: " + Deathcount;
         }
 		if (!SceneManager.GetActiveScene().name.Equals("main menu")) {
-        	GameManager.checkpoint = SceneManager.GetActiveScene();
+        	PlayerPrefs.SetString("Checkpoint", SceneManager.GetActiveScene().name);
 		}
     }
 
@@ -76,7 +76,7 @@ public class SceneManagerScript : MonoBehaviour
 
     public void reset()
     {
-        SceneManager.LoadScene( GameManager.checkpoint.name );
+        SceneManager.LoadScene( PlayerPrefs.GetString("Checkpoint") );
         this.Awake();
     }
 
@@ -132,6 +132,7 @@ public class SceneManagerScript : MonoBehaviour
         //AsyncOperation loading = 
         SceneManager.LoadSceneAsync( scene, mode );
         yield return null;
+        Time.timeScale = 1;
     }
 
     private void teleport( Scene scene, LoadSceneMode mode )

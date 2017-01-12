@@ -12,7 +12,7 @@ public class MenuScript : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-
+        Time.timeScale = 0;
 	//Set all the buttons & texts right
 		quitMenu = quitMenu.GetComponent<Canvas> ();
 		continueText = continueText.GetComponent<Button> ();
@@ -51,7 +51,7 @@ public class MenuScript : MonoBehaviour {
 
     public void ContinuePress()
     {
-        string CheckPoint = GameManager.checkpoint.name;
+        string CheckPoint = PlayerPrefs.GetString( "Checkpoint" );
 		Debug.Log ("Current Checkpoint: " + CheckPoint);
         if (!string.IsNullOrEmpty(CheckPoint))
         {
@@ -63,6 +63,7 @@ public class MenuScript : MonoBehaviour {
 
 	//If you press New Game;
 	public void NewGamePress(){
+        PlayerPrefs.SetFloat( "StartTime", Time.time );
         PauseMenu.PauzeKey = KeyCode.Escape;
         SceneManagerScript.goToScene( "Level1", false );
 	}

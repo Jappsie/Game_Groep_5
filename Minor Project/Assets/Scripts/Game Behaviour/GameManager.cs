@@ -6,10 +6,8 @@ using System.Collections.Generic;
 
 public class GameManager : MonoBehaviour
 {
-
+    public bool analytics;
     public float trackInterval = 2f;
-    public static Scene checkpoint;
-	public string checkpoint2;
     public List<GameObject> objects;
 
     private string UserName;
@@ -43,17 +41,16 @@ public class GameManager : MonoBehaviour
         {
             DontDestroyOnLoad( obj );
         }
-        SceneManager.sceneLoaded += trackScene;
-        InvokeRepeating( "trackPlayer", 0, trackInterval );
-        if ( UserName == null )
+        if ( analytics )
         {
-            SetUserName();
+            SceneManager.sceneLoaded += trackScene;
+            InvokeRepeating( "trackPlayer", 0, trackInterval );
+            if ( UserName == null )
+            {
+                SetUserName();
+            }
         }
     }
-
-	void Update() {
-		checkpoint2 = checkpoint.name;
-	}
 
     private void trackScene( Scene scene, LoadSceneMode mode )
     {
