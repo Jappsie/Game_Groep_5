@@ -21,6 +21,10 @@ public class PlayerMovement : HealthSystem
 	public bool Saw_Equipped;                   // Checks if Saw is equipped 
 
 	public Image Healthbar; 
+	public Image Controls; 
+	public Button GETIT;
+
+
 
     [HideInInspector]
     public Vector3 MousePosition;               // Position mouseRaycast on plane
@@ -87,6 +91,7 @@ public class PlayerMovement : HealthSystem
 
 		//Update healthbar
 		Healthbar.fillAmount = CurHealth / MaxHealth; 
+	
 	
 	
         // Move about in the 2D area
@@ -206,5 +211,16 @@ public class PlayerMovement : HealthSystem
 	//Changes bool at the end of the animation
 	public void AnimationEnded(){
 		Sawanimation = true;
+	}
+
+
+
+	public void GetItClick ()
+	{
+		Controls.CrossFadeAlpha (0.0f, 0.1f, false);
+		GETIT.gameObject.SetActive (false); 
+
+
+
 	}
 }
