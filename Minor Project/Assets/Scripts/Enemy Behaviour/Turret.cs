@@ -55,11 +55,6 @@ public class Turret : MonoBehaviour {
 		Vector3 objectPos = gameObject.transform.position;
 		Quaternion objectRot = gameObject.transform.rotation;
 
-        //Destroys Turret if Turrerlife equals zero
-        if ( TurretLife == 0) {
-			Destroy (this.gameObject);
-		}
-
 		if (Vector3.Distance (playerPos, objectPos) < LineofSight) {
 			gameObject.transform.rotation = Quaternion.Slerp (objectRot, Quaternion.LookRotation (playerPos - objectPos), rotationSpeed * Time.deltaTime);
 		}
@@ -76,7 +71,11 @@ public class Turret : MonoBehaviour {
 			Destroy (col.gameObject);
 			if (vulnerable) {
 				TurretLife -= 1;
-				StartCoroutine ("Flicker");
+				if (TurretLife > 0) {
+					StartCoroutine ("Flicker");
+				} else {
+					Destroy (this.gameObject);
+				}
 			}
 		}
 	}
@@ -101,11 +100,9 @@ public class Turret : MonoBehaviour {
 		Debug.Log ("Invulnerable: " + Time.time);
 		for (int i = 0; i < 8; i++) {
 			renderer.material.color = flicker;
-			Debug.Log ("Color should be transparent: " + Time.time);
-			yield return new WaitForSeconds (0.1f);
-			Debug.Log ("Color should be normal: " + Time.time);
+			yield return new WaitForSeconds (0.05f);
 			renderer.material.color = original;
-			yield return new WaitForSeconds (0.1f);
+			yield return new WaitForSeconds (0.05f);
 		}
 		vulnerable = true;
 		Debug.Log ("Vulnerable: " + Time.time);
