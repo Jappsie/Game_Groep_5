@@ -9,6 +9,7 @@ public class Turret : MonoBehaviour {
 	public float rotationSpeed = 3.0f;
 	public GameObject bullet;
 	public int TurretLife = 3;
+	public bool adaptive = false;
 
 	protected Vector3 startPos;
 	protected Quaternion startRot;
@@ -25,8 +26,11 @@ public class Turret : MonoBehaviour {
 
 		//Make repeatrate a logistic function of the amount of deaths
 		deaths = SceneManagerScript.deathList.Count;
-		repeatrate = (1 / (1 + Mathf.Exp(-0.3f * deaths)));
-		Debug.Log ("RepeatRate: " + repeatrate + "!!!!!!!!!!!!!!!!!!!");
+		//When deaths == 0, repeatrate is equal to itself
+		if (adaptive) {
+			repeatrate = 2f * repeatrate * (1 / (1 + Mathf.Exp (-0.3f * deaths)));
+			Debug.Log ("RepeatRate: " + repeatrate + "!!!!!!!!!!!!!!!!!!!");
+		}
 
 		// Call BulletTrigger every so often
 		InvokeRepeating("BulletTrigger",triggertime,repeatrate);
