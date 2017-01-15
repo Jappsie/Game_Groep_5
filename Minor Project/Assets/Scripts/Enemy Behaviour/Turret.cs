@@ -14,12 +14,19 @@ public class Turret : MonoBehaviour {
 	protected Quaternion startRot;
 	protected GameObject Player;
 
+	private int deaths;
+
 	// Use this for initialization
 	protected virtual void Start () 
 	{
 		//Start position + rotation of the turret
 		startPos = gameObject.transform.position;
 		startRot = gameObject.transform.rotation;
+
+		//Make repeatrate a logistic function of the amount of deaths
+		deaths = SceneManagerScript.deathList.Count;
+		repeatrate = (1 / (1 + Mathf.Exp(-0.3f * deaths)));
+		Debug.Log ("RepeatRate: " + repeatrate + "!!!!!!!!!!!!!!!!!!!");
 
 		// Call BulletTrigger every so often
 		InvokeRepeating("BulletTrigger",triggertime,repeatrate);
