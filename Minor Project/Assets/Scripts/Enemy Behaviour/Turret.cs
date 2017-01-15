@@ -16,6 +16,10 @@ public class Turret : MonoBehaviour {
 	protected GameObject Player;
 
 	private int deaths;
+	private bool vulnerable = true;
+	private Renderer renderer;
+	private Color original;
+	private Color flicker;
 
 	// Use this for initialization
 	protected virtual void Start () 
@@ -24,10 +28,15 @@ public class Turret : MonoBehaviour {
 		startPos = gameObject.transform.position;
 		startRot = gameObject.transform.rotation;
 
+		renderer = gameObject.GetComponent<Renderer> ();
+		original = renderer.material.color;
+		flicker = original;
+		flicker.a = 0.2f;
+
 		//Make repeatrate a logistic function of the amount of deaths
-		deaths = SceneManagerScript.deathList.Count;
-		//When deaths == 0, repeatrate is equal to itself
 		if (adaptive) {
+			deaths = SceneManagerScript.deathList.Count;
+			//When deaths == 0, repeatrate is equal to itself
 			repeatrate = 2f * repeatrate * (1 / (1 + Mathf.Exp (-0.3f * deaths)));
 			Debug.Log ("RepeatRate: " + repeatrate + "!!!!!!!!!!!!!!!!!!!");
 		}
@@ -64,13 +73,13 @@ public class Turret : MonoBehaviour {
 	//Checks if the turret is hit by the player bullet
 	private void OnTriggerEnter(Collider col){
 		if (col.gameObject.CompareTag("PlayerBullet")) {
-			TurretLife -= 1;
 			Destroy (col.gameObject);
+			if (vulnerable) {
+				TurretLife -= 1;
+				StartCoroutine ("Flicker");
+			}
 		}
 	}
-		
-	
-
 
 	virtual protected void BulletTrigger(){
 		// Fire a bullet
@@ -85,6 +94,20 @@ public class Turret : MonoBehaviour {
 				Instantiate (bullet, transform.position, transform.rotation);
 			}
 		}
+	}
 
+	IEnumerator Flicker() {
+		vulnerable = false;
+		Debug.Log ("Invulnerable: " + Time.time);
+		for (int i = 0; i < 8; i++) {
+			renderer.material.color = flicker;
+			Debug.Log ("Color should be transparent: " + Time.time);
+			yield return new WaitForSeconds (0.1f);
+			Debug.Log ("Color should be normal: " + Time.time);
+			renderer.material.color = original;
+			yield return new WaitForSeconds (0.1f);
+		}
+		vulnerable = true;
+		Debug.Log ("Vulnerable: " + Time.time);
 	}
 }
