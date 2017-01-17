@@ -1,0 +1,179 @@
+fileFormatVersion: 2
+guid: ee130476e854d6044a29b9e6b45fcae0
+timeCreated: 1484590078
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: Armature
+    100002: Cap_1
+    100004: Cap_2
+    100006: Fang
+    100008: Fang_2
+    100010: Lower_Jaw
+    100012: Lower_Section
+    100014: Lower_Teeth
+    100016: Rounding
+    100018: Snake_Eye
+    100020: Snake_Eye_2
+    100022: Snake_Eyes
+    100024: SnakeHead
+    100026: //RootNode
+    100028: Tongue
+    100030: Tooth
+    100032: Tooth_2
+    100034: Tooth_3
+    100036: Tooth_4
+    100038: Upper_Jaw
+    100040: Upper_Section
+    100042: Upper_Teeth
+    100044: Boole
+    100046: Light
+    400000: Armature
+    400002: Cap_1
+    400004: Cap_2
+    400006: Fang
+    400008: Fang_2
+    400010: Lower_Jaw
+    400012: Lower_Section
+    400014: Lower_Teeth
+    400016: Rounding
+    400018: Snake_Eye
+    400020: Snake_Eye_2
+    400022: Snake_Eyes
+    400024: SnakeHead
+    400026: //RootNode
+    400028: Tongue
+    400030: Tooth
+    400032: Tooth_2
+    400034: Tooth_3
+    400036: Tooth_4
+    400038: Upper_Jaw
+    400040: Upper_Section
+    400042: Upper_Teeth
+    400044: Boole
+    400046: Light
+    2300000: Armature
+    2300002: Cap_1
+    2300004: Cap_2
+    2300006: Fang
+    2300008: Fang_2
+    2300010: Lower_Jaw
+    2300012: Rounding
+    2300014: Snake_Eye
+    2300016: Snake_Eye_2
+    2300018: Tongue
+    2300020: Tooth
+    2300022: Tooth_2
+    2300024: Tooth_3
+    2300026: Tooth_4
+    2300028: Upper_Jaw
+    3300000: Armature
+    3300002: Cap_1
+    3300004: Cap_2
+    3300006: Fang
+    3300008: Fang_2
+    3300010: Lower_Jaw
+    3300012: Rounding
+    3300014: Snake_Eye
+    3300016: Snake_Eye_2
+    3300018: Tongue
+    3300020: Tooth
+    3300022: Tooth_2
+    3300024: Tooth_3
+    3300026: Tooth_4
+    3300028: Upper_Jaw
+    4300000: Fang_2
+    4300002: Fang
+    4300004: Snake_Eye
+    4300006: Snake_Eye_2
+    4300008: Upper_Jaw
+    4300010: Tongue
+    4300012: Cap_1
+    4300014: Rounding
+    4300016: Cap_2
+    4300018: Tooth_4
+    4300020: Tooth_3
+    4300022: Tooth_2
+    4300024: Tooth
+    4300026: Lower_Jaw
+    4300028: Armature
+    6400000: Armature
+    6400002: Cap_1
+    6400004: Cap_2
+    6400006: Fang
+    6400008: Fang_2
+    6400010: Lower_Jaw
+    6400012: Rounding
+    6400014: Snake_Eye
+    6400016: Snake_Eye_2
+    6400018: Tongue
+    6400020: Tooth
+    6400022: Tooth_2
+    6400024: Tooth_3
+    6400026: Tooth_4
+    6400028: Upper_Jaw
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1.5
+    meshCompression: 0
+    addColliders: 1
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
