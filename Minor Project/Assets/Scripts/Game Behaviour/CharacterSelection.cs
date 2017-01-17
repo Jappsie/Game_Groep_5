@@ -30,10 +30,10 @@ public class CharacterSelection : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		if (Input.GetKey (KeyCode.LeftArrow)) {
+		if (Input.GetKeyDown (KeyCode.LeftArrow)) {
 			Change1 (); 
 		}
-		if (Input.GetKey (KeyCode.RightArrow)) {
+		if (Input.GetKeyUp (KeyCode.RightArrow)) {
 			Change2 (); 
 			
 	

@@ -30,6 +30,7 @@ public class GameManager : MonoBehaviour
             {
                 Destroy( obj );
             }
+            Destroy( gameObject );
         }
     }
 

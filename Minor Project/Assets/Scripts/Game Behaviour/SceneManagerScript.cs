@@ -26,11 +26,8 @@ public class SceneManagerScript : MonoBehaviour
     {
         if ( GameObject.FindGameObjectsWithTag("GameController").Length > 1 )
         {
-            Debug.Log( "Duplicate: " + SceneManagementInstance.gameObject.name );
-            Debug.Log( "Duplicates: " + SceneManagementInstance.DontDestroy.Count );
             foreach ( Object obj in SceneManagementInstance.DontDestroy )
             {
-                Debug.Log( "Destroy: " + obj.name );
                 Destroy( obj );
             }
             SceneManagementInstance = null;

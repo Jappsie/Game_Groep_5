@@ -7,7 +7,7 @@ public class ControlCanvas : MonoBehaviour {
 
 
 	public Image Controls; 
-	public Button GETIT;
+	public Canvas GETIT;
 
 
 	void Start()
