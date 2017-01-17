@@ -22,13 +22,15 @@ public class StatueTurret : HealthSystem
     protected Vector3 objectPos;
     protected Quaternion objectRot;
     protected Vector3 bulletPos;
+    protected float activationTimeValue;
+    protected float cooldownTimeValue;
 
     private int deaths;
-    private double repeatrate;
     private EnableScript toggler;
     private Renderer rendererStatue;
     private Color color;
     private Color flicker;
+
 
     // Get the player object
     protected virtual void Start()
@@ -39,10 +41,9 @@ public class StatueTurret : HealthSystem
         toggler = GetComponent<EnableScript>();
         if ( adaptive )
         {
-            deaths = SceneManagerScript.deathList.Count;        
-            //When deaths == 0, repeatrate is equal to itself
-            activationTime = 2f * activationTime * (1 / (1 + Mathf.Exp( -0.3f * deaths )));
-            cooldownTime = 2f * cooldownTime * (1 / (1 + Mathf.Exp( -0.3f * deaths )));
+            deaths = SceneManagerScript.deathList.Count;
+            activationTimeValue = 2f * activationTime * (1 / (1 + Mathf.Exp( -0.3f * deaths )));
+            cooldownTimeValue = 2f * cooldownTime * (1 / (1 + Mathf.Exp( -0.3f * deaths )));
         }
         rendererStatue = gameObject.GetComponent<Renderer>();
         color = rendererStatue.material.color;
@@ -89,10 +90,10 @@ public class StatueTurret : HealthSystem
 
     protected virtual IEnumerator fire( Vector3 PlayerPos )
     {
-        yield return new WaitForSecondsRealtime( activationTime );
+        yield return new WaitForSecondsRealtime( activationTimeValue );
         Quaternion angleY = Quaternion.LookRotation( PlayerPos - bulletPos);
         Instantiate( bullet,  bulletPos, Quaternion.Euler(angleY.eulerAngles.x, objectRot.eulerAngles.y, 0) );
-        yield return new WaitForSecondsRealtime( cooldownTime );
+        yield return new WaitForSecondsRealtime( cooldownTimeValue );
         canFire = true;
     }
 

@@ -18,7 +18,6 @@ public abstract class HealthSystem : MonoBehaviour
     // Get reference to playerMovement and revive object
     void Awake()
     {
-        Debug.Log( "Revived " + gameObject.name);
         CurHealth = MaxHealth;
         isDead = false;
 		damaged = false;
@@ -39,7 +38,7 @@ public abstract class HealthSystem : MonoBehaviour
         CurHealth -= damageAmount;
 
         // Check for negative health and if not dead yet, invoke death
-        if ( CurHealth <= 0 && !isDead )
+        if ( !isDead && CurHealth <= 0  )
         {
             isDead = true;
             Death();

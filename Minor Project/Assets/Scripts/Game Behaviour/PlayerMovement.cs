@@ -49,8 +49,7 @@ public class PlayerMovement : HealthSystem
 
     // Get reference to the CharacterController
     void Start()
-    {
-        Debug.Log( "Player start" );
+    { 
         controller = GetComponent<CharacterController>();
         GameObject[] cameras = GameObject.FindGameObjectsWithTag( "MainCamera" );
         cam = cameras[ cameras.Length - 1 ];
@@ -89,8 +88,11 @@ public class PlayerMovement : HealthSystem
             }
         }
 
-		//Update healthbar
-		Healthbar.fillAmount = CurHealth / MaxHealth; 
+        //Update healthbar
+        if ( Healthbar )
+        {
+            Healthbar.fillAmount = CurHealth / MaxHealth;
+        }
 	
 	
 	
@@ -212,7 +214,6 @@ public class PlayerMovement : HealthSystem
     // Reset the scene when player dies
     protected override void Death()     //Death is now protected
     {
-        //GameObject.Find( "SceneController" ).GetComponent<SceneManagerScript>().resetOnDeath();
         if ( GameObject.FindGameObjectWithTag( "GameManager" ) != null )
         {
             GameObject.FindGameObjectWithTag( "GameManager" ).GetComponent<GameManager>().deadPlayer( gameObject.transform.position );

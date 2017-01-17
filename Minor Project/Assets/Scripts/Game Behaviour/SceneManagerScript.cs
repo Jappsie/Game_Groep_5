@@ -24,7 +24,6 @@ public class SceneManagerScript : MonoBehaviour
 
     private void Awake()
     {
-        Debug.Log( "Awake! " + gameObject.name );
         if ( GameObject.FindGameObjectsWithTag("GameController").Length > 1 )
         {
             Debug.Log( "Duplicate: " + SceneManagementInstance.gameObject.name );
@@ -41,7 +40,6 @@ public class SceneManagerScript : MonoBehaviour
     // If SceneManagementInstance exists, destroy the existing objects first to avoid duplication
     void Start()
     {
-        Debug.Log( "Start! " + this.gameObject.name );
         // Make sure this object is included
         this.DontDestroy.Add( gameObject );
         //else
@@ -83,12 +81,8 @@ public class SceneManagerScript : MonoBehaviour
     //Create a resetOnDeath() that increments the death counter if called
     public void resetOnDeath()
     {
-        this.reset();
+        reset();
         deathList.Add( this.time );         //Add another death to the list
-        foreach ( float dood in deathList )
-        {
-            Debug.Log( dood );
-        }
         Debug.Log( "Amount of deaths: " + deathList.Count );        //Log the death times and amount of deaths
     }
 
