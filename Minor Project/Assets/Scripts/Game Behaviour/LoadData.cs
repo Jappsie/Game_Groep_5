@@ -24,7 +24,7 @@ public class LoadData : MonoBehaviour {
         {
 			if (value.Scene.Equals (level) && value.Death == 0 && !death) {
 				Vector3 position = new Vector3 (value.XPos, value.YPos, value.ZPos);
-				curColliders = Physics.OverlapSphere (position, radius, 1 << 8);
+				curColliders = Physics.OverlapSphere (position, radius, 1 << 9);
 				foreach (Collider col in curColliders) {
                         col.gameObject.GetComponent<Renderer>().material.color -= new Color( -3f / 255f, 3f / 255f, 0, -1f / 255f );
 				}
