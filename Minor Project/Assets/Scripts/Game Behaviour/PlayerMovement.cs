@@ -163,6 +163,15 @@ public class PlayerMovement : HealthSystem
 
     }
 
+	private void OnControllerColliderHit( ControllerColliderHit hit )
+	{
+	        //Rigidbody body = hit.gameObject.GetComponent<Rigidbody>();
+	
+			if (hit.gameObject.CompareTag("Enemy")) {
+				TakeDamage(0.1f);
+			}
+	}
+
     // Apply force on collision with Constrained Objects
 //    private void OnControllerColliderHit( ControllerColliderHit hit )
 //    {
@@ -184,11 +193,6 @@ public class PlayerMovement : HealthSystem
 //		}
 //
 //    }
-	private void OnControllerColliderHit( ControllerColliderHit other ) {
-		if (other.gameObject.CompareTag("Egg")) {
-			TakeDamage(0.5f);
-		}
-	}
 
 	// detects collision with powerups
 	void OnTriggerEnter(Collider col){
