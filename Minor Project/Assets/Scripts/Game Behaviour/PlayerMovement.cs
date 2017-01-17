@@ -165,11 +165,16 @@ public class PlayerMovement : HealthSystem
 
 	private void OnControllerColliderHit( ControllerColliderHit hit )
 	{
-	        //Rigidbody body = hit.gameObject.GetComponent<Rigidbody>();
-	
 			if (hit.gameObject.CompareTag("Enemy")) {
 				TakeDamage(0.1f);
 			}
+
+		if (hit.gameObject.CompareTag ("Egg")) {
+			if (CurHealth < MaxHealth) {
+				TakeDamage (-1f);
+			}
+			Destroy (hit.gameObject);
+		}
 	}
 
     // Apply force on collision with Constrained Objects

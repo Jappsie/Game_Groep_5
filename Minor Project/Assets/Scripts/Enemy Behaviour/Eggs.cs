@@ -9,7 +9,7 @@ public class Eggs : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		GameObject Player = GameObject.FindGameObjectWithTag("Player"); // Finds Player with Tag Player
-		Physics.IgnoreCollision (gameObject.GetComponent<CapsuleCollider> (), Player.GetComponent<CharacterController> ());
+		//Physics.IgnoreCollision (gameObject.GetComponent<CapsuleCollider> (), Player.GetComponent<CharacterController> ());
 		gameObject.GetComponent<Rigidbody> ().AddForce (Vector3.forward * thrust);
 		Invoke ("EggSpawn", spawntime);
 	}
@@ -19,14 +19,15 @@ public class Eggs : MonoBehaviour {
 	}
 
 	void OnCollisionEnter (Collision col){
-		if (col.gameObject.tag == "Egg") {
+		Debug.Log (col.gameObject.name);
+		if (col.gameObject.CompareTag("Egg")) {
 			Physics.IgnoreCollision (gameObject.GetComponent<CapsuleCollider> (), col.gameObject.GetComponent<CapsuleCollider> ());
 		
 		// Destroy egg if collided with player or playerbullet
-		} else if (col.gameObject.tag == "PlayerBullet" || col.gameObject.tag == "Player") {
+		} else if (col.gameObject.CompareTag("PlayerBullet")) {
 			Destroy (this.gameObject);
 		
-		} else if (col.gameObject.tag == "Boss") {
+		} else if (col.gameObject.CompareTag("Boss")) {
 			Physics.IgnoreCollision (gameObject.GetComponent<CapsuleCollider> (), col.gameObject.GetComponent<SphereCollider> ());
 		}
 
