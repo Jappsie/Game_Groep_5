@@ -44,6 +44,20 @@ public class PauseMenu : MonoBehaviour
         hidePaused();
     }
 
+    public void SaveGame()
+    {
+        if (string.IsNullOrEmpty(PlayerPrefs.GetString("Username")))
+        {
+            Debug.Log( "Not logged in" );
+        }
+        else
+        {
+            GameManager.SaveUser(PlayerPrefs.GetString("Username"));
+            Debug.Log( "Saved" );
+        }
+        Continue();
+    }
+
 
     //Reloads the Level
     public void Reload()
