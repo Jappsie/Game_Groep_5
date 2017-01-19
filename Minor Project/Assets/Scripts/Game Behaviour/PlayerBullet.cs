@@ -31,7 +31,7 @@ public class PlayerBullet : MonoBehaviour {
 
 
 	//You can destroy the bullet with right mouseclick
-	if (Input.GetKey (KeyCode.Mouse1)) {
+		if (Input.GetKey (KeyCode.Mouse1) || Input.GetKey(KeyCode.JoystickButton4)) {
 		Destroy (this.gameObject);
 		}
 	}

@@ -38,6 +38,7 @@ public class PlayerMovement : HealthSystem
     private GameObject cam;                     // Camera object
     private bool Mouserelease;                  // Track mouse clicking
 
+	public Image Healthbar; 
 	public Text Timer;
 	public float Tijd; 
 
@@ -70,7 +71,7 @@ public class PlayerMovement : HealthSystem
         if ( controller.isGrounded )
         {
             verticalVelocity = 0.0f;
-            if ( Input.GetKey( KeyCode.Space ) )
+			if ( Input.GetKey( KeyCode.Space ) || Input.GetKey(KeyCode.JoystickButton0) )
             {
                 verticalVelocity = jumpForce;
             }
@@ -78,7 +79,7 @@ public class PlayerMovement : HealthSystem
         else
         {
             // If holding space and falling glide
-            if ( Input.GetKey( KeyCode.Space ) && verticalVelocity <= 0 && zweefConstant != 0 )
+			if ( (Input.GetKey( KeyCode.Space ) || Input.GetKey(KeyCode.JoystickButton0) ) && verticalVelocity <= 0 && zweefConstant != 0 )
             {
                 verticalVelocity = -zweefConstant * Time.deltaTime;     //Constant falling speed when hovering
             }
@@ -125,7 +126,7 @@ public class PlayerMovement : HealthSystem
         }
         
         // Counts how many seconds the left mouse butten is hold down
-		if ( Input.GetMouseButton( 0 ) && AbleShoot == true && Bullet_Equipped == true )
+		if ( ( Input.GetMouseButton( 0 ) || Input.GetKey(KeyCode.JoystickButton5)) && AbleShoot == true && Bullet_Equipped == true )
         {
             Momentum += Momentumcharge * Time.deltaTime;
             Mouserelease = true;
@@ -134,7 +135,7 @@ public class PlayerMovement : HealthSystem
 
         }
         // Shoots bullet when left mouse click is released
-		if ( Input.GetMouseButton( 0 ) == false && Mouserelease == true && Bullet_Equipped == true)
+		if ( ( Input.GetMouseButton( 0 ) || Input.GetKey(KeyCode.JoystickButton5)) == false && Mouserelease == true && Bullet_Equipped == true)
         {
 			float MomentumRange = MaxMomentum - MinMomentum;
 			if (MinMomentum <= Momentum && Momentum < MinMomentum + MomentumRange / 3.0) {
@@ -150,13 +151,13 @@ public class PlayerMovement : HealthSystem
         }
 
 		// Starts rotating animation when mouse is pressed
-		if (Sawanimation == true & Input.GetMouseButton(0) == true & Saw_Equipped == true) {
+		if (Sawanimation == true & (Input.GetMouseButton(0) || Input.GetKey(KeyCode.JoystickButton5)) & Saw_Equipped == true) {
 			Sawanimation = false;
 			anim.Play ("ZaagAnimatie");
 
 		}
 
-		if(Saw_Equipped == true & Input.GetMouseButton(1)){
+		if(Saw_Equipped == true & (Input.GetMouseButton(1) || Input.GetKey(KeyCode.JoystickButton4))){
 			GameObject child = GameObject.FindGameObjectWithTag ("saw");
 			Saw_Equipped = false;
 			child.transform.parent = null;
