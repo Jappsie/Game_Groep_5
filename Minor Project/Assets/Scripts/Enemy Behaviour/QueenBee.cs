@@ -68,7 +68,7 @@ public class QueenBee : HealthSystem {
 	}
 
 	protected override void Death() {
-        //enable.toggle(true);
+        enable.toggle(true);
 		Destroy (gameObject);
 	}
 
