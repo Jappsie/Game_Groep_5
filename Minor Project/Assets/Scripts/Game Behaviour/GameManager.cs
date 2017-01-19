@@ -9,8 +9,10 @@ public class GameManager : MonoBehaviour
     public bool analytics;
     public float trackInterval = 2f;
     public List<GameObject> objects;
+    public static GameManager instance;
 
-    private string UserName;
+    [SerializeField] // Is nodig voor de jsonUtility
+    private string Checkpoint = "";
     [SerializeField]
     private int userId = -1;
     [SerializeField]
@@ -23,7 +25,6 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-
         if ( GameObject.FindGameObjectsWithTag( "GameManager" ).Length > 1 )
         {
             foreach ( GameObject obj in objects )
@@ -37,6 +38,7 @@ public class GameManager : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        instance = this;
         DontDestroyOnLoad( gameObject );
         foreach ( GameObject obj in objects )
         {
@@ -46,10 +48,6 @@ public class GameManager : MonoBehaviour
         {
             SceneManager.sceneLoaded += trackScene;
             InvokeRepeating( "trackPlayer", 0, trackInterval );
-            if ( UserName == null )
-            {
-                SetUserName();
-            }
         }
     }
 
@@ -75,10 +73,7 @@ public class GameManager : MonoBehaviour
             form.AddField( "z", player.transform.position.z.ToString() );
             StartCoroutine( sendData( "position", form ) );
         }
-        else
-        {
-            trackScene( currentScene, LoadSceneMode.Single );
-        }
+
     }
 
     public void deadPlayer( Vector3 position )
@@ -95,22 +90,49 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void SetUserName()
+    public static void MakeSession()
     {
-        UserName = "";
-        for ( int i = 0; i < glyphLength; i++ )
+        string username = "";
+        for ( int i = 0; i < instance.glyphLength; i++ )
         {
-            UserName += glyph[ Random.Range( 0, glyph.Length ) ];
+            username += instance.glyph[ Random.Range( 0, instance.glyph.Length ) ];
         }
-        StartCoroutine( newUser() );
+        instance.StartCoroutine( instance.newSession(username) );
     }
 
-    IEnumerator newUser()
+    public static void GetSession(string username)
+    {
+        instance.StartCoroutine( instance.getSession(username) );
+    }
+
+    public static void SaveUser(string username)
+    {
+        PlayerPrefs.SetString( "Username", username );
+        WWWForm form = new WWWForm();
+        form.AddField( "Username", username );
+        form.AddField( "Checkpoint", PlayerPrefs.GetString( "Checkpoint" ) );
+        form.AddField( "Id", instance.userId );
+        instance.StartCoroutine( instance.sendData( "saveUser", form ) );
+    }
+
+    public static void UpdateCheckpoint(string Checkpoint)
+    {
+        PlayerPrefs.SetString( "Checkpoint", Checkpoint );
+        if ( !string.IsNullOrEmpty( PlayerPrefs.GetString( "Username" ) ) )
+        {
+            WWWForm form = new WWWForm();
+            form.AddField( "Username", PlayerPrefs.GetString("Username") );
+            form.AddField( "Checkpoint", Checkpoint );
+            instance.StartCoroutine( instance.sendData( "Checkpoint", form ) );
+        }
+    }
+
+    IEnumerator newSession(string username)
     {
         WWWForm form = new WWWForm();
-        form.AddField( "name", UserName );
+        form.AddField( "name", username );
 
-        WWW www = new WWW( "http://insyprojects.ewi.tudelft.nl:8085/newUser", form );
+        WWW www = new WWW( "http://insyprojects.ewi.tudelft.nl:8085/newSession", form );
 
         yield return www;
 
@@ -122,6 +144,29 @@ public class GameManager : MonoBehaviour
         else
         {
             JsonUtility.FromJsonOverwrite( www.text, this );
+        }
+    }
+
+    IEnumerator getSession(string username)
+    {
+        WWWForm form = new WWWForm();
+        form.AddField( "name", username );
+
+        WWW www = new WWW( "http://insyprojects.ewi.tudelft.nl:8085/getSession", form );
+
+        yield return www;
+
+        if (!string.IsNullOrEmpty( www.error))
+        {
+            Debug.Log( www.error );
+            CancelInvoke( "trackPlayer" );
+        }
+        else
+        {
+            Debug.Log( www.text );
+            JsonUtility.FromJsonOverwrite( www.text, this );
+            Debug.Log( Checkpoint );
+            PlayerPrefs.SetString( "Checkpoint", Checkpoint );
         }
     }
 

@@ -55,7 +55,7 @@ public class SceneManagerScript : MonoBehaviour
             Scoretext.text = "Deaths: " + Deathcount;
         }
 		if (!SceneManager.GetActiveScene().name.Equals("main menu")) {
-        	PlayerPrefs.SetString("Checkpoint", SceneManager.GetActiveScene().name);
+        	GameManager.UpdateCheckpoint( SceneManager.GetActiveScene().name);
 		}
     }
 
