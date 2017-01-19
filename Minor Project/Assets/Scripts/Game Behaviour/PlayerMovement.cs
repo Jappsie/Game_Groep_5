@@ -136,14 +136,18 @@ public class PlayerMovement : HealthSystem
         // Shoots bullet when left mouse click is released
 		if ( Input.GetMouseButton( 0 ) == false && Mouserelease == true && Bullet_Equipped == true)
         {
+            Debug.Log( gameObject );
 			float MomentumRange = MaxMomentum - MinMomentum;
 			if (MinMomentum <= Momentum && Momentum < MinMomentum + MomentumRange / 3.0) {
-				Instantiate (Playerbullet [0], transform.position + transform.rotation * bulletSpawn, transform.rotation);
+				GameObject bullet = Instantiate (Playerbullet [0], transform.position + transform.rotation * bulletSpawn, transform.rotation) as GameObject;
+                bullet.GetComponent<PlayerBullet>().Player = gameObject;
 			} else if (MinMomentum + MomentumRange / 3.0 <= Momentum && Momentum < MinMomentum + 2.0 * MomentumRange / 3.0) {
-				Instantiate (Playerbullet [1], transform.position + transform.rotation * bulletSpawn, transform.rotation);
-			} else if (MinMomentum + MomentumRange * 2.0 / 3.0 <= Momentum && Momentum <= MaxMomentum) {
-				Instantiate (Playerbullet [2], transform.position + transform.rotation * bulletSpawn, transform.rotation);
-			}
+                GameObject bullet = Instantiate( Playerbullet [1], transform.position + transform.rotation * bulletSpawn, transform.rotation) as GameObject;
+                bullet.GetComponent<PlayerBullet>().Player = gameObject;
+            } else if (MinMomentum + MomentumRange * 2.0 / 3.0 <= Momentum && Momentum <= MaxMomentum) {
+                GameObject bullet = Instantiate( Playerbullet[ 2 ], transform.position + transform.rotation * bulletSpawn, transform.rotation ) as GameObject;
+                bullet.GetComponent<PlayerBullet>().Player = gameObject;
+            }
             //Momentum = Momentum * Momentumscale;
             AbleShoot = false;
             Mouserelease = false;

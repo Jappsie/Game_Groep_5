@@ -28,9 +28,11 @@ public class LaserPointer : MonoBehaviour {
 		if (Physics.Raycast (ray, out raycasthit, 1000f)) {
 			positions [1] = raycasthit.point;
 			line.SetPositions (positions);
-			line.enabled = true;
+			//line.enabled = true;
 		} else {
-			line.enabled = false;
+            positions[ 1 ] = positions[ 0 ] + gameObject.transform.forward * 100;
+            line.SetPositions( positions );
+			//line.enabled = false;
 		}
 	}
 }
