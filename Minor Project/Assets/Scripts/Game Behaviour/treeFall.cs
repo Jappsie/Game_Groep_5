@@ -10,7 +10,6 @@ public class treeFall : MonoBehaviour {
 
 	private void OnTriggerEnter(Collider col){
 		if (col.CompareTag("saw")) {
-			Debug.Log ("Going down!");
 			animator.Play ("FallingTree");
 		}
 	} 

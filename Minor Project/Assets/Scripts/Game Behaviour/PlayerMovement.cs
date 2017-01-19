@@ -20,6 +20,11 @@ public class PlayerMovement : HealthSystem
     public float Momentumcharge = 5f;           // Used for scaling the momentum increase
 	public bool Saw_Equipped;                   // Checks if Saw is equipped 
 
+	public Image Healthbar; 
+	public Image Controls; 
+	public Button GETIT;
+
+
 
     [HideInInspector]
     public Vector3 MousePosition;               // Position mouseRaycast on plane
@@ -33,7 +38,6 @@ public class PlayerMovement : HealthSystem
     private GameObject cam;                     // Camera object
     private bool Mouserelease;                  // Track mouse clicking
 
-	Image Healthbar; 
 	public Text Timer;
 	public float Tijd; 
 
@@ -45,15 +49,13 @@ public class PlayerMovement : HealthSystem
 
     // Get reference to the CharacterController
     void Start()
-    {
-        Debug.Log( "Player start" );
+    { 
         controller = GetComponent<CharacterController>();
         GameObject[] cameras = GameObject.FindGameObjectsWithTag( "MainCamera" );
         cam = cameras[ cameras.Length - 1 ];
         Vector3 camera = cam.transform.position;
         camera.y = gameObject.transform.position.y;
         axisRotation = Quaternion.LookRotation( gameObject.transform.position - camera, Vector3.up );
-	//	Healthbar = GameObject.Find("Main Camera").transform.FindChild ("Canvas").FindChild ("Healthbar").GetComponent<Image> (); 
 		anim = GetComponent<Animation> ();
 		Bullet_Equipped = true;
 		Saw_Equipped = false;
@@ -86,8 +88,12 @@ public class PlayerMovement : HealthSystem
             }
         }
 
-		//Update healthbar
-//		Healthbar.fillAmount = (CurHealth / MaxHealth); 
+        //Update healthbar
+        if ( Healthbar )
+        {
+            Healthbar.fillAmount = CurHealth / MaxHealth;
+        }
+	
 	
 	
         // Move about in the 2D area
@@ -159,6 +165,20 @@ public class PlayerMovement : HealthSystem
 
     }
 
+	private void OnControllerColliderHit( ControllerColliderHit hit )
+	{
+			if (hit.gameObject.CompareTag("Enemy")) {
+				TakeDamage(0.1f);
+			}
+
+		if (hit.gameObject.CompareTag ("Egg")) {
+			if (CurHealth < MaxHealth) {
+				TakeDamage (-1f);
+			}
+			Destroy (hit.gameObject);
+		}
+	}
+
     // Apply force on collision with Constrained Objects
 //    private void OnControllerColliderHit( ControllerColliderHit hit )
 //    {
@@ -180,11 +200,6 @@ public class PlayerMovement : HealthSystem
 //		}
 //
 //    }
-	private void OnControllerColliderHit( ControllerColliderHit other ) {
-		if (other.gameObject.CompareTag("Egg")) {
-			TakeDamage(0.5f);
-		}
-	}
 
 	// detects collision with powerups
 	void OnTriggerEnter(Collider col){
@@ -199,7 +214,6 @@ public class PlayerMovement : HealthSystem
     // Reset the scene when player dies
     protected override void Death()     //Death is now protected
     {
-        //GameObject.Find( "SceneController" ).GetComponent<SceneManagerScript>().resetOnDeath();
         if ( GameObject.FindGameObjectWithTag( "GameManager" ) != null )
         {
             GameObject.FindGameObjectWithTag( "GameManager" ).GetComponent<GameManager>().deadPlayer( gameObject.transform.position );
@@ -210,5 +224,16 @@ public class PlayerMovement : HealthSystem
 	//Changes bool at the end of the animation
 	public void AnimationEnded(){
 		Sawanimation = true;
+	}
+
+
+
+	public void GetItClick ()
+	{
+		Controls.CrossFadeAlpha (0.0f, 0.1f, false);
+		GETIT.gameObject.SetActive (false); 
+
+
+
 	}
 }
