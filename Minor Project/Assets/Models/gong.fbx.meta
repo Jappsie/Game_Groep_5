@@ -1,0 +1,201 @@
+fileFormatVersion: 2
+guid: b1faffeb8029aab429c79bf56cf518c1
+timeCreated: 1484823704
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: Base
+    100002: Base_1
+    100004: Bell
+    100006: Boole
+    100008: Boole_2
+    100010: Chain
+    100012: Chain_2
+    100014: CulCil_left
+    100016: CulCil_right
+    100018: Drum
+    100020: Drum_ring
+    100022: Framework
+    100024: //RootNode
+    100026: Hanging_element
+    100028: Inner_drum
+    100030: Outer_drum
+    100032: Ring
+    100034: Ring_1
+    100036: Ring_1_2
+    100038: Ring_2
+    100040: Ring_2_2
+    100042: Ring_2_3
+    100044: Stulp_1
+    100046: Stulp_2
+    100048: Stulp_2_2
+    100050: Stulp_3
+    100052: Support
+    100054: Support_2
+    100056: TopBar
+    400000: Base
+    400002: Base_1
+    400004: Bell
+    400006: Boole
+    400008: Boole_2
+    400010: Chain
+    400012: Chain_2
+    400014: CulCil_left
+    400016: CulCil_right
+    400018: Drum
+    400020: Drum_ring
+    400022: Framework
+    400024: //RootNode
+    400026: Hanging_element
+    400028: Inner_drum
+    400030: Outer_drum
+    400032: Ring
+    400034: Ring_1
+    400036: Ring_1_2
+    400038: Ring_2
+    400040: Ring_2_2
+    400042: Ring_2_3
+    400044: Stulp_1
+    400046: Stulp_2
+    400048: Stulp_2_2
+    400050: Stulp_3
+    400052: Support
+    400054: Support_2
+    400056: TopBar
+    2300000: Base
+    2300002: Base_1
+    2300004: CulCil_left
+    2300006: CulCil_right
+    2300008: Drum_ring
+    2300010: Inner_drum
+    2300012: Outer_drum
+    2300014: Ring
+    2300016: Ring_1
+    2300018: Ring_1_2
+    2300020: Ring_2
+    2300022: Ring_2_2
+    2300024: Ring_2_3
+    2300026: Stulp_1
+    2300028: Stulp_2
+    2300030: Stulp_2_2
+    2300032: Stulp_3
+    2300034: TopBar
+    3300000: Base
+    3300002: Base_1
+    3300004: CulCil_left
+    3300006: CulCil_right
+    3300008: Drum_ring
+    3300010: Inner_drum
+    3300012: Outer_drum
+    3300014: Ring
+    3300016: Ring_1
+    3300018: Ring_1_2
+    3300020: Ring_2
+    3300022: Ring_2_2
+    3300024: Ring_2_3
+    3300026: Stulp_1
+    3300028: Stulp_2
+    3300030: Stulp_2_2
+    3300032: Stulp_3
+    3300034: TopBar
+    4300000: TopBar
+    4300002: Stulp_3
+    4300004: Stulp_2
+    4300006: Base_1
+    4300008: Stulp_1
+    4300010: Stulp_2_2
+    4300012: Base
+    4300014: Drum_ring
+    4300016: Inner_drum
+    4300018: Outer_drum
+    4300020: CulCil_right
+    4300022: CulCil_left
+    4300024: Ring
+    4300026: Ring_1
+    4300028: Ring_2
+    4300030: Ring_2_2
+    4300032: Ring_1_2
+    4300034: Ring_2_3
+    6400000: Base
+    6400002: Base_1
+    6400004: CulCil_left
+    6400006: CulCil_right
+    6400008: Drum_ring
+    6400010: Inner_drum
+    6400012: Outer_drum
+    6400014: Ring
+    6400016: Ring_1
+    6400018: Ring_1_2
+    6400020: Ring_2
+    6400022: Ring_2_2
+    6400024: Ring_2_3
+    6400026: Stulp_1
+    6400028: Stulp_2
+    6400030: Stulp_2_2
+    6400032: Stulp_3
+    6400034: TopBar
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 4
+    meshCompression: 0
+    addColliders: 1
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
