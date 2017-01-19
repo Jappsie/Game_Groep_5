@@ -19,6 +19,8 @@ public class QueenBee : HealthSystem {
 	private Renderer[][] cloudRenderer;
 	private Transform SpawnEgg;
 
+    private EnableScript enable;
+
 	// Use this for initialization
 	void Start () {
 		//queenbee moves between pos1 and pos 2
@@ -26,6 +28,7 @@ public class QueenBee : HealthSystem {
 		pos2 = new Vector3 (transform.position.x + PingPongRange, transform.position.y, transform.position.z);
 		clouds = GameObject.FindGameObjectsWithTag ("Cloud");
 		cloudRenderer = new Renderer[clouds.Length][];
+        enable = GetComponent<EnableScript>();
 		for (int i = 0; i < clouds.Length; i++) {
 			Debug.Log (i);
 			cloudRenderer [i] = clouds [i].gameObject.GetComponentsInChildren<Renderer> ();
@@ -65,6 +68,7 @@ public class QueenBee : HealthSystem {
 	}
 
 	protected override void Death() {
+        enable.toggle(true);
 		Destroy (gameObject);
 	}
 
