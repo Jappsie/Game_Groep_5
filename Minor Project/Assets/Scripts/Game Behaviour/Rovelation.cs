@@ -59,5 +59,17 @@ public class Rovelation : MonoBehaviour {
             targetRot *= Quaternion.Euler( new Vector3( 0, step*45, 0 ) );
     }
 
+    private void OnTriggerEnter( Collider other )
+    {
+        Debug.Log( "Triggered" );
+        if (other.CompareTag("Turret"))
+        {            
+            other.gameObject.transform.parent = gameObject.transform;
+            other.GetComponent<Rigidbody>().isKinematic = true;
+            other.gameObject.transform.localPosition = new Vector3(0,1.2f,0);
+
+        }
+    }
+
 
 }
