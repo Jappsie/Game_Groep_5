@@ -11,7 +11,6 @@ public class GameManager : MonoBehaviour
     public List<GameObject> objects;
     public static GameManager instance;
 
-    private string UserName;
     [SerializeField] // Is nodig voor de jsonUtility
     private string Checkpoint = "";
     [SerializeField]
@@ -26,7 +25,6 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        UserName = PlayerPrefs.GetString( "Username" );
         if ( GameObject.FindGameObjectsWithTag( "GameManager" ).Length > 1 )
         {
             foreach ( GameObject obj in objects )
@@ -50,7 +48,6 @@ public class GameManager : MonoBehaviour
         {
             SceneManager.sceneLoaded += trackScene;
             InvokeRepeating( "trackPlayer", 0, trackInterval );
-            UserName = PlayerPrefs.GetString("UserName");
         }
     }
 
@@ -121,10 +118,13 @@ public class GameManager : MonoBehaviour
     public static void UpdateCheckpoint(string Checkpoint)
     {
         PlayerPrefs.SetString( "Checkpoint", Checkpoint );
-        WWWForm form = new WWWForm();
-        form.AddField( "Username", instance.UserName );
-        form.AddField( "Checkpoint", Checkpoint );
-        instance.StartCoroutine( instance.sendData("Checkpoint", form) );
+        if ( !string.IsNullOrEmpty( PlayerPrefs.GetString( "Username" ) ) )
+        {
+            WWWForm form = new WWWForm();
+            form.AddField( "Username", PlayerPrefs.GetString("Username") );
+            form.AddField( "Checkpoint", Checkpoint );
+            instance.StartCoroutine( instance.sendData( "Checkpoint", form ) );
+        }
     }
 
     IEnumerator newSession(string username)
