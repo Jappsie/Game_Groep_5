@@ -3,8 +3,9 @@ using System.Collections;
 
 public class Rovelation : MonoBehaviour {
 
+    public GameObject SnakeHead;
     public float speed = 0.3f;
-    public int steps = 4;
+    public int steps = 5;
     public float stepSize = 1f;
     private Vector3 startPos;
 
@@ -19,44 +20,24 @@ public class Rovelation : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-	    if (Input.GetKeyDown(KeyCode.UpArrow))
-        {
-            Elevate( 1 );
-        }
-        if (Input.GetKeyDown(KeyCode.DownArrow))
-        {
-            Elevate( -1 );
-        }
-        if (Input.GetKeyDown(KeyCode.LeftArrow))
-        {
-            Rotate( 1 );
-        }
-        if (Input.GetKeyDown(KeyCode.RightArrow))
-        {
-            Rotate( -1 );
-        }
         gameObject.transform.position = Vector3.Slerp( gameObject.transform.position, startPos + new Vector3(0,targetPos,0), speed * Time.deltaTime);
         gameObject.transform.rotation = Quaternion.Slerp( gameObject.transform.rotation, targetRot, speed * Time.deltaTime );
 
+        if ( Vector3.Distance(gameObject.transform.position, startPos + new Vector3(0,steps*stepSize,0)) < 1 && gameObject.transform.childCount == 1 && Quaternion.Angle(gameObject.transform.GetChild(0).rotation, Quaternion.Euler(0,0,0)) < 5)
+        {
+            SnakeHead.GetComponent<Animator>().SetTrigger( "SolvedPuzzle" );
+        }
+
 	}
 
-    void Elevate (int step)
+    public void Rovelate(int step, int rot)
     {
-            targetPos += step*stepSize;
-            if ( targetPos > steps*stepSize )
-            {
-                targetPos = steps*stepSize;
-            }
-
-            if ( targetPos < 0 )
-            {
-                targetPos = 0;
-            }
-    }
-
-    void Rotate(int step )
-    {
-            targetRot *= Quaternion.Euler( new Vector3( 0, step*45, 0 ) );
+        Debug.Log( "Vertical: " + step + " Angle: " + rot );
+        if (targetPos + step*stepSize >= 0 && targetPos + step*stepSize <= steps*stepSize)
+        {
+            targetPos += step * stepSize;
+            targetRot *= Quaternion.Euler( new Vector3( 0, rot * 45, 0 ) );
+        }
     }
 
     private void OnTriggerEnter( Collider other )
@@ -66,7 +47,7 @@ public class Rovelation : MonoBehaviour {
         {            
             other.gameObject.transform.parent = gameObject.transform;
             other.GetComponent<Rigidbody>().isKinematic = true;
-            other.gameObject.transform.localPosition = new Vector3(0,1.2f,0);
+            other.gameObject.transform.localPosition = new Vector3(0, 0.01165f, 0);
 
         }
     }
