@@ -38,7 +38,6 @@ public class PlayerMovement : HealthSystem
     private GameObject cam;                     // Camera object
     private bool Mouserelease;                  // Track mouse clicking
 
-	public Image Healthbar; 
 	public Text Timer;
 	public float Tijd; 
 
