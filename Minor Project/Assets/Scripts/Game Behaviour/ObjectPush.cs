@@ -17,12 +17,13 @@ public class ObjectPush : MonoBehaviour {
 	}
 
 	void OnControllerColliderHit(ControllerColliderHit hit) {
+        if ( !hit.gameObject.CompareTag( "Pushable" ) || push)
+        {
+            return;
+        }
 
-		thing = hit.collider.attachedRigidbody;
+		thing = hit.collider.GetComponent<Rigidbody>();
 
-		if (!thing.CompareTag ("Pushable") || push) {
-			return;
-		}
 		Debug.Log ("ouch");
 		thing.constraints = RigidbodyConstraints.FreezeAll;
 
@@ -51,6 +52,7 @@ public class ObjectPush : MonoBehaviour {
 
 		if (target.Equals (thing.transform.position)) {
 			push = false;
+            thing.constraints = RigidbodyConstraints.None;
 		}
 	}
 }
