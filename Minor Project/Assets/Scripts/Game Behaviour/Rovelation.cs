@@ -43,13 +43,15 @@ public class Rovelation : MonoBehaviour {
     private void OnTriggerEnter( Collider other )
     {
         Debug.Log( "Triggered" );
-        if (other.CompareTag("Turret"))
+        if (other.CompareTag("Pushable"))
         {            
             other.gameObject.transform.parent = gameObject.transform;
+            other.tag = "Untagged";
             other.GetComponent<Rigidbody>().isKinematic = true;
-            other.gameObject.transform.localPosition = new Vector3(0, 0.01165f, 0);
-
+            other.transform.localPosition = new Vector3( 0, 0.01165f, 0 );
         }
+
+
     }
 
 

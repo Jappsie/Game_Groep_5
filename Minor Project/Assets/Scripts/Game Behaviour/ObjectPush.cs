@@ -4,7 +4,6 @@ using System.Collections;
 public class ObjectPush : MonoBehaviour {
 
 	public float Speed; 
-	public float Delay; //unused
 	public Vector3 gridSize;
 
 	private bool push = false;
@@ -23,9 +22,6 @@ public class ObjectPush : MonoBehaviour {
         }
 
 		thing = hit.collider.GetComponent<Rigidbody>();
-
-		Debug.Log ("ouch");
-		thing.constraints = RigidbodyConstraints.FreezeAll;
 
 		direction = 0;
 		float temp = Mathf.Abs (hit.moveDirection.x);
@@ -48,11 +44,15 @@ public class ObjectPush : MonoBehaviour {
 		if (!push) {
 			return;
 		}
-		thing.transform.position = Vector3.MoveTowards (thing.transform.position, target, Speed * Time.deltaTime);
+        if ( thing.gameObject.CompareTag( "Pushable" ) )
+        {
+            Debug.Log( "fixedUpdate" );
+            thing.transform.position = Vector3.MoveTowards( thing.transform.position, target, Speed * Time.deltaTime );
 
-		if (target.Equals (thing.transform.position)) {
-			push = false;
-            thing.constraints = RigidbodyConstraints.None;
-		}
+            if ( target.Equals( thing.transform.position ) )
+            {
+                push = false;
+            }
+        }
 	}
 }
