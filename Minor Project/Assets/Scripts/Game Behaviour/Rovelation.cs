@@ -30,8 +30,14 @@ public class Rovelation : MonoBehaviour {
 
 	}
 
-    public void Rovelate(int step, int rot)
+    public void Rovelate(bool reset, int step, int rot)
     {
+        if (reset)
+        {
+            targetPos = 0f;
+            targetRot = Quaternion.identity;
+            return;
+        }
         Debug.Log( "Vertical: " + step + " Angle: " + rot );
         if (targetPos + step*stepSize >= 0 && targetPos + step*stepSize <= steps*stepSize)
         {
