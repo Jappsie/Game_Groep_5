@@ -213,6 +213,10 @@ public class PlayerMovement : HealthSystem
 			Bullet_Equipped = false;
 			Saw_Equipped = true;
 		}
+
+		if( col.gameObject.CompareTag("BossEnter") ) {
+			gameObject.tag = "Player";
+		}
 	}
 
     // Reset the scene when player dies
