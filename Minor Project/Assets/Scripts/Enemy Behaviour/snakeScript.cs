@@ -24,13 +24,13 @@ public class snakeScript : HealthSystem {
 		crystalSequence = false;
         Invoke("spawnRocks", startTime);
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
         player = GameObject.FindGameObjectWithTag("Player");
-		if (true) {
+		if (!crystalSequence) {
 			gameObject.transform.rotation = Quaternion.Slerp (gameObject.transform.rotation, Quaternion.LookRotation (player.transform.position - gameObject.transform.position), 4f * Time.deltaTime);
-			gameObject.transform.position += gameObject.transform.forward * 6f * Time.deltaTime;
+			gameObject.transform.position += gameObject.transform.forward * 10f * Time.deltaTime;
 		}
 	}
 

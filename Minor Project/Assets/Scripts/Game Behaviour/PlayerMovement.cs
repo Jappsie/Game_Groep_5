@@ -184,7 +184,7 @@ public class PlayerMovement : HealthSystem
 
         if (hit.gameObject.CompareTag("Crystal"))
         {
-            TakeDamage(0.1f);
+            TakeDamage(0.05f);
         }
 
 		if (hit.gameObject.CompareTag ("Snek")) {
