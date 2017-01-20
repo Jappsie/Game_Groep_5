@@ -1,16 +1,18 @@
 using UnityEngine;
 using System.Collections;
 
-public class snakeScript : MonoBehaviour {
+public class snakeScript : HealthSystem {
 
     private GameObject player;
     private Vector3 playerLocation;
     private Stack crystals;
+	private bool crystalSequence;
 
     public GameObject crystal;
     public float startTime; // Tijd tussen het starten van de scene, en het beginnen van de eerste spawn sequence
     public float intervalTime; // tussen maken van 2 stenen
     public float repeatTime; // Tijd tussen twee opeenvolgende sequences
+
  
 	void Start () {
         if (repeatTime < 5f* intervalTime)       //Als de repeatTime > 4*intervalTime, dan gaat het fout
@@ -19,12 +21,17 @@ public class snakeScript : MonoBehaviour {
         }
         player = GameObject.FindGameObjectWithTag("Player");
         crystals = new Stack ();
+		crystalSequence = false;
         Invoke("spawnRocks", startTime);
 	}
 	
 	// Update is called once per frame
 	void Update () {
         player = GameObject.FindGameObjectWithTag("Player");
+		if (true) {
+			gameObject.transform.rotation = Quaternion.Slerp (gameObject.transform.rotation, Quaternion.LookRotation (player.transform.position - gameObject.transform.position), 4f * Time.deltaTime);
+			gameObject.transform.position += gameObject.transform.forward * 6f * Time.deltaTime;
+		}
 	}
 
     void spawnRocks ()          //Method die de sequence start
@@ -35,6 +42,7 @@ public class snakeScript : MonoBehaviour {
            Destroy(curCryst);
         }
         crystals.Clear();
+		crystalSequence = true;
         StartCoroutine("spawnRock");        //start het spawnen van de stenen
     }
 
@@ -42,17 +50,28 @@ public class snakeScript : MonoBehaviour {
     {
         for (int i = 0; i < 4; i++)
         {
-            Debug.Log(player.Equals(null));
             playerLocation = player.transform.position;
             playerLocation.y = -2.5f;
-            Debug.Log(playerLocation);
             GameObject curCrystal = Instantiate(crystal, playerLocation, Quaternion.identity) as GameObject;
             crystals.Push(curCrystal);
             yield return new WaitForSeconds(intervalTime);
             curCrystal.GetComponentInChildren<BoxCollider>().enabled = true;
-            //curCrystal.transform.position += Vector3.up * 5.65f;
         }
+		crystalSequence = false;
         yield return new WaitForSeconds(repeatTime);
         spawnRocks();
     }
+
+	private void OnCollisionEnter(Collision col) {
+		Debug.Log ("Collision met: " + col.gameObject.tag);
+		if (col.gameObject.CompareTag ("Crystal")) {
+			Debug.Log ("Damage werkt");
+			TakeDamage (1f);
+		}
+	}
+
+	protected override void Death ()
+	{
+		Destroy (gameObject);
+	}
 }

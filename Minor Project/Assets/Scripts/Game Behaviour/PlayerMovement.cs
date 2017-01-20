@@ -184,9 +184,15 @@ public class PlayerMovement : HealthSystem
 
         if (hit.gameObject.CompareTag("Crystal"))
         {
-            TakeDamage(1f);
+            TakeDamage(0.1f);
         }
+
+		if (hit.gameObject.CompareTag ("Snek")) {
+			TakeDamage (.2f);
+		}
+
 	}
+		
 
     // Apply force on collision with Constrained Objects
 //    private void OnControllerColliderHit( ControllerColliderHit hit )
