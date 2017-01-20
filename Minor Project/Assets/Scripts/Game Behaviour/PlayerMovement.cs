@@ -181,6 +181,11 @@ public class PlayerMovement : HealthSystem
 			}
 			Destroy (hit.gameObject);
 		}
+
+        if (hit.gameObject.CompareTag("Crystal"))
+        {
+            TakeDamage(1f);
+        }
 	}
 
     // Apply force on collision with Constrained Objects
