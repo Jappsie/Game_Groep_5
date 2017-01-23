@@ -47,7 +47,7 @@ public class StatueTurret : HealthSystem
         }
         rendererStatue = gameObject.GetComponent<Renderer>();
         color = rendererStatue.material.color;
-        flicker = color;
+        flicker = new Color(255f, 255f, 255f); // white
         flicker.a = 0.2f;
     }
 
