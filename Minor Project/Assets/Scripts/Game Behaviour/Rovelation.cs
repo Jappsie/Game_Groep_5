@@ -35,9 +35,15 @@ public class Rovelation : MonoBehaviour {
     {
         if (reset)
         {
+			if (gameObject.transform.position != startPos) {
+				Camera.GetComponent<CameraController> ().Shake ();
+				gameObject.GetComponent<AudioSource> ().Play ();
+			}
+
             targetPos = 0f;
             targetRot = Quaternion.identity;
             return;
+		
         }
         Debug.Log( "Vertical: " + step + " Angle: " + rot );
         if (targetPos + step*stepSize >= 0 && targetPos + step*stepSize <= steps*stepSize)
