@@ -6,8 +6,7 @@ public class CharacterSelection : MonoBehaviour {
 
 
 	private GameObject[] gadgetList;
-	private int index; 
-	private bool change; 
+	private int index;  
 
 	// Use this for initialization
 	void Start () {
@@ -68,7 +67,6 @@ public class CharacterSelection : MonoBehaviour {
 	public void ConfirmClicked(){
 		PlayerPrefs.SetInt ("CharacterSelected", index);
 		SceneManager.LoadScene ("main menu");
-		change = false; 
 
 		
 	
