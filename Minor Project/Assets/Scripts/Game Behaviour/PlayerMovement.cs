@@ -112,7 +112,8 @@ public class PlayerMovement : HealthSystem
         {
             controller.Move( movement * Time.deltaTime );
             // retrieve regular color when able to move again
-            playRenderer.material.color = origColor;
+            currentColor = origColor;
+            playRenderer.material.color = currentColor;
         }
         else
         {
