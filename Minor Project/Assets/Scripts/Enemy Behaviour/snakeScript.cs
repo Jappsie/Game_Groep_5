@@ -8,16 +8,21 @@ public class snakeScript : HealthSystem {
     private Stack crystals;
 	private bool crystalSequence;
 
+	public float rotationSpeed = 4f;
+	public float moveSpeed = 10f;
     public GameObject crystal;
+	public int crystalAmount = 4;
     public float startTime; // Tijd tussen het starten van de scene, en het beginnen van de eerste spawn sequence
+	public float damageDelay; //Tijd tussen het spawnen van de steen, en het activeren van de collider
     public float intervalTime; // tussen maken van 2 stenen
     public float repeatTime; // Tijd tussen twee opeenvolgende sequences
+	public float spawnDepth = -2.5f; //Diepte waarop de steen spawnt
 
  
 	void Start () {
-        if (repeatTime < 5f* intervalTime)       //Als de repeatTime > 4*intervalTime, dan gaat het fout
+		if (repeatTime < (crystalAmount + 1) * intervalTime)       //Als de repeatTime < 4*intervalTime, dan gaat het fout
         {
-            repeatTime = 5f * intervalTime + 1;
+			repeatTime = (crystalAmount + 1) * intervalTime + 1;
         }
         player = GameObject.FindGameObjectWithTag("Player");
         crystals = new Stack ();
@@ -29,8 +34,8 @@ public class snakeScript : HealthSystem {
 	void Update () {
         player = GameObject.FindGameObjectWithTag("Player");
 		if (!crystalSequence) {
-			gameObject.transform.rotation = Quaternion.Slerp (gameObject.transform.rotation, Quaternion.LookRotation (player.transform.position - gameObject.transform.position), 4f * Time.deltaTime);
-			gameObject.transform.position += gameObject.transform.forward * 10f * Time.deltaTime;
+			gameObject.transform.rotation = Quaternion.Slerp (gameObject.transform.rotation, Quaternion.LookRotation (player.transform.position - gameObject.transform.position), rotationSpeed * Time.deltaTime);
+			gameObject.transform.position += gameObject.transform.forward * moveSpeed * Time.deltaTime;
 		}
 	}
 
@@ -48,14 +53,16 @@ public class snakeScript : HealthSystem {
 
     IEnumerator spawnRock ()    //Method die het spawnen van de stenen regelt
     {
-        for (int i = 0; i < 4; i++)
+        for (int i = 0; i < crystalAmount; i++)
         {
             playerLocation = player.transform.position;
-            playerLocation.y = -2.5f;
+			playerLocation.y = spawnDepth;
             GameObject curCrystal = Instantiate(crystal, playerLocation, Quaternion.identity) as GameObject;
+			curCrystal.GetComponentInChildren<BoxCollider>().enabled = false;
             crystals.Push(curCrystal);
-            yield return new WaitForSeconds(intervalTime);
+            yield return new WaitForSeconds(damageDelay);
             curCrystal.GetComponentInChildren<BoxCollider>().enabled = true;
+			yield return new WaitForSeconds(intervalTime);
         }
 		crystalSequence = false;
         yield return new WaitForSeconds(repeatTime);
