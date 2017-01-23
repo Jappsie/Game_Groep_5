@@ -12,6 +12,7 @@ public class snakeScript : HealthSystem {
     public float startTime; // Tijd tussen het starten van de scene, en het beginnen van de eerste spawn sequence
     public float intervalTime; // tussen maken van 2 stenen
     public float repeatTime; // Tijd tussen twee opeenvolgende sequences
+	public float speedupTime; //Tijd waarop de intervalTime kleiner wordt
 
  
 	void Start () {
@@ -23,6 +24,7 @@ public class snakeScript : HealthSystem {
         crystals = new Stack ();
 		crystalSequence = false;
         Invoke("spawnRocks", startTime);
+		InvokeRepeating ("speedUp", startTime, speedupTime);
 	}
 
 	// Update is called once per frame
@@ -73,5 +75,10 @@ public class snakeScript : HealthSystem {
 	protected override void Death ()
 	{
 		Destroy (gameObject);
+	}
+
+	private void speedUp() {
+		Debug.Log ("intervaltime = " + intervalTime);
+		intervalTime = Mathf.Max (intervalTime * 0.9f, 0.5f);
 	}
 }
