@@ -44,7 +44,11 @@ public class PlayerMovement : HealthSystem
 
 	private bool Sawanimation = true;           // Checking ability to play animation
 	private Animation anim;                     // Anamation from character component
-	private bool Bullet_Equipped;  
+	private bool Bullet_Equipped;
+
+    Renderer playRenderer;                      // Renderer object for visual appearance
+    public Color origColor;                     // Original color of the player
+    public Color currentColor;                  // Current color of the player
 	                             
 
     // Get reference to the CharacterController
@@ -57,6 +61,8 @@ public class PlayerMovement : HealthSystem
         camera.y = gameObject.transform.position.y;
         axisRotation = Quaternion.LookRotation( gameObject.transform.position - camera, Vector3.up );
 		anim = GetComponent<Animation> ();
+        playRenderer = GetComponentInChildren<Renderer>();
+        origColor = playRenderer.material.color;
 		Bullet_Equipped = true;
 		Saw_Equipped = false;
     }
@@ -105,6 +111,8 @@ public class PlayerMovement : HealthSystem
 		if ( AbleShoot == true && !Mouserelease)
         {
             controller.Move( movement * Time.deltaTime );
+            // retrieve regular color when able to move again
+            playRenderer.material.color = origColor;
         }
         else
         {
@@ -128,26 +136,36 @@ public class PlayerMovement : HealthSystem
 		if ( ( Input.GetMouseButton( 0 ) || Input.GetKey(KeyCode.JoystickButton5)) && AbleShoot == true && Bullet_Equipped == true )
         {
             Momentum += Momentumcharge * Time.deltaTime;
+
+            // scale player color proportional to current momentum
+            float scaledColor = 1f - 0.9f * (Momentum / MaxMomentum);
+            currentColor = new Color(scaledColor, scaledColor, scaledColor);
+            playRenderer.material.color = currentColor;
+
             Mouserelease = true;
             Momentum = Mathf.Clamp( Momentum, MinMomentum, MaxMomentum );
             Debug.Log (Momentum);
-
         }
         // Shoots bullet when left mouse click is released
 		if ( ( Input.GetMouseButton( 0 ) || Input.GetKey(KeyCode.JoystickButton5)) == false && Mouserelease == true && Bullet_Equipped == true)
         {
             Debug.Log( gameObject );
 			float MomentumRange = MaxMomentum - MinMomentum;
+            GameObject bullet;
 			if (MinMomentum <= Momentum && Momentum < MinMomentum + MomentumRange / 3.0) {
-				GameObject bullet = Instantiate (Playerbullet [0], transform.position + transform.rotation * bulletSpawn, transform.rotation) as GameObject;
+				bullet = Instantiate (Playerbullet [0], transform.position + transform.rotation * bulletSpawn, transform.rotation) as GameObject;
                 bullet.GetComponent<PlayerBullet>().Player = gameObject;
-			} else if (MinMomentum + MomentumRange / 3.0 <= Momentum && Momentum < MinMomentum + 2.0 * MomentumRange / 3.0) {
-                GameObject bullet = Instantiate( Playerbullet [1], transform.position + transform.rotation * bulletSpawn, transform.rotation) as GameObject;
+                bullet.GetComponent<Renderer>().material.color = currentColor;
+            } else if (MinMomentum + MomentumRange / 3.0 <= Momentum && Momentum < MinMomentum + 2.0 * MomentumRange / 3.0) {
+                bullet = Instantiate( Playerbullet [1], transform.position + transform.rotation * bulletSpawn, transform.rotation) as GameObject;
                 bullet.GetComponent<PlayerBullet>().Player = gameObject;
+                bullet.GetComponent<Renderer>().material.color = currentColor;
             } else if (MinMomentum + MomentumRange * 2.0 / 3.0 <= Momentum && Momentum <= MaxMomentum) {
-                GameObject bullet = Instantiate( Playerbullet[ 2 ], transform.position + transform.rotation * bulletSpawn, transform.rotation ) as GameObject;
+                bullet = Instantiate( Playerbullet[ 2 ], transform.position + transform.rotation * bulletSpawn, transform.rotation ) as GameObject;
                 bullet.GetComponent<PlayerBullet>().Player = gameObject;
+                bullet.GetComponent<Renderer>().material.color = currentColor;
             }
+
             //Momentum = Momentum * Momentumscale;
             AbleShoot = false;
             Mouserelease = false;
