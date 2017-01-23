@@ -11,7 +11,8 @@ public class CharacterSelection : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
-		index = PlayerPrefs.GetInt ("CharacterSelected");
+		index = PlayerPrefs.GetInt ("CharacterSelected") - 1;
+        if (index < 0) { index = 0; }
 
 		//Fill the array with models 
 		gadgetList = new GameObject[transform.childCount];
@@ -59,7 +60,9 @@ public class CharacterSelection : MonoBehaviour {
 	}
 
 	public void ConfirmClicked(){
-		PlayerPrefs.SetInt ("CharacterSelected", index);
+        Debug.Log( "index: " + index );
+        PlayerPrefs.SetInt ("CharacterSelected", index + 1);
+        Debug.Log( "SetIndex: "+ (index + 1) );
 		SceneManager.LoadScene ("main menu");
 
 		
