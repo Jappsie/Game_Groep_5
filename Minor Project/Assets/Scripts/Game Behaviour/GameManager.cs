@@ -128,7 +128,19 @@ public class GameManager : MonoBehaviour
             WWWForm form = new WWWForm();
             form.AddField( "Username", PlayerPrefs.GetString("Username") );
             form.AddField( "Checkpoint", Checkpoint );
-            instance.StartCoroutine( instance.sendData( "Checkpoint", form ) );
+            instance.StartCoroutine( instance.sendData( "checkpoint", form ) );
+        }
+    }
+
+    public static void UpdateAvatar( int Avatar )
+    {
+        PlayerPrefs.SetInt( "Avatar", Avatar );
+        if ( !string.IsNullOrEmpty( PlayerPrefs.GetString( "Username" ) ) )
+        {
+            WWWForm form = new WWWForm();
+            form.AddField( "Username", PlayerPrefs.GetString( "Username" ) );
+            form.AddField( "Avatar", Avatar );
+            instance.StartCoroutine( instance.sendData( "avatar", form ) );
         }
     }
 

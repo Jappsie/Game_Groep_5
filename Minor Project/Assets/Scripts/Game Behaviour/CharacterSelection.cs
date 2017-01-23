@@ -60,9 +60,7 @@ public class CharacterSelection : MonoBehaviour {
 	}
 
 	public void ConfirmClicked(){
-        Debug.Log( "index: " + index );
-        PlayerPrefs.SetInt ("CharacterSelected", index + 1);
-        Debug.Log( "SetIndex: "+ (index + 1) );
+        GameManager.UpdateAvatar( index + 1 );
 		SceneManager.LoadScene ("main menu");
 
 		
