@@ -11,11 +11,10 @@ public class CharacterSelection : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
-		Scene scene = SceneManager.GetActiveScene();
-		Debug.Log("Active scene is '" + scene.name + "'.");
 
+		index = PlayerPrefs.GetInt ("CharacterSelected") - 1;
+        if (index < 0) { index = 0; }
 
-		index = PlayerPrefs.GetInt ("CharacterSelected");
 
 		//Fill the array with models 
 		gadgetList = new GameObject[transform.childCount];
@@ -65,7 +64,7 @@ public class CharacterSelection : MonoBehaviour {
 	}
 
 	public void ConfirmClicked(){
-		PlayerPrefs.SetInt ("CharacterSelected", index);
+        GameManager.UpdateAvatar( index + 1 );
 		SceneManager.LoadScene ("main menu");
 
 		
