@@ -69,6 +69,16 @@ public class QueenBee : HealthSystem {
 
 	protected override void Death() {
         enable.toggle(true);
+        GameObject[] offspring = GameObject.FindGameObjectsWithTag("offspring");
+        GameObject[] eggs = GameObject.FindGameObjectsWithTag("Egg");
+        foreach (GameObject child in offspring)
+        {
+            Destroy(child);
+        }
+        foreach (GameObject egg in eggs)
+        {
+            Destroy(egg);
+        }
 		Destroy (gameObject);
 	}
 
