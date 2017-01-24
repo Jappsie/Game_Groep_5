@@ -4,6 +4,7 @@ using System.Collections;
 public class Rovelation : MonoBehaviour {
 
     public GameObject SnakeHead;
+	public GameObject Camera;
     public float speed = 0.3f;
     public int steps = 5;
     public float stepSize = 1f;
@@ -34,16 +35,25 @@ public class Rovelation : MonoBehaviour {
     {
         if (reset)
         {
+			if (gameObject.transform.position != startPos) {
+				Camera.GetComponent<CameraController> ().Shake ();
+				gameObject.GetComponent<AudioSource> ().Play ();
+			}
+
             targetPos = 0f;
             targetRot = Quaternion.identity;
             return;
+		
         }
         Debug.Log( "Vertical: " + step + " Angle: " + rot );
         if (targetPos + step*stepSize >= 0 && targetPos + step*stepSize <= steps*stepSize)
         {
             targetPos += step * stepSize;
             targetRot *= Quaternion.Euler( new Vector3( 0, rot * 45, 0 ) );
+			Camera.GetComponent<CameraController> ().Shake ();
+			gameObject.GetComponent<AudioSource> ().Play ();
         }
+
     }
 
     private void OnTriggerEnter( Collider other )

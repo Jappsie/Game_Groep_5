@@ -9,9 +9,13 @@ public class CameraController : MonoBehaviour
     public bool useSlerp;
     public bool stickToGround;
     public float speed = 3f;
+	public float amplitude = 0.5f; // ampltide of the shake
+	public float duration = 1f; // duration of the shake
+
     private Vector3 offset;      // Relative position to followed object
     private float CameraPos;
-
+	private bool Shaking = false;
+	private Vector3 Initialposition;
 
     // Get the relative position to followed object
     void Start()
@@ -49,6 +53,21 @@ public class CameraController : MonoBehaviour
         {
             gameObject.transform.position = targetPos1;
         }
+
+		if (Shaking) {
+			transform.position = Initialposition + Random.insideUnitSphere * amplitude;
+		}
     }
 
+	public void Shake(){
+		Initialposition = transform.position;
+		Shaking = true;
+		CancelInvoke();
+		Invoke ("StopShaking", duration);
+
+	}
+
+	public void StopShaking(){
+		Shaking = false;
+	}
 }
