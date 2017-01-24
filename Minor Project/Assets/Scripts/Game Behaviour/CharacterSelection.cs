@@ -6,10 +6,14 @@ public class CharacterSelection : MonoBehaviour {
 
 
 	private GameObject[] gadgetList;
-	private int index; 
+	private int index;  
 
 	// Use this for initialization
 	void Start () {
+
+		Scene scene = SceneManager.GetActiveScene();
+		Debug.Log("Active scene is '" + scene.name + "'.");
+
 
 		index = PlayerPrefs.GetInt ("CharacterSelected");
 
@@ -23,17 +27,19 @@ public class CharacterSelection : MonoBehaviour {
 				go.SetActive (false); 
 			}
 
-		gadgetList[index].SetActive (true);
-	
+		//Set the selected character to true 
+		if (gadgetList [index])
+			gadgetList [index].SetActive (true); 	
 		}
 	
 	// Update is called once per frame
+
 	void Update () {
 
-		if (Input.GetKeyDown (KeyCode.LeftArrow)) {
+		if (Input.GetKeyDown (KeyCode.LeftArrow) && SceneManager.GetActiveScene().name.Equals("Character Selection")){
 			Change1 (); 
 		}
-		if (Input.GetKeyUp (KeyCode.RightArrow)) {
+		if (Input.GetKeyUp (KeyCode.RightArrow) && SceneManager.GetActiveScene().name.Equals("Character Selection")) {
 			Change2 (); 
 			
 	
