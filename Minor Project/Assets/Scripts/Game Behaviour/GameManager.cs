@@ -73,6 +73,10 @@ public class GameManager : MonoBehaviour
             form.AddField( "z", player.transform.position.z.ToString() );
             StartCoroutine( sendData( "position", form ) );
         }
+        else
+        {
+            trackScene( currentScene, LoadSceneMode.Single );
+        }
 
     }
 
@@ -118,6 +122,7 @@ public class GameManager : MonoBehaviour
     public static void UpdateCheckpoint(string Checkpoint)
     {
         PlayerPrefs.SetString( "Checkpoint", Checkpoint );
+        instance.Checkpoint = Checkpoint;
         if ( !string.IsNullOrEmpty( PlayerPrefs.GetString( "Username" ) ) )
         {
             WWWForm form = new WWWForm();

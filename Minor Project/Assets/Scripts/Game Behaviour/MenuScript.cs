@@ -58,12 +58,21 @@ public class MenuScript : MonoBehaviour {
 
     public void ContinuePress()
     {
+        if (!string.IsNullOrEmpty(PlayerPrefs.GetString("Username")))
+        {
+            GameManager.GetSession( PlayerPrefs.GetString( "Username" ) );
+        }
+        else
+        {
+            GameManager.MakeSession();
+        }
+
         string CheckPoint = PlayerPrefs.GetString( "Checkpoint" );
-		Debug.Log ("Current Checkpoint: " + CheckPoint);
         if (string.IsNullOrEmpty(CheckPoint))
         {
             GameManager.UpdateCheckpoint( "Level1" );
         }
+        Debug.Log( "Current Checkpoint: " + PlayerPrefs.GetString("Checkpoint") );
         PauseMenu.PauzeKey = KeyCode.Escape;
         SceneManagerScript.goToScene( PlayerPrefs.GetString( "Checkpoint" ), false );
 
@@ -105,7 +114,6 @@ public class MenuScript : MonoBehaviour {
         quitText.enabled = true;
         PlayerPrefs.SetString( "Username", input.text );
         PlayerPrefs.Save();
-        GameManager.GetSession( input.text );
         input.text = "";
         updateLoginText();
     }

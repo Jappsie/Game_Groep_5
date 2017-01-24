@@ -181,7 +181,18 @@ public class PlayerMovement : HealthSystem
 			}
 			Destroy (hit.gameObject);
 		}
+
+        if (hit.gameObject.CompareTag("Crystal"))
+        {
+            TakeDamage(0.05f);
+        }
+
+		if (hit.gameObject.CompareTag ("Snek")) {
+			TakeDamage (.2f);
+		}
+
 	}
+		
 
     // Apply force on collision with Constrained Objects
 //    private void OnControllerColliderHit( ControllerColliderHit hit )
@@ -212,6 +223,10 @@ public class PlayerMovement : HealthSystem
 			col.transform.localPosition = new Vector3 (0f, 3.5f, 0f);
 			Bullet_Equipped = false;
 			Saw_Equipped = true;
+		}
+
+		if( col.gameObject.CompareTag("BossEnter") ) {
+			gameObject.tag = "Player";
 		}
 	}
 
