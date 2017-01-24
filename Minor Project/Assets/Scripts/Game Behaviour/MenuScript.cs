@@ -11,6 +11,7 @@ public class MenuScript : MonoBehaviour {
 	public Button newgameText;
 	public Button avatarText;
 	public Button quitText;
+	public Button sandboxText;
     public InputField input;
 
 	// Use this for initialization
@@ -24,6 +25,7 @@ public class MenuScript : MonoBehaviour {
 		quitText = quitText.GetComponent<Button> ();
 		quitMenu.enabled = false;
         loginMenu.enabled = false;
+		sandboxText = sandboxText.GetComponent<Button> ();
         PauseMenu.PauzeKey = KeyCode.None;
         updateLoginText();
 	}
@@ -40,7 +42,7 @@ public class MenuScript : MonoBehaviour {
 		newgameText.enabled = false;
 		avatarText.enabled = false; 
 		quitText.enabled = false; 
-        
+		sandboxText.enabled = false;
 	}
 	//Set everything back in orgininal state 
 	public void NoPress(){
@@ -50,6 +52,7 @@ public class MenuScript : MonoBehaviour {
 		newgameText.enabled = true;
 		avatarText.enabled = true; 
 		quitText.enabled = true; 
+		sandboxText.enabled = true;
 	}
 	//If you've pressed YES when in the quit subscreen
 	public void YesPress(){
@@ -102,6 +105,7 @@ public class MenuScript : MonoBehaviour {
         newgameText.enabled = false;
         avatarText.enabled = false;
         quitText.enabled = false;
+		sandboxText.enabled = false;
     }
 
     public void OKPress()
@@ -112,6 +116,7 @@ public class MenuScript : MonoBehaviour {
         newgameText.enabled = true;
         avatarText.enabled = true;
         quitText.enabled = true;
+		sandboxText.enabled = true;
         PlayerPrefs.SetString( "Username", input.text );
         PlayerPrefs.Save();
         input.text = "";
@@ -126,10 +131,18 @@ public class MenuScript : MonoBehaviour {
         newgameText.enabled = true;
         avatarText.enabled = true;
         quitText.enabled = true;
+		sandboxText.enabled = true;
         input.text = "";
     }
-	
+
+	public void sandboxPress() {
+		PlayerPrefs.SetFloat( "StartTime", Time.time );
+		PauseMenu.PauzeKey = KeyCode.Escape;
+		GameManager.MakeSession();
+		SceneManagerScript.goToScene( "SandboxHub", false );
 	}
+	
+}
 	
 
 

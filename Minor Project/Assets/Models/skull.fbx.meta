@@ -62,6 +62,17 @@ ModelImporter:
     4300016: Icosphere
     4300018: Cylinder
     4300020: Suzanne
+    6400000: Cylinder
+    6400002: Icosphere
+    6400004: Icosphere.001
+    6400006: Icosphere.002
+    6400008: Icosphere.003
+    6400010: Icosphere.004
+    6400012: Icosphere.005
+    6400014: Icosphere.006
+    6400016: Icosphere.007
+    6400018: Icosphere.008
+    6400020: Suzanne
   materials:
     importMaterials: 1
     materialName: 0
@@ -88,7 +99,7 @@ ModelImporter:
     lODScreenPercentages: []
     globalScale: 1
     meshCompression: 0
-    addColliders: 0
+    addColliders: 1
     importBlendShapes: 1
     swapUVChannels: 0
     generateSecondaryUV: 0

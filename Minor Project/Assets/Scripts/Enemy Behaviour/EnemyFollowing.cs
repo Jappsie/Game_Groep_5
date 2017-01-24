@@ -106,7 +106,7 @@ public class EnemyFollowing : HealthSystem
 		Quaternion playerRotation = Player.gameObject.transform.rotation;		//Player rotation
 		Vector3 teleportDirection = playerRotation * Vector3.forward * teleportOrientation;				//Before the player
 		Vector3 teleportLocation = teleportDirection * (gameObject.transform.position - playerPosition).magnitude * teleportDistance;	//Teleport location
-		gameObject.transform.position = teleportLocation + playerPosition;					//Apply teleport
+		gameObject.transform.position = teleportLocation + playerPosition + Vector3.up * 3;					//Apply teleport
 		gameObject.transform.rotation = Quaternion.LookRotation( teleportLocation );							//Turn the enemy in the same direction as player
 		teleportReady = true;													//Enemy is ready to teleport again
 	}

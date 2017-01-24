@@ -20,6 +20,8 @@ public class Spawner : MonoBehaviour {
     // computed spawn location
     private Vector3 spawnPoint;
 
+	private Renderer[] renders;
+
     // start spawning when object is activated
 	void Start() {
         // initialize counter
@@ -54,7 +56,7 @@ public class Spawner : MonoBehaviour {
 			Vector3 finalSpawn = gameObject.transform.position + spawnPoint + enemy.transform.position;
 
 			// Fill an array with all the collision with a sphere around the enemy's BoxCollider with a ray of 0.5 * the width of the BoxCollider
-			colliderChecker = Physics.OverlapSphere (finalSpawn, enemy.GetComponent<BoxCollider>().size.x * 0.5f);
+			colliderChecker = Physics.OverlapSphere (finalSpawn, 1.7f);
 
 			for (int i = 0; i < colliderChecker.Length; i++) {
 				Debug.Log(colliderChecker[i]);
@@ -102,8 +104,10 @@ public class Spawner : MonoBehaviour {
         float color = Random.value;
 
         EnemyFollowing enemyParams = creature.GetComponent<EnemyFollowing>();
-
-        creature.transform.GetComponent<Renderer>().material.color = new Color(1.0f - color, color, 1.0f / color);
+		renders = creature.GetComponentsInChildren<Renderer> ();
+		foreach (Renderer rend in renders) {
+			rend.material.color = new Color(1.0f - color, color, 1.0f / color);
+		}
         enemyParams.Enemylife = (int)(9 * color + 1); // [1, 10]
         enemyParams.moveSpeed = (int)(12 * color + 2); // [2, 10]
         enemyParams.Damage = 19.9f * color + 0.1f; // [0, 10]

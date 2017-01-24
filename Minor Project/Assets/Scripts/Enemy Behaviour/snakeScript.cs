@@ -18,6 +18,7 @@ public class snakeScript : HealthSystem {
     public float damageDelay; //Tijd tussen het spawnen van de steen, en het activeren van de collider
     public float intervalTime; // tussen maken van 2 stenen
     public float repeatTime; // Tijd tussen twee opeenvolgende sequences
+	public float speedupTime; //Tijd waarop de intervalTime kleiner wordt
 
 	public float spawnDepth = -2.5f; //Diepte waarop de steen spawnt
 
@@ -53,6 +54,7 @@ public class snakeScript : HealthSystem {
         crystals = new Stack ();
 		crystalSequence = false;
         Invoke("spawnRocks", startTime);
+		InvokeRepeating ("speedUp", startTime, speedupTime);
 	}
 
 	// Update is called once per frame
@@ -140,6 +142,7 @@ public class snakeScript : HealthSystem {
 	}
 
 
+
 	//Add Bodyparts to the list of BodyParts
 	public void AddBodyParts(){
 		Transform newPart = (Instantiate (bodyPrefab, BodyParts [BodyParts.Count].position, BodyParts [BodyParts.Count].rotation) as GameObject).transform; 
@@ -148,5 +151,11 @@ public class snakeScript : HealthSystem {
 					
 	}
 					
+
+
+	private void speedUp() {
+		Debug.Log ("intervaltime = " + intervalTime);
+		intervalTime = Mathf.Max (intervalTime * 0.9f, 0.5f);
+	}
 
 }
