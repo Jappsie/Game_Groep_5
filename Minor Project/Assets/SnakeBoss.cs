@@ -27,62 +27,40 @@ public class SnakeBoss : MonoBehaviour {
 
     private void TailFollow()
     {
-        Transform FrontPart = SnakeFront.transform.GetChild( SnakeFront.transform.childCount - 1 );
         Transform[] TailParts = SnakeTail.GetComponentsInChildren<Transform>(); //also returns parent
+        TailParts[0] = SnakeFront.transform.GetChild( SnakeFront.transform.childCount - 1 );
 
         for (int i = 1; i < TailParts.Length; i++ )
         {
-            Transform Front;
-            if (i == 1)
-            {
-                Front = FrontPart;
-            }
-            else
-            {
-                Front = TailParts[ i - 1 ];
-            }
+            Transform Front = TailParts[ i - 1 ];
+
             Transform Back = TailParts[ i ];
 
             if ( Vector3.Distance( Front.position, Back.position ) > chainDistance )
             {
-                float LinSpeed = followSpeed * Time.deltaTime;
-                if (LinSpeed > 0.9) { LinSpeed = 0.9f; };
-                Back.position = Vector3.Slerp( Back.position, Front.position, LinSpeed);
+                Back.position = Vector3.MoveTowards( Back.position, Front.position, followSpeed * Time.deltaTime);
             }
-            float RotSpeed = followSpeed * Time.deltaTime;
-            if ( RotSpeed > 0.9 ) { RotSpeed = 0.9f; };
-            Back.rotation = Quaternion.Slerp( Back.rotation, Quaternion.LookRotation( Front.position - Back.position ) * rotFix, RotSpeed);
+            Back.rotation = Quaternion.RotateTowards( Back.rotation, Quaternion.LookRotation( Front.position - Back.position ) * rotFix, rotationSpeed * Time.deltaTime);
         }
 
     }
 
     private void FrontFollow()
     {
-        Transform HeadPart = SnakeHead.transform.GetChild( SnakeHead.transform.childCount - 1 );
         Transform[] FrontParts = SnakeFront.GetComponentsInChildren<Transform>(); //also returns parent
+        FrontParts[0] = SnakeHead.transform.GetChild( SnakeHead.transform.childCount - 1 );
 
         for (int i = 1; i < FrontParts.Length; i++ )
         {
-            Transform Front;
-            if ( i == 1 )
-            {
-                Front = HeadPart;
-            }
-            else
-            {
-                Front = FrontParts[ i - 1 ];
-            }
+            Transform Front = FrontParts[ i - 1 ];
+
             Transform Back = FrontParts[ i ];
 
             if ( Vector3.Distance( Front.position, Back.position ) > 1 )
             {
-                float LinSpeed = followSpeed * Time.deltaTime;
-                if ( LinSpeed > 0.9 ) { LinSpeed = 0.9f; };
-                Back.position = Vector3.Slerp( Back.position, Front.position, followSpeed * Time.deltaTime );
+                Back.position = Vector3.MoveTowards( Back.position, Front.position, followSpeed * Time.deltaTime );
             }
-            float RotSpeed = followSpeed * Time.deltaTime;
-            if ( RotSpeed > 0.9 ) { RotSpeed = 0.9f; };
-            Back.rotation = Quaternion.Slerp( Back.rotation, Quaternion.LookRotation( Front.position - Back.position ) * rotFix, rotationSpeed * Time.deltaTime );
+            Back.rotation = Quaternion.RotateTowards( Back.rotation, Quaternion.LookRotation( Front.position - Back.position ) * rotFix, rotationSpeed * Time.deltaTime );
         }
     }
 }
