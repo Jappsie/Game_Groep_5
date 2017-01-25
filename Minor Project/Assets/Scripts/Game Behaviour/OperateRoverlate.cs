@@ -11,5 +11,6 @@ public class OperateRoverlate : MonoBehaviour {
     private void OnCollisionEnter( Collision collision )
     {
         cylinder.GetComponent<Rovelation>().Rovelate( reset, vertical, angular );
+        GetComponent<AudioSource>().Play();
     }
 }
