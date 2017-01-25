@@ -130,7 +130,7 @@ public class PlayerMovement : HealthSystem
             Momentum += Momentumcharge * Time.deltaTime;
             Mouserelease = true;
             Momentum = Mathf.Clamp( Momentum, MinMomentum, MaxMomentum );
-            Debug.Log (Momentum);
+           
 
         }
         // Shoots bullet when left mouse click is released
