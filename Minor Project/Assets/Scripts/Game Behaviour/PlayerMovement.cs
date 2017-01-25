@@ -243,7 +243,10 @@ public class PlayerMovement : HealthSystem
 			Bullet_Equipped = false;
 			Saw_Equipped = true;
 		}
-
+        if (col.gameObject.tag == "Water")
+        {
+            GetComponent<AudioSource>().Play();
+        }
 		if( col.gameObject.CompareTag("BossEnter") ) {
 			gameObject.tag = "Player";
 		}

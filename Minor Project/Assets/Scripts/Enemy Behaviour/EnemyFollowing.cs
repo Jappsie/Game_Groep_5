@@ -83,14 +83,11 @@ public class EnemyFollowing : HealthSystem
         }
     }
 
-	private void OnTriggerEnter(Collider col){
+	private void OnCollisionEnter(Collision col){
 		if (col.gameObject.CompareTag("PlayerBullet")) {
-			Enemylife -= 1;
-			Destroy (col.gameObject);
-			if (Enemylife == 0) {
-				Destroy (this.gameObject);
-			}
-		}
+            Destroy(col.gameObject);
+            TakeDamage(1);
+        }
 	}
 
     protected override void Death()

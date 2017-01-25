@@ -15,7 +15,7 @@ public class Rovelation : MonoBehaviour {
 
     private void Start()
     {
-        startPos = gameObject.transform.position;
+        startPos = gameObject.transform.position;        
     }
 
 
@@ -27,6 +27,7 @@ public class Rovelation : MonoBehaviour {
         if ( Vector3.Distance(gameObject.transform.position, startPos + new Vector3(0,steps*stepSize,0)) < 1 && gameObject.transform.childCount == 1 && Quaternion.Angle(gameObject.transform.GetChild(0).rotation, Quaternion.Euler(0,0,0)) < 5)
         {
             SnakeHead.GetComponent<Animator>().SetTrigger( "SolvedPuzzle" );
+            SnakeHead.GetComponent<AudioSource>().Play();
         }
 
 	}
