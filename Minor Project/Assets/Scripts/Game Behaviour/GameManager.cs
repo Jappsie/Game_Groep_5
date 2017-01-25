@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 using System.Collections.Generic;
+using System;
 
 public class GameManager : MonoBehaviour
 {
@@ -11,6 +12,8 @@ public class GameManager : MonoBehaviour
     public List<GameObject> objects;
     public static GameManager instance;
 
+    [SerializeField]
+    private int deathCount = 0;
     [SerializeField] // Is nodig voor de jsonUtility
     private string Checkpoint = "";
     [SerializeField]
@@ -49,6 +52,8 @@ public class GameManager : MonoBehaviour
             SceneManager.sceneLoaded += trackScene;
             InvokeRepeating( "trackPlayer", 0, trackInterval );
         }
+
+
     }
 
     private void trackScene( Scene scene, LoadSceneMode mode )
@@ -99,7 +104,7 @@ public class GameManager : MonoBehaviour
         string username = "";
         for ( int i = 0; i < instance.glyphLength; i++ )
         {
-            username += instance.glyph[ Random.Range( 0, instance.glyph.Length ) ];
+            username += instance.glyph[ UnityEngine.Random.Range( 0, instance.glyph.Length ) ];
         }
         instance.StartCoroutine( instance.newSession(username) );
     }
@@ -119,17 +124,18 @@ public class GameManager : MonoBehaviour
         instance.StartCoroutine( instance.sendData( "saveUser", form ) );
     }
 
-    public static void UpdateCheckpoint(string Checkpoint)
+    public void UpdateCheckpoint(string Checkpoint)
     {
-        PlayerPrefs.SetString( "Checkpoint", Checkpoint );
-        instance.Checkpoint = Checkpoint;
-        if ( !string.IsNullOrEmpty( PlayerPrefs.GetString( "Username" ) ) )
-        {
-            WWWForm form = new WWWForm();
-            form.AddField( "Username", PlayerPrefs.GetString("Username") );
-            form.AddField( "Checkpoint", Checkpoint );
-            instance.StartCoroutine( instance.sendData( "checkpoint", form ) );
-        }
+            PlayerPrefs.SetString( "Checkpoint", Checkpoint );
+            instance.Checkpoint = Checkpoint;
+            if ( !string.IsNullOrEmpty( PlayerPrefs.GetString( "Username" ) ) )
+            {
+                WWWForm form = new WWWForm();
+                form.AddField( "Username", PlayerPrefs.GetString( "Username" ) );
+                form.AddField( "Checkpoint", Checkpoint );
+                instance.StartCoroutine( instance.sendData( "checkpoint", form ) );
+            }
+        
     }
 
     public static void UpdateAvatar( int Avatar )
@@ -141,6 +147,15 @@ public class GameManager : MonoBehaviour
             form.AddField( "Username", PlayerPrefs.GetString( "Username" ) );
             form.AddField( "Avatar", Avatar );
             instance.StartCoroutine( instance.sendData( "avatar", form ) );
+        }
+    }
+
+    public static void getDeaths()
+    {
+        
+        if (instance.userId >= 0)
+        {
+            instance.StartCoroutine( instance.getDeaths( instance.userId ) );
         }
     }
 
@@ -184,7 +199,30 @@ public class GameManager : MonoBehaviour
             JsonUtility.FromJsonOverwrite( www.text, this );
             Debug.Log( Checkpoint );
             PlayerPrefs.SetString( "Checkpoint", Checkpoint );
+            getDeaths();
         }
+    }
+
+    IEnumerator getDeaths( int userId)
+    {
+        WWWForm form = new WWWForm();
+        form.AddField( "UserId", instance.userId );
+
+        WWW www = new WWW( "http://insyprojects.ewi.tudelft.nl:8085/getDeaths", form );
+
+        yield return www;
+
+        if (!string.IsNullOrEmpty(www.error))
+        {
+            Debug.Log( www.error );
+        }
+        else
+        {
+            Debug.Log( www.text );
+            JsonUtility.FromJsonOverwrite( www.text, this );
+            PlayerPrefs.SetInt( "Deaths", deathCount );
+        }
+
     }
 
     IEnumerator sendData( string url, WWWForm form )
@@ -196,6 +234,9 @@ public class GameManager : MonoBehaviour
         if ( !string.IsNullOrEmpty( www.error ) )
         {
             Debug.Log( www.error );
+        } else
+        {
+            Debug.Log( www.text );
         }
     }
 

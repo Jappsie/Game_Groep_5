@@ -73,7 +73,11 @@ public class MenuScript : MonoBehaviour {
         string CheckPoint = PlayerPrefs.GetString( "Checkpoint" );
         if (string.IsNullOrEmpty(CheckPoint))
         {
-            GameManager.UpdateCheckpoint( "Level1" );
+            GameObject manager = GameObject.FindGameObjectWithTag( "GameManager" );
+            if ( manager != null )
+            {
+                manager.GetComponent<GameManager>().UpdateCheckpoint( "Level1" );
+            }
         }
         Debug.Log( "Current Checkpoint: " + PlayerPrefs.GetString("Checkpoint") );
         PauseMenu.PauzeKey = KeyCode.Escape;

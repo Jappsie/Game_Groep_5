@@ -32,9 +32,12 @@ public class CameraController : MonoBehaviour
     // Follow the object
     void LateUpdate()
     {
+        
         float x = player.transform.position.x + offset.x;
         float z = player.transform.position.z + offset.z;
-        Vector3 targetPos1 = new Vector3( x, player.transform.position.y + CameraPos, z );
+        // Checking if script is actually too complicated
+        //Vector3 targetPos1 = new Vector3( x, player.transform.position.y + CameraPos, z );
+        Vector3 targetPos1 = player.transform.position + offset;
         Vector3 targetPos2 = new Vector3( x, transform.position.y, z );
 
 

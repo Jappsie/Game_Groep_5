@@ -41,7 +41,7 @@ public class StatueTurret : HealthSystem
         toggler = GetComponent<EnableScript>();
         if ( adaptive )
         {
-            deaths = SceneManagerScript.deathList.Count;
+            deaths = PlayerPrefs.GetInt("Deaths");
             activationTimeValue = 2f * activationTime * (1 / (1 + Mathf.Exp( -0.3f * deaths )));
             cooldownTimeValue = 2f * cooldownTime * (1 / (1 + Mathf.Exp( -0.3f * deaths )));
         }

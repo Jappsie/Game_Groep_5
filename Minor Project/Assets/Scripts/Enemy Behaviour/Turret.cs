@@ -35,7 +35,7 @@ public class Turret : MonoBehaviour {
 
 		//Make repeatrate a logistic function of the amount of deaths
 		if (adaptive) {
-			deaths = SceneManagerScript.deathList.Count;
+            deaths = PlayerPrefs.GetInt( "Deaths" );
 			//When deaths == 0, repeatrate is equal to itself
 			repeatrate = 2f * repeatrate * (1 / (1 + Mathf.Exp (-0.3f * deaths)));
 			Debug.Log ("RepeatRate: " + repeatrate + "!!!!!!!!!!!!!!!!!!!");

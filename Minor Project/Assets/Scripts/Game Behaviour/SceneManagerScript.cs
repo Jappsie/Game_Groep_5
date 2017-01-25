@@ -13,7 +13,7 @@ public class SceneManagerScript : MonoBehaviour
 
     //Variables that track the time played & a list of all the death times
     public float time;
-    public static List<float> deathList = new List<float>();
+    //public static List<float> deathList = new List<float>();
 
     private static SceneManagerScript SceneManagementInstance;  // Static SceneManager to check for duplication
     private static IEnumerator coroutine;
@@ -51,11 +51,16 @@ public class SceneManagerScript : MonoBehaviour
         // Changes the amount of deaths on the screen
         if ( Scoretext != null )
         {
-            Deathcount = deathList.Count;
+            //Deathcount = deathList.Count;
+            Deathcount = PlayerPrefs.GetInt( "Deaths" );
             Scoretext.text = "Deaths: " + Deathcount;
         }
 		if (!SceneManager.GetActiveScene().name.Equals("main menu")) {
-        	GameManager.UpdateCheckpoint( SceneManager.GetActiveScene().name);
+            GameObject manager = GameObject.FindGameObjectWithTag( "GameManager" );
+            if ( manager != null )
+            {
+                manager.GetComponent<GameManager>().UpdateCheckpoint( SceneManager.GetActiveScene().name );
+            }
 		}
     }
 
@@ -79,8 +84,9 @@ public class SceneManagerScript : MonoBehaviour
     public void resetOnDeath()
     {
         reset();
-        deathList.Add( this.time );         //Add another death to the list
-        Debug.Log( "Amount of deaths: " + deathList.Count );        //Log the death times and amount of deaths
+        //deathList.Add( this.time );         //Add another death to the list
+        //Debug.Log( "Amount of deaths: " + deathList.Count );        //Log the death times and amount of deaths
+        PlayerPrefs.SetInt( "Deaths", PlayerPrefs.GetInt( "Deaths" ) + 1 );
     }
 
     // Main method to switch scenes
