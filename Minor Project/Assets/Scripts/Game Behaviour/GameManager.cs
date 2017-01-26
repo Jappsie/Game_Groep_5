@@ -126,7 +126,6 @@ public class GameManager : MonoBehaviour
 
     public void UpdateCheckpoint(string Checkpoint)
     {
-            PlayerPrefs.SetString( "Checkpoint", Checkpoint );
             instance.Checkpoint = Checkpoint;
             if ( !string.IsNullOrEmpty( PlayerPrefs.GetString( "Username" ) ) )
             {
