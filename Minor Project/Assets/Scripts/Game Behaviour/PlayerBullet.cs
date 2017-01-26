@@ -16,7 +16,6 @@ public class PlayerBullet : MonoBehaviour {
 		direction = (Playermovement.MousePosition - Player.transform.position).normalized;// Difference between mousePosition and Player
 		bullet = this.GetComponent<Rigidbody>();
 		bullet.AddForce (direction*Playermovement.Momentum, ForceMode.Impulse);//Adds force on Bullet
-		Debug.Log (Playermovement.Momentum);
 		Playermovement.Momentum = 1; //Sets the momentum in the playermovement script back to 1
 		Physics.IgnoreCollision(bullet.GetComponent<SphereCollider>(),Player.GetComponent<CharacterController>());
 	}

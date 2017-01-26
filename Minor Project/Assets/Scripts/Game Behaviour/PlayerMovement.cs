@@ -145,12 +145,10 @@ public class PlayerMovement : HealthSystem
 
             Mouserelease = true;
             Momentum = Mathf.Clamp( Momentum, MinMomentum, MaxMomentum );
-            Debug.Log (Momentum);
         }
         // Shoots bullet when left mouse click is released
 		if ( ( Input.GetMouseButton( 0 ) || Input.GetKey(KeyCode.JoystickButton5)) == false && Mouserelease == true && Bullet_Equipped == true)
         {
-            Debug.Log( gameObject );
 			float MomentumRange = MaxMomentum - MinMomentum;
             GameObject bullet;
 			if (MinMomentum <= Momentum && Momentum < MinMomentum + MomentumRange / 3.0) {
