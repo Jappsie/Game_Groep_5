@@ -16,8 +16,9 @@
 			GetComponent<RawImage> ().texture = movie as MovieTexture; 
 			movie.loop = true;
 			movie.Play (); 
+
 		Winner = Winner.GetComponent<Canvas> (); 
-		Credits = Winner.GetComponent<Button> (); 
+		Credits = Credits.GetComponent<Button> (); 
 
 		Winner.enabled = false; 
 		Credits.enabled = false; 
