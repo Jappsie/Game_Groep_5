@@ -39,9 +39,11 @@ public class PlayerMovement : HealthSystem
 
 
 	private bool Sawanimation = true;           // Checking ability to play animation
+	private bool DrillAnimation = true;
 	private Animation anim;                     // Anamation from character component
 	private bool Bullet_Equipped;  
-	                             
+	private bool Drill_Equipped;                             
+	private bool OnBlock = false;
 
     // Get reference to the CharacterController
     void Start()
@@ -150,12 +152,24 @@ public class PlayerMovement : HealthSystem
 
 		}
 
+		if (DrillAnimation == true & Input.GetMouseButton (0) == true & Drill_Equipped == true) {
+			DrillAnimation = false;
+			//gameObject.GetComponentInChildren<Animation> ().Play ("DrillAnimation");
+			anim.Play("DrillAnimation");
+		}
+
 		if(Saw_Equipped == true & Input.GetMouseButton(1)){
 			GameObject child = GameObject.FindGameObjectWithTag ("saw");
 			Saw_Equipped = false;
 			child.transform.parent = null;
 			Bullet_Equipped = true;
 		}
+
+		if (Drill_Equipped == true & Input.GetMouseButton (1)) {
+			GameObject child = GameObject.FindGameObjectWithTag ("Drill");
+			child.transform.parent = null;
+		}
+			
 
     }
 
@@ -184,6 +198,7 @@ public class PlayerMovement : HealthSystem
 		if (other.gameObject.CompareTag("Egg")) {
 			TakeDamage(0.5f);
 		}
+
 	}
 
 	// detects collision with powerups
@@ -193,6 +208,23 @@ public class PlayerMovement : HealthSystem
 			col.transform.localPosition = new Vector3 (0f, 3.5f, 0f);
 			Bullet_Equipped = false;
 			Saw_Equipped = true;
+		}
+
+		if (col.gameObject.tag == "Drill") {
+			col.transform.parent = transform;
+			col.transform.localPosition = new Vector3 (0f, 1f, 0f);
+			Bullet_Equipped = false;
+			Drill_Equipped = true;
+		}
+			if (Drill_Equipped == true & col.gameObject.tag == "DrillBlockTrigger") {
+						OnBlock = true;
+			}
+				
+	}
+
+	void OnTriggerExit(Collider col){
+		if (Drill_Equipped == true & col.gameObject.tag == "DrillBlockTrigger") {
+			OnBlock = false;
 		}
 	}
 
@@ -207,5 +239,13 @@ public class PlayerMovement : HealthSystem
 	//Changes bool at the end of the animation
 	public void AnimationEnded(){
 		Sawanimation = true;
+		DrillAnimation = true;
 	}
+
+	public void DestroyDrillBlock(){
+				if (OnBlock == true) {
+					Destroy(GameObject.FindGameObjectWithTag("DrillBlock"));
+		}
+	}
+		
 }
