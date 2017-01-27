@@ -90,19 +90,23 @@ public class SnakeBoss : HealthSystem {
     {
         switch (value)
         {
-            case 0:
+		case 0:
+			Debug.Log ("0");
                 finishAnimation = true;
                 Vulnerable = true;
                 break;
-            case 1:
+		case 1:
+			Debug.Log ("1");
                 animator.SetBool( "Attack", false );
                 finishAnimation = false;
                 Vulnerable = false;
                 break;
-            case 2:
+		case 2:
+			Debug.Log ("2");
                 finishAnimation = true;
                 break;
-            case 3:
+		case 3:
+			Debug.Log (" 3");
                 finishAnimation = false;
                 break;
         }
@@ -215,13 +219,16 @@ public class SnakeBoss : HealthSystem {
             Destroy( curCryst );
         }
         crystals.Clear();
-        crystalSequence = true;
         StartCoroutine( spawnRock() );
     }
 
     // Coroutine which handles crystal spawning, and linking the animation
     IEnumerator spawnRock()
     {
+		while (finishAnimation) {
+			yield return new WaitForSeconds (0.5f);
+		}
+		crystalSequence = true;
         for (int i = 0; i < crystalAmount; i++ )
         {
             Vector3 playerLocation = player.transform.position;
