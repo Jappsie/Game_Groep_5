@@ -11,6 +11,7 @@ public class QueenBee : HealthSystem {
 	public int MinBirthRepeatTime = 5;          // Minumum Birth repeatrate  
 	public int MaxBirthRepeatTime = 10;         //Maximum Birth repeatrate
     public int maxOffspring = 20;
+	public GameObject Drill;
 
 	private Vector3 pos1;
 	private Vector3 pos2;
@@ -93,6 +94,12 @@ public class QueenBee : HealthSystem {
 				}
 			}
 		}
+	}
+
+	void OnDestroy(){
+		Vector3 Spawnpos = new Vector3(transform.position.x ,transform.position.y + 1f, transform.position.z);
+
+		Instantiate (Drill, Spawnpos, Quaternion.identity);
 	}
 	
 }

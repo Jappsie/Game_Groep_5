@@ -42,15 +42,20 @@ public class PlayerMovement : HealthSystem
 	public float Tijd; 
 
 
-	public bool Sawanimation = true;           // Checking ability to play animation
-	private Animation anim;                    // Anamation from character component
+
 	private bool CuttingRange = false;                 // checks is player is within cutting range of the deadtree
-	private bool Bullet_Equipped;
 
     Renderer playRenderer;                      // Renderer object for visual appearance
     public Color origColor;                     // Original color of the player
     public Color currentColor;                  // Current color of the player
-	                             
+
+	private bool Sawanimation = true;           // Checking ability to play animation
+	private bool DrillAnimation = true;
+	private Animation anim;                     // Anamation from character component
+	private bool Bullet_Equipped;  
+	private bool Drill_Equipped;                             
+	private bool OnBlock = false;
+
 
     // Get reference to the CharacterController
     void Start()
@@ -178,16 +183,32 @@ public class PlayerMovement : HealthSystem
 
 		}
 
+<<<<<<< HEAD
 		if (Sawanimation == false & CuttingRange == true){
 			GameObject.FindGameObjectWithTag("DeadTree").GetComponent<treeFall>().ThreeCut();
 		}
 
 		if(Saw_Equipped == true & (Input.GetMouseButton(1) || Input.GetKey(KeyCode.JoystickButton4))){
+=======
+		if (DrillAnimation == true & Input.GetMouseButton (0) == true & Drill_Equipped == true) {
+			DrillAnimation = false;
+			//gameObject.GetComponentInChildren<Animation> ().Play ("DrillAnimation");
+			anim.Play("DrillAnimation");
+		}
+
+		if(Saw_Equipped == true & Input.GetMouseButton(1)){
+>>>>>>> origin/Beta_QueenBee
 			GameObject child = GameObject.FindGameObjectWithTag ("saw");
 			Saw_Equipped = false;
 			child.transform.parent = null;
 			Bullet_Equipped = true;
 		}
+
+		if (Drill_Equipped == true & Input.GetMouseButton (1)) {
+			GameObject child = GameObject.FindGameObjectWithTag ("Drill");
+			child.transform.parent = null;
+		}
+			
 
     }
 
@@ -237,6 +258,15 @@ public class PlayerMovement : HealthSystem
 //		}
 //
 //    }
+<<<<<<< HEAD
+=======
+	private void OnControllerColliderHit( ControllerColliderHit other ) {
+		if (other.gameObject.CompareTag("Egg")) {
+			TakeDamage(0.5f);
+		}
+
+	}
+>>>>>>> origin/Beta_QueenBee
 
 	// detects collision with powerups
 	void OnTriggerEnter(Collider col){
@@ -246,6 +276,7 @@ public class PlayerMovement : HealthSystem
 			Bullet_Equipped = false;
 			Saw_Equipped = true;
 		}
+<<<<<<< HEAD
         if (col.gameObject.tag == "Water")
         {
             GetComponent<AudioSource>().Play();
@@ -264,6 +295,25 @@ public class PlayerMovement : HealthSystem
 			CuttingRange = false;
 		}
 	
+=======
+
+		if (col.gameObject.tag == "Drill") {
+			col.transform.parent = transform;
+			col.transform.localPosition = new Vector3 (0f, 1f, 0f);
+			Bullet_Equipped = false;
+			Drill_Equipped = true;
+		}
+			if (Drill_Equipped == true & col.gameObject.tag == "DrillBlockTrigger") {
+						OnBlock = true;
+			}
+				
+	}
+
+	void OnTriggerExit(Collider col){
+		if (Drill_Equipped == true & col.gameObject.tag == "DrillBlockTrigger") {
+			OnBlock = false;
+		}
+>>>>>>> origin/Beta_QueenBee
 	}
 
     // Reset the scene when player dies
@@ -279,7 +329,15 @@ public class PlayerMovement : HealthSystem
 	//Changes bool at the end of the animation
 	public void AnimationEnded(){
 		Sawanimation = true;
+		DrillAnimation = true;
 	}
+
+	public void DestroyDrillBlock(){
+				if (OnBlock == true) {
+					Destroy(GameObject.FindGameObjectWithTag("DrillBlock"));
+		}
+	}
+<<<<<<< HEAD
 
 
 
@@ -291,4 +349,7 @@ public class PlayerMovement : HealthSystem
 
 
 	}
+=======
+		
+>>>>>>> origin/Beta_QueenBee
 }
