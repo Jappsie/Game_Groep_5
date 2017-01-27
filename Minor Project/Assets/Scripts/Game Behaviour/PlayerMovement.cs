@@ -42,8 +42,9 @@ public class PlayerMovement : HealthSystem
 	public float Tijd; 
 
 
-	private bool Sawanimation = true;           // Checking ability to play animation
-	private Animation anim;                     // Anamation from character component
+	public bool Sawanimation = true;           // Checking ability to play animation
+	private Animation anim;                    // Anamation from character component
+	private bool CuttingRange = false;                 // checks is player is within cutting range of the deadtree
 	private bool Bullet_Equipped;
 
     Renderer playRenderer;                      // Renderer object for visual appearance
@@ -179,6 +180,10 @@ public class PlayerMovement : HealthSystem
 
 		}
 
+		if (Sawanimation == false & CuttingRange == true){
+			GameObject.FindGameObjectWithTag("DeadTree").GetComponent<treeFall>().ThreeCut();
+		}
+
 		if(Saw_Equipped == true & (Input.GetMouseButton(1) || Input.GetKey(KeyCode.JoystickButton4))){
 			GameObject child = GameObject.FindGameObjectWithTag ("saw");
 			Saw_Equipped = false;
@@ -247,6 +252,17 @@ public class PlayerMovement : HealthSystem
 		if( col.gameObject.CompareTag("BossEnter") ) {
 			gameObject.tag = "Player";
 		}
+
+		if (col.gameObject.tag == "DeadTree") {
+			CuttingRange = true;
+		}
+	}
+
+	void OnTriggerExit(Collider col){
+		if (col.gameObject.tag == "DeadTree") {
+			CuttingRange = false;
+		}
+	
 	}
 
     // Reset the scene when player dies

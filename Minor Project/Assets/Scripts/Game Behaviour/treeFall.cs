@@ -3,14 +3,14 @@ using System.Collections;
 
 public class treeFall : MonoBehaviour {
 	Animator animator;
+	GameObject player;
+
 	// Use this for initialization
 	void Start () {
 		animator = GetComponent<Animator> ();
 	}
-
-	private void OnTriggerEnter(Collider col){
-		if (col.CompareTag("saw")) {
+		
+	public void ThreeCut(){
 			animator.Play ("FallingTree");
-		}
-	} 
+	}
 }
