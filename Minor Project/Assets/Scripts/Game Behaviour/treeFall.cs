@@ -5,6 +5,7 @@ public class treeFall : MonoBehaviour {
 	Animator animator;
 	GameObject player;
 	AudioSource audio;
+	bool PlayedOnce = false;
 
 	// Use this for initialization
 	void Start () {
@@ -13,9 +14,10 @@ public class treeFall : MonoBehaviour {
 	}
 		
 	public void ThreeCut(){
-			animator.Play ("FallingTree");
-            audio.Play();
-			audio.enabled = false;
-            //Destroy(audio);
+		animator.Play ("FallingTree");
+		if (!PlayedOnce) {
+			PlayedOnce = true;
+			audio.Play ();
+		}
 	}
 }
