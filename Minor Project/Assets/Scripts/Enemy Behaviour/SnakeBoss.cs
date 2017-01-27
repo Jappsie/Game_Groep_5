@@ -4,11 +4,6 @@ using System;
 
 public class SnakeBoss : HealthSystem {
 
-    // Spawnrocks repeating maken
-    // Player damage laten pakken
-    // Snake groter maken
-    // Meerdere triggers niet tellen: 
-
 
     public GameObject SnakeHead;
     public GameObject SnakeFront;
