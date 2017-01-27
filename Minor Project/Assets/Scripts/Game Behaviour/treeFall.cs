@@ -4,7 +4,7 @@ using System.Collections;
 public class treeFall : MonoBehaviour {
 	Animator animator;
 	GameObject player;
-    AudioSource audio;
+	AudioSource audio;
 
 	// Use this for initialization
 	void Start () {
@@ -15,6 +15,7 @@ public class treeFall : MonoBehaviour {
 	public void ThreeCut(){
 			animator.Play ("FallingTree");
             audio.Play();
-            Destroy(this);
+			audio.enabled = false;
+            //Destroy(audio);
 	}
 }
