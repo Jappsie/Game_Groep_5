@@ -4,6 +4,12 @@ using System.Collections;
 public class SawSpawner : EnableScript {
 
     Animator anim;
+    AudioSource audio;
+
+    private void Start()
+    {
+        audio = GetComponent<AudioSource>();
+    }
 
     private void OnCollisionEnter( Collision collision )
     {
@@ -13,6 +19,7 @@ public class SawSpawner : EnableScript {
             anim = this.GetComponent<Animator>();
             // stop animating the target when hit
             anim.SetTime(0);
+            audio.Play();
             Destroy(anim);
 
         }

@@ -45,8 +45,10 @@ public class Eggs : MonoBehaviour {
         float color = Random.value;
 
         DodgingEnemy beeParams = creature.GetComponent<DodgingEnemy>();
+        Transform realBee = creature.transform.GetChild(0);
+        Transform beeWings = realBee.transform.GetChild(1);
 
-        creature.transform.GetChild(1).transform.GetComponent<Renderer>().material.color = new Color(color, 0, 0);
+        beeWings.transform.GetComponent<Renderer>().material.color = new Color(color, 0, 0);
         beeParams.MaxHealth = (int)(2 * color + 1); // [1, 3]
         beeParams.moveSpeed = (int)(8 * color + 6); // [6, 14]
         beeParams.Damage = color + 1.0f; // [1, 2]
