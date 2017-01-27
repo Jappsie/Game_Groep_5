@@ -233,7 +233,9 @@ public class SnakeBoss : HealthSystem {
             crystals.Push( curCrystal );
             yield return new WaitForSeconds( damageDelay );
             animator.SetBool( "Crystal", false );
-            box.enabled = true;
+			if (box) {
+				box.enabled = true;
+			}
             yield return new WaitForSeconds( intervalTime );
         }
         animator.SetBool( "Crystals", false );
