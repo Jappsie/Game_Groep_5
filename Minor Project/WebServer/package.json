@@ -1,0 +1,22 @@
+{
+  "name": "webserver",
+  "version": "1.0.0",
+  "description": "",
+  "main": "httpserver.js",
+  "scripts": {
+    "start": "node httpserver.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "cookie-parser": "^1.4.3",
+    "ejs": "^2.5.5",
+    "express": "^4.14.0",
+    "mysql": "^2.12.0",
+    "passport": "^0.3.2",
+    "passport-facebook": "^2.1.1",
+    "request": "^2.79.0"
+  }
+}

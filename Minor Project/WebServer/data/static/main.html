@@ -1,0 +1,50 @@
+<!doctype html>
+<html>
+<head>
+	<title>neverForget</title>
+	<link rel="stylesheet" href="style2.css">
+	<script src="jquery-3.1.1.min.js"></script>
+	<script src="application.js"></script>
+</head>
+
+<body>
+<header>
+<h1>NeverForget</h1>
+<input type="button" onclick="location.href='../';" id="Home" value="">
+<input type="text" id="search" placeholder="search...">
+</header>
+
+<main>
+<input type="button" id="Tasks" class="topBtn" value="Tasks">
+<input type="button" id="Calender" class="topBtn" value="Calender">
+<input type="button" id="Contacts" class="topBtn" value="Contacts">
+<br>
+<div id="list">
+<input type="button" id="SortDueDate" class="topBtn2" value="Sort by DueDate">
+<input type="button" id="SortImportance" class="topBtn2" value="Sort by Importance">
+<input type="button" id="SortDone" class="topBtn2" value="Sort by Done">
+<input type="button" id="SortTag" class="topBtn2" value="Sort by Tag">
+
+<ol class="TaskList", id="TaskList">
+	<li class="OverDue imp2">Your tasks will appear here</li>
+	<li class="Done imp0">Your tasks will appear here</li>
+	<li class="Busy imp5">Your tasks will appear here</li>
+</ol>
+</div>
+<div id="information">
+<p></p>
+</div>
+<br>
+<input type="button" id="newTask" class="botBtn" value="New task">
+<input type="button" id="editTask" class="botBtn" value="Edit task">
+<input type="button" id="deleteTask" class="botBtn" value="Delete task">
+<input type="button" id="doneTask" class="botBtn" value="Mark done">
+
+</main>
+	
+<footer>
+	
+</footer>
+
+</body>
+<html>

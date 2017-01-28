@@ -1,0 +1,161 @@
+body {
+	background-color: lightblue;
+	width: 1000px;
+	margin: 0 auto;
+	font-family: "Comic Sans MS";
+	animation-name:animation;
+	animation-duration:1s;
+}
+
+header{
+	margin-left: auto;
+}
+
+main {
+	margin-top: 100px;
+	width:100%;
+	border-width:0%;
+}
+
+h1 {
+	border: solid;
+	border-color: yellow;
+	border-color: orange;
+	text-align: center;
+	color: black;
+	background-color: yellow;
+}
+h1::after {
+	content:"!";
+}
+h1::before {
+	content:"!";
+}
+
+.topBtn {
+	margin-top:10px;
+	width:200px;
+	height:50px;
+	font-size:20px;
+	font-family:"Comic Sans MS";
+	background-color:blue;
+	border:0;
+	text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+}
+.topBtn:hover{
+	background-color:teal;
+}
+.topBtn:active{
+	background:rgba(0,128,128,0.5);
+}
+.topBtn2 {
+	margin-top:20px;
+	width:120px;
+	height:20px;
+	font-size:10px;
+	font-family:"Comic Sans MS";
+	background-color:blue;
+	border:0;
+	text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+}
+.topBtn2:hover {
+	background-color:teal;
+}
+.topBtn2:active {
+	background:rgba(0,128,128,0.5);
+}
+.botBtn{
+	margin-top:10px;
+	width:200px;
+	height:50px;
+	font-size:20px;
+	font-family:"Comic Sans MS";
+	background-color:blue;
+	border:0;	
+	text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+}
+.botBtn:hover{
+	background-color:teal;
+}
+.botBtn:active{
+	background:rgba(0,128,128,0.5);
+}
+input {
+	border-radius:10px;
+	color:red;
+}
+
+
+#Home {
+	border-radius:0px;
+	position:fixed;
+	float:left;
+	background-image: url("Home.png");
+	border:0;
+	width:120px;
+	height:40px;
+	background-color:transparent;
+}
+#Home:hover {
+	opacity:0.5;
+}
+#Home:active {
+	opacity:0.5;
+}
+
+#search {
+	float:right;
+	border-radius:10px;
+	border-color:grey;
+	border-width:1px;
+}
+.TaskList {
+	width:50%;
+	background-color:lightgrey;
+	border:2px;
+	border:solid;
+	border-color:black;
+	font-size:20px;
+	text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+}
+
+#list{
+	margin-left:40px;
+}
+
+@keyframes animation{
+	from{width:0px;}
+	to{width:1000px;}	
+}
+li {
+	color:white;
+	padding-left:5px;
+	padding: 5px 0px 5px 5px;
+}
+.Busy::before {
+	content:url('line.png');
+}
+.Done::before {
+	content:url('green.png');
+}
+.OverDue::before{
+	content:url('redCross.png');
+}
+.imp0 {
+	background-color:rgba(0,0,0,0.8);
+}
+.imp1 {
+	background-color:rgba(0,0,0,0.6);
+}
+.imp2 {
+	background-color:rgba(0,0,0,0.4);
+}
+.imp3 {
+	background-color:rgba(0,0,0,0.3);
+}
+.imp4{
+	background-color:rgba(0,0,0,0.2);
+}
+.imp5 {
+	background-color:rgba(0,0,0,0.1);
+}

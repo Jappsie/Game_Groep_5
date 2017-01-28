@@ -1,0 +1,36 @@
+<!doctype html>
+<html>
+<head>
+	<script src = 'ejs.js'></script>
+	<link rel="stylesheet" href="/style.css">
+	<title><%=title%></title>
+	<style><%=css%></style>
+</head>
+
+<body>
+<header>
+	<h1>NeverForget</h1>
+	<input type="button" id="home" value="">
+	<input type="text" id="search" placeholder="search...">
+</header>
+
+<main>
+	<input type="button" onclick="location.href='../auth/facebook';" id="signUp" class="mainButton" value="Sign-Up">
+	<p id="OR" ><i>OR</i></p>
+	<input type="button" onclick="location.href='../main';" id="tryForFree" class="mainButton" value="Try for free">
+	<img src="logo.jpg" alt="logo" id="logo"/>
+
+	<ul id="TempList"></ul>
+</main>
+
+<footer>
+	<p id="aboutUs" >about us and more</p>
+	<input type="button" onclick="location.href='../analytics';" id="Analytics" value="Analytics">
+	<br>
+	<input type="button" onclick="location.href='../?color=mediumvioletred';" id="ColorRed" value="ReddishPurple">
+	<input type="button" onclick="location.href='../?color=chartreuse';" id="ColorBlue" value="Lime">
+	<input type="button" onclick="location.href='../?color=lightblue';" id=ColorLBlue" value="Light Blue">
+</footer>
+
+</body>
+<html>
