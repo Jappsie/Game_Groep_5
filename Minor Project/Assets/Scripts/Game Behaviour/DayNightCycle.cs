@@ -8,6 +8,7 @@ public class DayNightCycle : MonoBehaviour {
     public Vector3 direction;
     public float movementSpeed;
 	private Light light;
+	private Light light2;
     private float cycle;
 	public float posX;
 
@@ -20,6 +21,7 @@ public class DayNightCycle : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		mc = GameObject.Find("Main Camera").GetComponent<Camera>();
+		light2 = GameObject.Find("Moonlight").GetComponent<Light>();
 		newDay = false;
 
 		//dayBack = new Color(206, 241, 255);
@@ -39,11 +41,17 @@ public class DayNightCycle : MonoBehaviour {
 		if ((posX < 360f && posX > 270f)  && light.intensity > 0f) {
 			light.intensity += -0.001f;
 			mc.backgroundColor = Color.Lerp(nightBack, mc.backgroundColor, 0.99f);
+			if (light.intensity < 0.2f) {
+				light2.intensity = 0.27f;
+			}
 			
 		}			
 		if ((posX > 0 && posX < 90f) && light.intensity < 1.0f) {
 			light.intensity += 0.001f;
 			mc.backgroundColor = Color.Lerp(dayBack, mc.backgroundColor, 0.99f);
+			if (light.intensity > 0.9) {
+				light2.intensity = 0f;
+			}
 		}
 		transform.RotateAround(center, direction, cycle);
         transform.LookAt(center);
