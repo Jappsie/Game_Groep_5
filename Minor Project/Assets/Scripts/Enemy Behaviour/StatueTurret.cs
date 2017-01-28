@@ -113,7 +113,6 @@ public class StatueTurret : HealthSystem
     // What happens when the object dies
     protected override void Death()
     {
-        Debug.Log( "Im dead!" );
         if ( toggler != null )
         {
             toggler.toggle( true );
@@ -124,7 +123,6 @@ public class StatueTurret : HealthSystem
     IEnumerator Flicker()
     {
         vulnerable = false;
-        Debug.Log( "Invulnerable: " + Time.time );
         for ( int i = 0; i < 8; i++ )
         {
             rendererStatue.material.color = flicker;
@@ -133,6 +131,5 @@ public class StatueTurret : HealthSystem
             yield return new WaitForSeconds( 0.05f );
         }
         vulnerable = true;
-        Debug.Log( "Vulnerable: " + Time.time );
     }
 }

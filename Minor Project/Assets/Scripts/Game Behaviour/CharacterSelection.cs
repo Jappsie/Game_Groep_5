@@ -64,11 +64,13 @@ public class CharacterSelection : MonoBehaviour {
 	}
 
 	public void ConfirmClicked(){
-        GameManager.UpdateAvatar( index + 1 );
-		SceneManager.LoadScene ("main menu");
-
-		
-	
+        PlayerPrefs.SetInt( "CharacterSelected", index + 1 );
+        GameObject manager = GameObject.FindGameObjectWithTag( "GameManager" );
+        if (manager)
+        {
+            manager.GetComponent<GameManager>().UpdateAvatar(index + 1 );
+        }
+		SceneManager.LoadScene ("main menu");	
 	}
 
 

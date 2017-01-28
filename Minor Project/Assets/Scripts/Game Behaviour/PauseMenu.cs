@@ -5,7 +5,6 @@ using System.Collections;
 public class PauseMenu : MonoBehaviour
 {
     public static KeyCode PauzeKey = KeyCode.None;
-    public KeyCode pauzeKey2;
     private GameObject[] pauseObjects;
     private SceneManagerScript SceneManager;
 
@@ -21,7 +20,6 @@ public class PauseMenu : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        pauzeKey2 = PauzeKey;
         //uses the p button to pause and unpause the game
         if (Input.GetKeyDown( PauzeKey ) )
         {
@@ -31,7 +29,6 @@ public class PauseMenu : MonoBehaviour
             }
             else if ( Time.timeScale == 0 )
             {
-                Debug.Log( "high" );
                 hidePaused();
             }
         }
@@ -52,7 +49,11 @@ public class PauseMenu : MonoBehaviour
         }
         else
         {
-            GameManager.SaveUser(PlayerPrefs.GetString("Username"));
+            GameObject gameManager = GameObject.FindGameObjectWithTag( "GameManager" );
+            if ( gameManager )
+            {
+                gameManager.GetComponent<GameManager>().SaveUser( PlayerPrefs.GetString( "Username" ) );
+            }
             Debug.Log( "Saved" );
         }
         Continue();

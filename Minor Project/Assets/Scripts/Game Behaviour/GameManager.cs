@@ -10,7 +10,6 @@ public class GameManager : MonoBehaviour
     public bool analytics;
     public float trackInterval = 2f;
     public List<GameObject> objects;
-    public static GameManager instance;
 
     [SerializeField]
     private int deathCount = 0;
@@ -41,7 +40,6 @@ public class GameManager : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        instance = this;
         DontDestroyOnLoad( gameObject );
         foreach ( GameObject obj in objects )
         {
@@ -99,62 +97,60 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public static void MakeSession()
+    public void MakeSession()
     {
         string username = "";
-        for ( int i = 0; i < instance.glyphLength; i++ )
+        for ( int i = 0; i < glyphLength; i++ )
         {
-            username += instance.glyph[ UnityEngine.Random.Range( 0, instance.glyph.Length ) ];
+            username += glyph[ UnityEngine.Random.Range( 0, glyph.Length ) ];
         }
-        instance.StartCoroutine( instance.newSession(username) );
+        StartCoroutine( newSession(username) );
     }
 
-    public static void GetSession(string username)
+    public void GetSession(string username)
     {
-        instance.StartCoroutine( instance.getSession(username) );
+        StartCoroutine( getSession(username) );
     }
 
-    public static void SaveUser(string username)
+    public void SaveUser(string username)
     {
         PlayerPrefs.SetString( "Username", username );
         WWWForm form = new WWWForm();
         form.AddField( "Username", username );
         form.AddField( "Checkpoint", PlayerPrefs.GetString( "Checkpoint" ) );
-        form.AddField( "Id", instance.userId );
-        instance.StartCoroutine( instance.sendData( "saveUser", form ) );
+        form.AddField( "Id", userId );
+        StartCoroutine( sendData( "saveUser", form ) );
     }
 
     public void UpdateCheckpoint(string Checkpoint)
     {
-            instance.Checkpoint = Checkpoint;
             if ( !string.IsNullOrEmpty( PlayerPrefs.GetString( "Username" ) ) )
             {
                 WWWForm form = new WWWForm();
                 form.AddField( "Username", PlayerPrefs.GetString( "Username" ) );
                 form.AddField( "Checkpoint", Checkpoint );
-                instance.StartCoroutine( instance.sendData( "checkpoint", form ) );
+                StartCoroutine( sendData( "checkpoint", form ) );
             }
         
     }
 
-    public static void UpdateAvatar( int Avatar )
+    public void UpdateAvatar( int Avatar )
     {
-        PlayerPrefs.SetInt( "Avatar", Avatar );
         if ( !string.IsNullOrEmpty( PlayerPrefs.GetString( "Username" ) ) )
         {
             WWWForm form = new WWWForm();
             form.AddField( "Username", PlayerPrefs.GetString( "Username" ) );
             form.AddField( "Avatar", Avatar );
-            instance.StartCoroutine( instance.sendData( "avatar", form ) );
+            StartCoroutine( sendData( "avatar", form ) );
         }
     }
 
-    public static void getDeaths()
+    public void getDeaths()
     {
         
-        if (instance.userId >= 0)
+        if (userId >= 0)
         {
-            instance.StartCoroutine( instance.getDeaths( instance.userId ) );
+            StartCoroutine( getDeaths( userId ) );
         }
     }
 
@@ -205,7 +201,7 @@ public class GameManager : MonoBehaviour
     IEnumerator getDeaths( int userId)
     {
         WWWForm form = new WWWForm();
-        form.AddField( "UserId", instance.userId );
+        form.AddField( "UserId", userId );
 
         WWW www = new WWW( "http://insyprojects.ewi.tudelft.nl:8085/getDeaths", form );
 
