@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System;
+using UnityEngine.UI;
 
 public class SnakeBoss : HealthSystem {
 
@@ -16,6 +17,8 @@ public class SnakeBoss : HealthSystem {
     public float attackDistance = 10f;
     public float FOV = 30f;
     public float SnakeDamage = 1f;
+	public GameObject Winner; 
+	public MovieTexture movie; 
 
     public GameObject Crystal;
     public int crystalAmount = 4;
@@ -37,7 +40,13 @@ public class SnakeBoss : HealthSystem {
 
 
 	void Start () {
-        // Get player, animator and default head position
+		//Initialization of the Canvas; 
+		Winner = GameObject.FindGameObjectWithTag("WinnerCanvas");
+		Winner.GetComponentInChildren<RawImage> ().texture = movie as MovieTexture; 
+		Winner.SetActive (false); 
+
+
+        // Get player, animator an	d default head position
         player = GameObject.FindGameObjectWithTag( "Player" );
         animator = gameObject.GetComponent<Animator>();
         headStartPos = SnakeHead.transform.position;
@@ -73,7 +82,9 @@ public class SnakeBoss : HealthSystem {
             TailFollow();
             SnakeMovement();
         }
-    }
+
+	
+	}
 
     // Check if the player is in range, and in field of vision
     private bool isClose()
@@ -260,9 +271,20 @@ public class SnakeBoss : HealthSystem {
         }
     }
 
-    // Method to activate something when defeated
+     //Method to activate something when defeated
     protected override void Death()
     {
-        Destroy( gameObject );
+		Time.timeScale = 0; 
+		Winner.SetActive (true);
+		movie.loop = true;
+		movie.Play ();  
     }
+
+
+	private void GoToCredits(){
+		SceneManagerScript.goToScene( "Credits", false );
+	}
 }
+
+
+
