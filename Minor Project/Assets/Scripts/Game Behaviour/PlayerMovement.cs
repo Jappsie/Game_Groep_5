@@ -199,6 +199,7 @@ public class PlayerMovement : HealthSystem
         {
             DrillAnimation = false;
             //gameObject.GetComponentInChildren<Animation> ().Play ("DrillAnimation");
+			GameObject.FindGameObjectWithTag("Drill").GetComponent<AudioSource>().Play();
             anim.Play( "DrillAnimation" );
         }
 
