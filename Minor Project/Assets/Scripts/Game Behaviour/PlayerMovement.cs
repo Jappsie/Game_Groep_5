@@ -195,7 +195,7 @@ public class PlayerMovement : HealthSystem
             GameObject.FindGameObjectWithTag( "DeadTree" ).GetComponent<treeFall>().ThreeCut();
         }
 
-        if ( DrillAnimation == true & Input.GetMouseButton( 0 ) == true & Drill_Equipped == true )
+		if ( DrillAnimation == true & (Input.GetMouseButton( 0 ) || Input.GetKey( KeyCode.JoystickButton5) ) & Drill_Equipped == true )
         {
             DrillAnimation = false;
             //gameObject.GetComponentInChildren<Animation> ().Play ("DrillAnimation");
@@ -211,10 +211,12 @@ public class PlayerMovement : HealthSystem
             Bullet_Equipped = true;
         }
 
-        if ( Drill_Equipped == true & Input.GetMouseButton( 1 ) )
+		if ( Drill_Equipped == true & (Input.GetMouseButton( 1 ) || Input.GetKey( KeyCode.JoystickButton4 )))
         {
             GameObject child = GameObject.FindGameObjectWithTag( "Drill" );
+			Drill_Equipped = false;
             child.transform.parent = null;
+			Bullet_Equipped = true;
         }
 
 

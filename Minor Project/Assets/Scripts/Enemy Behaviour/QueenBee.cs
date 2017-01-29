@@ -80,6 +80,8 @@ public class QueenBee : HealthSystem {
         {
             Destroy(egg);
         }
+		Vector3 Spawnpos = new Vector3(transform.position.x ,transform.position.y + 1f, transform.position.z);
+		Instantiate (Drill, Spawnpos, Quaternion.identity);
 		Destroy (gameObject);
 	}
 
@@ -94,12 +96,5 @@ public class QueenBee : HealthSystem {
 				}
 			}
 		}
-	}
-
-	void OnDestroy(){
-		Vector3 Spawnpos = new Vector3(transform.position.x ,transform.position.y + 1f, transform.position.z);
-
-		Instantiate (Drill, Spawnpos, Quaternion.identity);
-	}
-	
+	}	
 }
