@@ -10,7 +10,6 @@ public class DayNightCycle : MonoBehaviour {
     public Vector3 center;
     public Vector3 direction;
     public float movementSpeed;
-	private float cycle;
 	public float posX;
 
 	// sun
@@ -29,12 +28,11 @@ public class DayNightCycle : MonoBehaviour {
 		//dayBack = new Color(206, 241, 255);
 		//nightBack = new Color(23, 20, 62);
 		RenderSettings.ambientIntensity = 1.0f;
-		mc = GameObject.Find("Main Camera").GetComponent<Camera>();
+		mc = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
 		light = this.GetComponent<Light>();
 		light2 = GameObject.Find("Moonlight").GetComponent<Light>();
 		light2.intensity = 0f;
 		center = new Vector3(0,0,0);
-        cycle = movementSpeed * Time.deltaTime;
 		direction = Vector3.left;
 	}
 	
@@ -43,6 +41,7 @@ public class DayNightCycle : MonoBehaviour {
 		if (mc == null) {
 			mc = GameObject.Find("Main Camera").GetComponent<Camera>();
 		}
+
 		// current angular position of the sun
 		posX = transform.eulerAngles.x;
 
@@ -72,7 +71,7 @@ public class DayNightCycle : MonoBehaviour {
 			}
 		}
 		// always move around the center and point in the direction of it
-		transform.RotateAround(center, direction, cycle);
+		transform.RotateAround(center, direction, movementSpeed*Time.deltaTime);
         transform.LookAt(center);
 	}
 }
