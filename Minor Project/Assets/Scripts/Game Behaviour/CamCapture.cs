@@ -7,7 +7,7 @@ public class CamCapture : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        Application.CaptureScreenshot("Avatars/" + filename);
+        Application.CaptureScreenshot("Assets/Resources/Avatars/" + filename);
         Debug.Log( "Click" );
 	}
 

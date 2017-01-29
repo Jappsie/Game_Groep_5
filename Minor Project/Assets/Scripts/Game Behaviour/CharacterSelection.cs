@@ -12,8 +12,9 @@ public class CharacterSelection : MonoBehaviour {
 	void Start () {
 
 
-		index = PlayerPrefs.GetInt ("CharacterSelected") - 1;
+		index = PlayerPrefs.GetInt ("CharacterSelected");
         if (index < 0) { index = 0; }
+        if (index > 4) { index = 4; }
 
 
 		//Fill the array with models 
@@ -64,11 +65,12 @@ public class CharacterSelection : MonoBehaviour {
 	}
 
 	public void ConfirmClicked(){
-        PlayerPrefs.SetInt( "CharacterSelected", index + 1 );
+        Debug.Log( index );
+        PlayerPrefs.SetInt( "CharacterSelected", index);
         GameObject manager = GameObject.FindGameObjectWithTag( "GameManager" );
         if (manager)
         {
-            manager.GetComponent<GameManager>().UpdateAvatar(index + 1 );
+            manager.GetComponent<GameManager>().UpdateAvatar(index);
         }
 		SceneManager.LoadScene ("main menu");	
 	}

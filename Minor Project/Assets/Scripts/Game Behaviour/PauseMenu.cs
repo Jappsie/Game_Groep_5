@@ -13,7 +13,6 @@ public class PauseMenu : MonoBehaviour
     {
         Time.timeScale = 1;
         pauseObjects = GameObject.FindGameObjectsWithTag( "ShowOnPause" );
-        SceneManager = GameObject.Find( "SceneController" ).GetComponent<SceneManagerScript>();
         hidePaused();
     }
 
@@ -64,7 +63,8 @@ public class PauseMenu : MonoBehaviour
     public void Reload()
     {
         hidePaused();
-        SceneManager.resetOnDeath();
+        SceneManager = GameObject.Find( "SceneController" ).GetComponent<SceneManagerScript>();
+        SceneManager.reset();
         
     }
 
