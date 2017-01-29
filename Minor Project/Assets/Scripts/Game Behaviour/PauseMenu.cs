@@ -111,6 +111,7 @@ public class PauseMenu : MonoBehaviour
         PlayerPrefs.SetFloat( "PlayTime", Time.time - PlayerPrefs.GetFloat("StartTime") );
         Debug.Log( Time.time - PlayerPrefs.GetFloat( "StartTime" ) );
         hidePaused();
+        Time.timeScale = 0;
         SceneManagerScript.goToScene( "main menu", false );
     }
 
