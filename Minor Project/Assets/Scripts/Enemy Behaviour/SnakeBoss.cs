@@ -1,9 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
-using System;
+using System.Collections.Generic;
 using UnityEngine.UI;
 
-public class SnakeBoss : HealthSystem {
+public class SnakeBoss : HealthSystem
+{
 
 
     public GameObject SnakeHead;
@@ -17,8 +18,14 @@ public class SnakeBoss : HealthSystem {
     public float attackDistance = 10f;
     public float FOV = 30f;
     public float SnakeDamage = 1f;
-	public GameObject Winner; 
-	public MovieTexture movie; 
+
+    public List<GameObject> TailDeath1;
+    public List<GameObject> TailDeath2;
+    public List<GameObject> TailDeath3;
+    public List<GameObject> TailDeath4;
+
+    public GameObject Winner;
+    public MovieTexture movie;
 
     public GameObject Crystal;
     public int crystalAmount = 4;
@@ -26,7 +33,6 @@ public class SnakeBoss : HealthSystem {
     public float damageDelay;
     public float intervalTime;
     public float spawnDepth = -2.5f;
-    public float CrystalDamage = 1f;
 
     private Quaternion rotFix = Quaternion.Euler( 90, 0, 0 );
     private GameObject player;
@@ -37,32 +43,37 @@ public class SnakeBoss : HealthSystem {
     private Stack crystals;
     private bool crystalSequence;
     private bool Vulnerable;
+    private List<GameObject>[] TailDeaths;
 
 
-	void Start () {
-		//Initialization of the Canvas; 
-		Winner = GameObject.FindGameObjectWithTag("WinnerCanvas");
-		Winner.GetComponentInChildren<RawImage> ().texture = movie as MovieTexture; 
-		Winner.SetActive (false); 
+    void Start()
+    {
+        //Initialization of the Canvas; 
+        Winner = GameObject.FindGameObjectWithTag( "WinnerCanvas" );
+        Winner.GetComponentInChildren<RawImage>().texture = movie as MovieTexture;
+        Winner.SetActive( false );
 
 
-        // Get player, animator an	d default head position
+        // Get player, animator and default head position
         player = GameObject.FindGameObjectWithTag( "Player" );
         animator = gameObject.GetComponent<Animator>();
         headStartPos = SnakeHead.transform.position;
 
         // Can we take damage?
         Vulnerable = false;
+        TailDeaths = new List<GameObject>[] { TailDeath1, TailDeath2, TailDeath3, TailDeath3, TailDeath4, new List<GameObject>() };
 
         // Crystal initialization
         crystals = new Stack();
         crystalSequence = false;
         Invoke( "spawnRocks", StartTime );
+        InvokeRepeating( "timeTrail", 0, 1 );
 
-	}
-	
-	// Update is called once per frame
-	protected override void Update () {
+    }
+
+    // Update is called once per frame
+    protected override void Update()
+    {
         // Check health stuffs
         base.Update();
 
@@ -72,52 +83,48 @@ public class SnakeBoss : HealthSystem {
             animator.SetBool( "Attack", true );
             NeckAnimation();
         }
-        else if (crystalSequence)
+        else if ( crystalSequence )
         {
             animator.SetBool( "Crystals", true );
         }
         else
         {
             FrontFollow();
-            TailFollow();
             SnakeMovement();
         }
+        TailFollow();
 
-	
-	}
+
+    }
 
     // Check if the player is in range, and in field of vision
     private bool isClose()
     {
         Vector3 playerpos = player.transform.position;
         Vector3 headpos = SnakeHead.transform.position;
-        bool fieldOfVision = Mathf.Abs(Vector3.Angle( SnakeHead.transform.forward, playerpos - headpos )) < FOV;
-        bool distance =  Vector3.Distance( playerpos, headpos ) < attackDistance;
+        bool fieldOfVision = Mathf.Abs( Vector3.Angle( SnakeHead.transform.forward, playerpos - headpos ) ) < FOV;
+        bool distance = Vector3.Distance( playerpos, headpos ) < attackDistance;
         return fieldOfVision && distance;
     }
 
     // Interface for animation events: make sure they finish.
-    private void waitForAnimation(int value)
+    private void waitForAnimation( int value )
     {
-        switch (value)
+        switch ( value )
         {
-		case 0:
-			Debug.Log ("0");
+            case 0:
                 finishAnimation = true;
                 Vulnerable = true;
                 break;
-		case 1:
-			Debug.Log ("1");
+            case 1:
                 animator.SetBool( "Attack", false );
                 finishAnimation = false;
                 Vulnerable = false;
                 break;
-		case 2:
-			Debug.Log ("2");
+            case 2:
                 finishAnimation = true;
                 break;
-		case 3:
-			Debug.Log (" 3");
+            case 3:
                 finishAnimation = false;
                 break;
         }
@@ -128,10 +135,10 @@ public class SnakeBoss : HealthSystem {
     {
         // Get all the slices
         Transform[] TailParts = SnakeTail.GetComponentsInChildren<Transform>(); //also returns parent
-        TailParts[0] = SnakeFront.transform.GetChild( SnakeFront.transform.childCount - 1 );
+        TailParts[ 0 ] = SnakeFront.transform.GetChild( SnakeFront.transform.childCount - 1 );
 
         // Go through all but the front slice
-        for (int i = 1; i < TailParts.Length; i++ )
+        for ( int i = 1; i < TailParts.Length; i++ )
         {
             // Used variables
             Transform Front = TailParts[ i - 1 ];
@@ -140,7 +147,7 @@ public class SnakeBoss : HealthSystem {
             // Check if the positions are too far apart
             if ( Vector3.Distance( Front.position, Back.position ) > chainDistance )
             {
-                Back.position = Vector3.MoveTowards( Back.position, Front.position, followSpeed * Time.deltaTime);
+                Back.position = Vector3.MoveTowards( Back.position, Front.position, followSpeed * Time.deltaTime );
             }
             // Look directly at the next slice
             Quaternion toNext = Quaternion.LookRotation( Front.position - Back.position ) * rotFix;
@@ -176,7 +183,7 @@ public class SnakeBoss : HealthSystem {
             Quaternion toNext = Quaternion.LookRotation( Front.position - Back.position ) * rotFix;
             // Interpolate between 'looking at' and imitating
             toNext = Quaternion.Slerp( toNext, Front.rotation, 0.3f );
-            Back.rotation = Quaternion.RotateTowards( Back.rotation, toNext , rotationSpeed * Time.deltaTime );
+            Back.rotation = Quaternion.RotateTowards( Back.rotation, toNext, rotationSpeed * Time.deltaTime );
         }
     }
 
@@ -193,7 +200,7 @@ public class SnakeBoss : HealthSystem {
         moveDirection.y = headStartPos.y;
         playerPos.y = snakePos.y;
 
-        SnakeHead.transform.position = Vector3.MoveTowards( snakePos, moveDirection, followSpeed/2 * Time.deltaTime );
+        SnakeHead.transform.position = Vector3.MoveTowards( snakePos, moveDirection, followSpeed / 2 * Time.deltaTime );
         SnakeHead.transform.rotation = Quaternion.RotateTowards( snakeRot, Quaternion.LookRotation( playerPos - snakePos ), rotationSpeed * Time.deltaTime );
     }
 
@@ -204,7 +211,7 @@ public class SnakeBoss : HealthSystem {
         Transform[] NeckParts = SnakeFront.GetComponentsInChildren<Transform>(); //also returns parent
         NeckParts[ 0 ] = SnakeHead.transform.GetChild( SnakeHead.transform.childCount - 1 );
 
-        for (int i = 1; i < NeckParts.Length-1; i++ )
+        for ( int i = 1; i < NeckParts.Length - 1; i++ )
         {
             Transform Front = NeckParts[ i - 1 ];
             Transform NeckPart = NeckParts[ i ];
@@ -213,7 +220,7 @@ public class SnakeBoss : HealthSystem {
             Vector3 back = new Vector3( Back.position.x, NeckPart.position.y, Back.position.z );
             Vector3 front = new Vector3( Front.position.x, NeckPart.position.y, Front.position.z );
             NeckPart.position = Vector3.Slerp( Back.position, Front.position, 0.5f );
-          
+
             // Look directly at the next slice
             Quaternion toNext = Quaternion.LookRotation( Front.position - NeckPart.position ) * rotFix;
             //Interpolate between 'looking at' and imitating
@@ -225,7 +232,7 @@ public class SnakeBoss : HealthSystem {
     // Method which handles the crystals
     private void spawnRocks()
     {
-        foreach (GameObject curCryst in crystals)
+        foreach ( GameObject curCryst in crystals )
         {
             Destroy( curCryst );
         }
@@ -236,24 +243,28 @@ public class SnakeBoss : HealthSystem {
     // Coroutine which handles crystal spawning, and linking the animation
     IEnumerator spawnRock()
     {
-		while (finishAnimation) {
-			yield return new WaitForSeconds (0.5f);
-		}
-		crystalSequence = true;
-        for (int i = 0; i < crystalAmount; i++ )
+        while ( finishAnimation )
+        {
+            yield return new WaitForSeconds( 0.5f );
+        }
+        crystalSequence = true;
+        for ( int i = 0; i < crystalAmount; i++ )
         {
             Vector3 playerLocation = player.transform.position;
             playerLocation.y = spawnDepth;
             animator.SetBool( "Crystal", true );
             GameObject curCrystal = Instantiate( Crystal, playerLocation, Quaternion.identity ) as GameObject;
             BoxCollider box = curCrystal.GetComponentInChildren<BoxCollider>();
+            Animator anim = curCrystal.GetComponentInChildren<Animator>();
+            anim.SetFloat( "Speed", 1 / damageDelay );
             box.enabled = false;
             crystals.Push( curCrystal );
             yield return new WaitForSeconds( damageDelay );
             animator.SetBool( "Crystal", false );
-			if (box) {
-				box.enabled = true;
-			}
+            if ( box )
+            {
+                box.enabled = true;
+            }
             yield return new WaitForSeconds( intervalTime );
         }
         animator.SetBool( "Crystals", false );
@@ -263,27 +274,42 @@ public class SnakeBoss : HealthSystem {
     // Method to check for damage
     private void OnTriggerEnter( Collider other )
     {
-        if (Vulnerable && other.CompareTag("Crystal"))
+        if ( Vulnerable && other.CompareTag( "Crystal" ) )
         {
             Vulnerable = false;
             spawnRocks();
-            TakeDamage( CrystalDamage );
+
+            foreach ( GameObject part in TailDeaths[ (int) (MaxHealth - CurHealth) ] )
+            {
+                Destroy( part );
+            }
+            TakeDamage( 1f );
+
         }
     }
 
-     //Method to activate something when defeated
+    private void timeTrail()
+    {
+        intervalTime *= 0.9f;
+        if (intervalTime < 0.2f ) { intervalTime = 0.2f; CancelInvoke( "timeTrail" ); };
+        damageDelay *= 0.9f;
+        if (damageDelay < 0.2f) { damageDelay = 0.2f; CancelInvoke( "timeTrail" ); };
+    }
+
+    //Method to activate something when defeated
     protected override void Death()
     {
-		Time.timeScale = 0; 
-		Winner.SetActive (true);
-		movie.loop = true;
-		movie.Play ();  
+        Time.timeScale = 0;
+        Winner.SetActive( true );
+        movie.loop = true;
+        movie.Play();
     }
 
 
-	private void GoToCredits(){
-		SceneManagerScript.goToScene( "Credits", false );
-	}
+    private void GoToCredits()
+    {
+        SceneManagerScript.goToScene( "Credits", false );
+    }
 }
 
 
