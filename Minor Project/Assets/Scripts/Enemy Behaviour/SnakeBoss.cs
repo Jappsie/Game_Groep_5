@@ -232,6 +232,8 @@ public class SnakeBoss : HealthSystem
     // Method which handles the crystals
     private void spawnRocks()
     {
+        Debug.Log( "Cancel" );
+        StopAllCoroutines();
         foreach ( GameObject curCryst in crystals )
         {
             Destroy( curCryst );
@@ -269,6 +271,16 @@ public class SnakeBoss : HealthSystem
         }
         animator.SetBool( "Crystals", false );
         crystalSequence = false;
+        Debug.Log( "Start" );
+        StartCoroutine( outofTime() );
+    }
+
+    IEnumerator outofTime()
+    {
+        Debug.Log( "Waiting" );
+        yield return new WaitForSeconds( 10 );
+        Debug.Log( "Done" );
+        spawnRocks();
     }
 
     // Method to check for damage
