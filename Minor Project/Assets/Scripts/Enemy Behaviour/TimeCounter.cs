@@ -18,8 +18,9 @@ public class TimeCounter : MonoBehaviour
     void Update()
     {
         float startTime = PlayerPrefs.GetFloat( "StartTime" );
-        minutes = (int) ((Time.time + startTime) / 60f);
-        seconds = (int) ((Time.time + startTime) % 60f);
+        float playTime = PlayerPrefs.GetFloat( "PlayTime" );
+        minutes = (int) ((Time.time - startTime + playTime) / 60f);
+        seconds = (int) ((Time.time - startTime + playTime) % 60f);
         counterText.text = minutes.ToString( "00" ) + ":" + seconds.ToString( "00" );
     }
 }

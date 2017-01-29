@@ -108,7 +108,8 @@ public class PauseMenu : MonoBehaviour
     //Reloads main menu
     public void LoadMainMenu()
     {
-        //UnityEngine.EventSystems.EventSystem.current.enabled = false;
+        PlayerPrefs.SetFloat( "PlayTime", Time.time - PlayerPrefs.GetFloat("StartTime") );
+        Debug.Log( Time.time - PlayerPrefs.GetFloat( "StartTime" ) );
         hidePaused();
         SceneManagerScript.goToScene( "main menu", false );
     }

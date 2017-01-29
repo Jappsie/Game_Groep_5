@@ -114,6 +114,7 @@ public class MenuScript : MonoBehaviour
     public void NewGamePress()
     {
         PlayerPrefs.SetFloat( "StartTime", Time.time );
+        PlayerPrefs.SetFloat( "PlayTime", 0 );
         PauseMenu.PauzeKey = KeyCode.Escape;
         if ( manager )
         {
