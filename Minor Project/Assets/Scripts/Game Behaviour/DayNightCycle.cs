@@ -18,7 +18,7 @@ public class DayNightCycle : MonoBehaviour {
 	// moon
 	private Light light2;
 	// moonlight brightness	
-	public float moonlightBrightness = 0.27f;
+	public float moonlightBrightness = 0.3f;
 	// camera backgrounds for day and night
 	public Color dayBack;
 	public Color nightBack;
@@ -47,24 +47,24 @@ public class DayNightCycle : MonoBehaviour {
 		// Case for sunset
 		if ((posX > 270f && posX < 360f)  && light.intensity > 0f) {
 			// decrease sun intensity
-			light.intensity -= 0.01f;
+			light.intensity += -0.01f;
 			// make transition to night sky
 			mc.backgroundColor = Color.Lerp(nightBack, mc.backgroundColor, 0.9f);
 			if (light.intensity < 0.2f && light2.intensity < moonlightBrightness) {
-				light2.intensity += 0.01f;
+				light2.intensity += 0.15f;
 				if (RenderSettings.ambientIntensity > 0.2f)
 					RenderSettings.ambientIntensity -= 0.1f;
 			}
 			
 		}
 		// Case for sunrise			
-		if ((posX > 0 && posX < 90f) && light.intensity < 0.9f) {
+		if ((posX > 0 && posX < 90f) && light.intensity < 1.0f) {
 			// increase sun intensity
-			light.intensity += 0.01f;
+			light.intensity += 0.1f;
 			// make transition to daylight
 			mc.backgroundColor = Color.Lerp(dayBack, mc.backgroundColor, 0.9f);
 			if (light.intensity > 0.9 && light2.intensity > 0) {
-				light2.intensity -= 0.01f;
+				light2.intensity -= 0.15f;
 				if (RenderSettings.ambientIntensity < 1.0f)
 					RenderSettings.ambientIntensity += 0.1f;
 			}
