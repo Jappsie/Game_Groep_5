@@ -41,6 +41,8 @@ public class DayNightCycle : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         
+        if (!mc) { Start(); return; };
+
 		// current angular position of the sun
 		posX = transform.eulerAngles.x;
 

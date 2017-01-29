@@ -17,6 +17,7 @@ public class SceneManagerScript : MonoBehaviour
 
     private static SceneManagerScript SceneManagementInstance;  // Static SceneManager to check for duplication
     private static IEnumerator coroutine;
+    private string Checkpoint;
     private PortalManager portal;
 
     private int Deathcount = 0; // Counts how many times the main character died
@@ -53,6 +54,7 @@ public class SceneManagerScript : MonoBehaviour
             Scoretext.text = "Deaths: " + Deathcount;
         }
 
+        Checkpoint = SceneManager.GetActiveScene().name;
 		if ( makeCheckpoint ) {
             PlayerPrefs.SetString( "Checkpoint", SceneManager.GetActiveScene().name );
             GameObject manager = GameObject.FindGameObjectWithTag( "GameManager" );
@@ -75,7 +77,7 @@ public class SceneManagerScript : MonoBehaviour
 
     public void reset()
     {
-        SceneManager.LoadScene( PlayerPrefs.GetString("Checkpoint") );
+        SceneManager.LoadScene( Checkpoint );
         this.Awake();
     }
 
