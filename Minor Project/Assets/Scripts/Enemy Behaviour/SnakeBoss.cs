@@ -67,7 +67,7 @@ public class SnakeBoss : HealthSystem
         crystals = new Stack();
         crystalSequence = false;
         Invoke( "spawnRocks", StartTime );
-        InvokeRepeating( "timeTrail", 0, 1 );
+        InvokeRepeating( "timeTrail", 0, 10 );
 
     }
 
